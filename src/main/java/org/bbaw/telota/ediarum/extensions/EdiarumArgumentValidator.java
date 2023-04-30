@@ -8,7 +8,6 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
  */
 public class EdiarumArgumentValidator {
 
-
     /**
      * Validate parameter and get the user input as a string.
      * @param argument
@@ -22,7 +21,7 @@ public class EdiarumArgumentValidator {
         Object argumentValue = args.getArgumentValue(argument);
 
         // Test if argument value is a string
-        if (argumentValue == null || ! (argumentValue instanceof String))
+        if ((argumentValue == null) || ! (argumentValue instanceof String))
         {
             throw new IllegalArgumentException(
                     "The following parameter is not declared or has an invalid value: " +

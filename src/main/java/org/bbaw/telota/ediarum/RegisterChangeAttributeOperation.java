@@ -18,6 +18,7 @@ import ro.sync.ecss.extensions.api.node.AuthorElement;
 import ro.sync.ecss.extensions.api.node.AuthorNode;
 
 import java.awt.Frame;
+import java.util.HashMap;
 
 import javax.swing.text.BadLocationException;
 
@@ -140,7 +141,7 @@ public class RegisterChangeAttributeOperation implements AuthorOperation{
 		// .. und überprüft.
 		String urlArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_URL, args);
 		String nodeArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NODE, args);
-		String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args);
+		String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args, null);
 		String expressionArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_EXPRESSION, args);
 		String variableArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_VARIABLE, args);
 		String separationArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_SEPARATION, args);

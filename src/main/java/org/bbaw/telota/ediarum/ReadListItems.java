@@ -35,6 +35,7 @@ import javax.xml.xpath.XPathFactory;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.korpora.aeet.ediarum.EdiarumNamespaceContext;
 import org.korpora.useful.Utilities;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -100,37 +101,17 @@ public class ReadListItems {
             XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
             XPath xpath = xpathFactory.newInstance().newXPath();
             // Für Namespaces:
-            String[] namespaceSplit = namespaceDecl.split(" ");
-//            String[][] namespaces = new String[namespaceSplit.length][2];
             Map<String, String> namespaces = new ConcurrentHashMap<>();
-            for (int i = 0; i < namespaceSplit.length; i++) {
-                String currentNamespace = namespaceSplit[i];
-                int k = currentNamespace.indexOf(":");
-                namespaces.put(currentNamespace.substring(0, k), currentNamespace.substring(k + 1));
+            if (namespaceDecl == null) {
+                String[] namespaceSplit = namespaceDecl.split(" ");
+//            String[][] namespaces = new String[namespaceSplit.length][2];
+                for (int i = 0; i < namespaceSplit.length; i++) {
+                    String currentNamespace = namespaceSplit[i];
+                    int k = currentNamespace.indexOf(":");
+                    namespaces.put(currentNamespace.substring(0, k), currentNamespace.substring(k + 1));
+                }
             }
-            namespaces.put("xml", "http://www.w3.org/XML/1998/namespace");
-            NamespaceContext ctx = new NamespaceContext() {
-
-
-                @Override
-                public String getNamespaceURI(String prefix) {
-//					return resolver.getNamespaceForPrefix(prefix);
-                    return namespaces.get(prefix);
-                }
-
-                @Override
-                public String getPrefix(String namespaceURI) {
-                    // TODO Auto-generated method stub
-                    return null;
-                }
-
-                @Override
-                public Iterator getPrefixes(String namespaceURI) {
-                    // TODO Auto-generated method stub
-                    return null;
-                }
-
-            };
+            NamespaceContext ctx = new EdiarumNamespaceContext(namespaces);
 
             xpath.setNamespaceContext(ctx);
             // Das XPath-Query wird definiert.
@@ -140,7 +121,7 @@ public class ReadListItems {
             //Object result = expr.evaluate(indexDoc, XPathConstants.NODESET);
             Object result = xpath.evaluate(node, indexDoc, XPathConstants.NODESET);
             NodeList registerNodes = (NodeList) result;
-            System.err.format("Gefunden: %d Einträge [%s] => [%s]\n", registerNodes.getLength(), node, eintragExpString);
+//            System.err.format("Gefunden: %d Einträge [%s] => [%s]\n", registerNodes.getLength(), node, eintragExpString);
 
             // .. dann werden für die Einträge und IDs entsprechend lange Arrays angelegt.
             eintrag = new String[registerNodes.getLength()];
@@ -257,7 +238,7 @@ public class ReadListItems {
                 throw new RuntimeException(String.format("Broken expression list component of type %s", component.getClass()));
             }
         }
-        System.err.format("Ergebnis: %s\n", expressionValue.toString());
+//        System.err.format("Ergebnis: %s\n", expressionValue.toString());
         if (needString) {
             return StringUtils.normalizeSpace(expressionValue.toString());
         } else return expressionValue.toString();
