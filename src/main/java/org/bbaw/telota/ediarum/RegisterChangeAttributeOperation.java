@@ -161,7 +161,7 @@ public class RegisterChangeAttributeOperation implements AuthorOperation{
 
 		// Dann wird das Registerdokument eingelesen, wobei auf die einzelnen Registerelement und ..
 		// .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
-		ReadListItems register = new ReadListItems((String)urlArgVal, (String) nodeArgVal, (String) expressionArgVal, (String) variableArgVal, (String) namespacesArgVal);
+		ReadListItems register = new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
 		// Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
 		eintrag = register.getEintrag();
 		id = register.getID();
@@ -175,7 +175,7 @@ public class RegisterChangeAttributeOperation implements AuthorOperation{
 			try {
 				AuthorNode selNode = authorAccess.getDocumentController().getNodeAtOffset(selStart);
 				selElement = (AuthorElement) (authorAccess.getDocumentController().findNodesByXPath((String) xpathfromselectionArgVal, selNode, false, true, true, false))[0];
-				String newAttrValue = (String) attributevalArgVal;
+				String newAttrValue = attributevalArgVal;
 				String IDitems = String.join((String)separationArgVal, RegisterDialog.getSelectedIDs());
 				newAttrValue = newAttrValue.replaceAll("[$]ITEMS", IDitems);
 

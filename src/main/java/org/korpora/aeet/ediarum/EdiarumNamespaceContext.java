@@ -30,15 +30,16 @@ public class EdiarumNamespaceContext implements NamespaceContext {
     }
 
     public String getPrefix(String namespaceURI) {
-        // TODO Auto-generated method stub
+        for (Map.Entry<String, String> pair : namespaces.entrySet()) {
+            if (pair.getValue().equals(namespaceURI))
+                return pair.getKey();
+        }
         return null;
     }
 
     public Iterator getPrefixes(String namespaceURI) {
-        // TODO Auto-generated method stub
-        return null;
+        return namespaces.entrySet().stream().
+                filter(pair -> pair.getValue().equals(namespaceURI)).
+                map(Map.Entry::getKey).iterator();
     }
-
-
-    ;
 }

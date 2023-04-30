@@ -15,7 +15,6 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,17 +25,12 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.*;
 
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.korpora.aeet.ediarum.EdiarumNamespaceContext;
-import org.korpora.useful.Utilities;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -99,7 +93,7 @@ public class ReadListItems {
             Document indexDoc = builder.parse(inputSource);
             // Die xPath-Routinen werden vorbereitet.
             XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
-            XPath xpath = xpathFactory.newInstance().newXPath();
+            XPath xpath = XPathFactory.newInstance().newXPath();
             // Für Namespaces:
             Map<String, String> namespaces = new ConcurrentHashMap<>();
             if (namespaceDecl == null) {
@@ -140,7 +134,6 @@ public class ReadListItems {
                 // … und der einzufügende Wert:
                 id[i] = evaluateExpression(registerNodes.item(i), idExpressions, false);
             }
-            ;
         } catch (XPathExpressionException e) {
             e.printStackTrace();
         } catch (IOException e) {
