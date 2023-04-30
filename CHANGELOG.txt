@@ -1,4 +1,8 @@
 
+4 unreleased [AEET]:
+	UPDATE: make Maven project, use some convenience functions
+	FEATURE: allow keeping substructure in insertions from register
+
 3.1.0 vom 17.08.2018:
 	UPDATE: Rename and rewrite Operations, remove old Operations and add new Operations
 

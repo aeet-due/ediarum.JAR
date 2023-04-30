@@ -2,8 +2,11 @@
 .project
 .settings
 .vscode
+.idea
 /bin/
 /build/
+/dist/
+/target/
 /lib/
 /META-INF/
 /temp/

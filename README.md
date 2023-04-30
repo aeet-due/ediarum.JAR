@@ -1,4 +1,16 @@
-# ediarum.JAR
+# ediarum.JAR (AEET version)
+
+This is a moving target, you are better of with the BBAW version, from this as forked.
+
+© 2023 by [Arbeitsstelle Edition und Editionstechnik, Universität Duisburg-Essen (AEET) ](http://aeet.korpora.org) <aeet@uni-due.de>
+
+Developer:
+
+* Bernhard Fisseni <bernhard.fisseni@uni-due.de>
+
+  (mostly tweaking BBAW code for use at the AEET)
+
+# ediarum.JAR (BBAW version)
 
 © 2011-2022 by Berlin-Brandenburg Academy of Sciences and Humanities
 
