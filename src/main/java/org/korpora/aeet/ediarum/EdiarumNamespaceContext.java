@@ -23,7 +23,7 @@ public class EdiarumNamespaceContext implements NamespaceContext {
         try (InputStream str = LangUtilities.class.getClassLoader()
                 .getResourceAsStream("json/default-namespaces.json")) {
             defaultNamespaces = mapper.readValue(str,
-                    new TypeReference<Map<String, String>>() {
+                    new TypeReference<>() {
                     });
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
@@ -55,7 +55,7 @@ public class EdiarumNamespaceContext implements NamespaceContext {
         return null;
     }
 
-    public Iterator getPrefixes(String namespaceURI) {
+    public Iterator<String> getPrefixes(String namespaceURI) {
         return namespaces.entrySet().stream().
                 filter(pair -> pair.getValue().equals(namespaceURI)).
                 map(Map.Entry::getKey).iterator();

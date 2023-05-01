@@ -75,17 +75,17 @@ public class OpenFileOperation implements AuthorOperation {
 	}
 	static boolean isWindowsSystem() {
 		String osName = System.getProperty("os.name").toLowerCase();
-		return osName.indexOf("windows") >= 0;
+		return osName.contains("windows");
 	}
 
 	static boolean isLinuxSystem() {
 		String osName = System.getProperty("os.name").toLowerCase();
-		return osName.indexOf("linux") >= 0;
+		return osName.contains("linux");
 	}
 
 	static boolean isMacSystem() {
 		String osName = System.getProperty("os.name").toLowerCase();
-		return osName.indexOf("mac") >= 0;
+		return osName.contains("mac");
 	}
 
 	/**

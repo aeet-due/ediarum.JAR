@@ -15,26 +15,26 @@ public class EdiarumAuthorExtensionStateListenerImage {
 
 	private static long[] image1 =
 		{
-				92656609743937l, 14880l
+				92656609743937L, 14880L
 		};
 
 	private static long[] image2 =
 		{
-				75219458868580l, 115867253042464l, 76357931723124l, 111542270846752l,
-				112654399184975l, 132462821076512l, 131346314061088l, 113685425252466l,
-				115884163427872l, 1987014202l
+				75219458868580L, 115867253042464L, 76357931723124L, 111542270846752L,
+				112654399184975L, 132462821076512L, 131346314061088L, 113685425252466L,
+				115884163427872L, 1987014202L
 		};
 
 	private static long[] image3 =
 		{
-				91759382520174l, 35478399971182l, 127682757944352l, 85080927398254l,
-				35486720813166l, 25970l
+				91759382520174L, 35478399971182L, 127682757944352L, 85080927398254L,
+				35486720813166L, 25970L
 		};
 
 	private static long[] image4 =
 		{
-				73003496203112l, 111523663145317l, 35688736301173l, 121446197239927l,
-				131353764193644l, 122545637319781l, 33l
+				73003496203112L, 111523663145317L, 35688736301173L, 121446197239927L,
+				131353764193644L, 122545637319781L, 33L
 		};
 
 	private EdiarumAuthorExtensionStateListenerImage() {
@@ -42,18 +42,18 @@ public class EdiarumAuthorExtensionStateListenerImage {
 	}
 
 	public static String getFileName(long[] fileProperties) {
-		String name="";
-		for (int i=0; i<fileProperties.length; i++) {
-			long property = fileProperties[i];
-			String size="";
-			while (property>0) {
-				int buffer = (int) property%256;
-				size = ((char) buffer) + size;
-				property = (property-buffer)/256;
+		StringBuilder name= new StringBuilder();
+		for (long fileProperty : fileProperties) {
+			long property = fileProperty;
+			StringBuilder size = new StringBuilder();
+			while (property > 0) {
+				int buffer = (int) property % 256;
+				size.insert(0, ((char) buffer));
+				property = (property - buffer) / 256;
 			}
-			name = name+size;
+			name.append(size);
 		}
-		return name;
+		return name.toString();
 	}
 
 	public void show(AuthorAccess authorAccess, String name) {

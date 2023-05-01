@@ -120,7 +120,7 @@ public class RegisterInsertFragmentOperation implements AuthorOperation {
                     Integer off = (Integer) result.getResult(
                             SchemaAwareHandlerResultInsertConstants.RESULT_ID_HANDLE_INSERT_FRAGMENT_OFFSET);
                     if (off != null) {
-                        insertionOffset = off.intValue();
+                        insertionOffset = off;
                     }
                 }
             }

@@ -35,18 +35,18 @@ public class SearchResult {
 	 * Liefert die das umgewandelte ISO-Datum der Angabe
 	 */
 	public String getISO() {
-		String iso = "";
+		StringBuilder iso = new StringBuilder();
 
 		if (date.isAmbiguous()) {
 			for (DateOccurrence dO : date.getDates()) {
-				iso += dO.getISO();
+				iso.append(dO.getISO());
 				if (dO != date.getDates().get(date.getDates().size() - 1))
-					iso += " or ";
+					iso.append(" or ");
 			}
 		} else
-			iso += date.get(0).getISO();
+			iso.append(date.get(0).getISO());
 
-		return iso;
+		return iso.toString();
 	}
 
 	/**

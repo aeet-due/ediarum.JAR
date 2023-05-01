@@ -86,12 +86,12 @@ public class RegisterSurroundWithDifferentFragmentsOperation implements AuthorOp
         if (!RegisterDialog.getSelectedID().isEmpty()) {
             // .. wird in den entsprechenden Elementen die eingestellte ID eingefügt, ..
             String[] selectedIDInParts = RegisterDialog.getSelectedID().split("\\$ID");
-            String selectedID = selectedIDInParts[0];
+            StringBuilder selectedID = new StringBuilder(selectedIDInParts[0]);
             for (int i = 1; i < selectedIDInParts.length; i++) {
-                selectedID += idArgVal + selectedIDInParts[i];
+                selectedID.append(idArgVal).append(selectedIDInParts[i]);
             }
             // .. und dann werden im aktuellen Dokument um die Selektion die entsprechenden Elemente eingesetzt.
-            String[] surroundElements = selectedID.split("\\$SELECTION");
+            String[] surroundElements = selectedID.toString().split("\\$SELECTION");
             authorAccess.getDocumentController().insertXMLFragment(surroundElements[1], selEnd);
             authorAccess.getDocumentController().insertXMLFragment(surroundElements[0], selStart);
         }

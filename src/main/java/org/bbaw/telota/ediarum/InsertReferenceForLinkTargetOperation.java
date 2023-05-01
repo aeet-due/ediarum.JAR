@@ -201,25 +201,25 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
             // .. und dann wird das Element von Null an ..
             elementString = "";
             // .. aus den einzelnen Teilen zusammengesetzt. Die Teile ..
-            for (int i = 0; i < elementStrings.length; i++) {
+            for (String string : elementStrings) {
                 // .. können den Dateipfad hinter dem allgemeine Pfad bezeichnen, ..
-                if (elementStrings[i].equals("$FILEPATH")) {
+                if (string.equals("$FILEPATH")) {
                     elementString += LinkDialog.getSelectedFile();
                     // .. oder die ID der Datei, ..
-                } else if (elementStrings[i].equals("$FILE_ID")) {
+                } else if (string.equals("$FILE_ID")) {
                     elementString += LinkDialog.getSelectedFileID();
                     // .. eventuell auch den Startprefix, ..
-                } else if (elementStrings[i].equals("$STARTPREFIX")) {
+                } else if (string.equals("$STARTPREFIX")) {
                     elementString += (String) idstartArgVal;
                     // .. den Stopprefix ..
-                } else if (elementStrings[i].equals("$STOPPREFIX")) {
+                } else if (string.equals("$STOPPREFIX")) {
                     elementString += (String) idstopArgVal;
                     // .. oder die ID selbst, ..
-                } else if (elementStrings[i].equals("$ID")) {
+                } else if (string.equals("$ID")) {
                     elementString += LinkDialog.getSelectedID();
                     // .. alle übrigen Teile werden als Strings übernommen.
                 } else {
-                    elementString += elementStrings[i];
+                    elementString += string;
                 }
             }
             // Das so konstruierte Element wird schließlich an der richtigen Stelle eingesetzt.
@@ -234,16 +234,16 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
             // .. und dann wird das Element auch von Null an ..
             elementString = "";
             // .. aus den einzelnen Teilen zusammengesetzt. Die Teile ..
-            for (int i = 0; i < elementStrings.length; i++) {
+            for (String string : elementStrings) {
                 // .. können den Dateipfad hinter dem allgemeine Pfad bezeichnen, ..
-                if (elementStrings[i].equals("$FILEPATH")) {
+                if (string.equals("$FILEPATH")) {
                     elementString += LinkDialog.getSelectedFile();
                     // .. oder die ID der Datei, ..
-                } else if (elementStrings[i].equals("$FILE_ID")) {
+                } else if (string.equals("$FILE_ID")) {
                     elementString += LinkDialog.getSelectedFileID();
                     // .. alle übrigen Teile werden als Strings übernommen.
                 } else {
-                    elementString += elementStrings[i];
+                    elementString += string;
                 }
             }
             // Das so konstruierte Element wird schließlich an der richtigen Stelle eingesetzt.

@@ -366,10 +366,10 @@ public class SearchGUI extends JDialog {
 						aa.getDocumentController().surroundInFragment(fragment, sr.getStart() + (2 * i),
 								sr.getEnd() + (2 * i));
 					} catch (AuthorOperationException e1) {
-						StringBuffer sb = new StringBuffer();
-						sb.append(e.toString() + "\n");
+						StringBuilder sb = new StringBuilder();
+						sb.append(e.toString()).append("\n");
 						for (int j = 0; j < e1.getStackTrace().length; j++)
-							sb.append(e1.getStackTrace()[j] + "\n");
+							sb.append(e1.getStackTrace()[j]).append("\n");
 						aa.getWorkspaceAccess().showInformationMessage(sb.toString());
 					}
 				}

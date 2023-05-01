@@ -70,7 +70,7 @@ public class InsertRegisterDialog extends JDialog {
 	/**
 	 * enthält nur gefilterte Einträge mit ihren Originalpositionen.
 	 */
-	private final HashMap<Integer, Integer> filterVerweise = new HashMap<Integer, Integer>();
+	private final HashMap<Integer, Integer> filterVerweise = new HashMap<>();
 	private Boolean setFilter = false;
 	private final JTextField globalEingabeFeld;
 
@@ -117,7 +117,7 @@ public class InsertRegisterDialog extends JDialog {
 
 		// Die Einträge werden initialisiert.
 		registerItems = eintrag;
-		registerListe = new JList<String>(new DefaultListModel<String>());
+		registerListe = new JList<>(new DefaultListModel<>());
 		filterRegisterListe("");
 		// In der Mitte wird das Auswahlfeld mit den Registereinträgen erzeugt, ..
 		if (multipleSelection) {
@@ -139,14 +139,10 @@ public class InsertRegisterDialog extends JDialog {
 		// Unten gibt es die zwei Knöpfe "Ok" (als Default) und "Abbrechen".
 		Panel panel = new Panel();
 		JButton ok = new JButton("Ok");
-		ok.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent arg0) {
-			okAction();
-		}});
+		ok.addActionListener(arg0 -> okAction());
 		panel.add(ok);
 		JButton cancel = new JButton("Abbrechen");
-		cancel.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent arg0) {
-			cancelAction();
-		}});
+		cancel.addActionListener(arg0 -> cancelAction());
 		panel.add(cancel);
 		add("South", panel);
 		getRootPane().setDefaultButton(ok);
@@ -300,7 +296,7 @@ public class InsertRegisterDialog extends JDialog {
 		DefaultListModel<String> registerListModel = (DefaultListModel<String>)registerListe.getModel();
 		registerListModel.clear();
 		for (int j=0; j<registerItems.length; j++) {
-			if (registerItems[j].toLowerCase().indexOf(eingabe.toLowerCase())>-1) {
+			if (registerItems[j].toLowerCase().contains(eingabe.toLowerCase())) {
 				filterVerweise.put(filterVerweise.size()-1, j);
 				registerListModel.addElement(registerItems[j]);
 			}

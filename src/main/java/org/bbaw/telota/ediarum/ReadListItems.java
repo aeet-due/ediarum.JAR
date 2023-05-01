@@ -103,8 +103,7 @@ public class ReadListItems {
                 String[] namespaceSplit = namespaceDecl.split(" ");
 //            String[][] namespaces = new String[namespaceSplit.length][2];
 
-                for (int i = 0; i < namespaceSplit.length; i++) {
-                    String currentNamespace = namespaceSplit[i];
+                for (String currentNamespace : namespaceSplit) {
                     int k = currentNamespace.indexOf(":");
                     namespaces.put(currentNamespace.substring(0, k), currentNamespace.substring(k + 1));
                 }
@@ -138,13 +137,7 @@ public class ReadListItems {
                 // … und der einzufügende Wert:
                 id[i] = evaluateExpression(registerNodes.item(i), idExpressions, false);
             }
-        } catch (XPathExpressionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+        } catch (XPathExpressionException | SAXException | ParserConfigurationException | IOException e) {
             e.printStackTrace();
         }
     }

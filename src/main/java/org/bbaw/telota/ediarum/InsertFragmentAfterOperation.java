@@ -81,8 +81,7 @@ public class InsertFragmentAfterOperation implements AuthorOperation {
             AuthorNode[] childElements =
                     authorAccess.getDocumentController().findNodesByXPath("./node()", parentNode, true, true, true,
                             true);
-            for (int i = 0; i < childElements.length; i++) {
-                AuthorNode child = childElements[i];
+            for (AuthorNode child : childElements) {
                 // .. wenn sie nicht als gültige Vorgänger in Frage kommen, ..
                 AuthorNode[] xpathBeforeNodes =
                         authorAccess.getDocumentController().findNodesByXPath((String) xpathBeforeLocations, parentNode,

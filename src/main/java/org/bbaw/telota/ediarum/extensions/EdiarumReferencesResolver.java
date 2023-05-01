@@ -167,11 +167,7 @@ public class EdiarumReferencesResolver implements AuthorReferenceResolver {
 						xmlReader.setEntityResolver(entityResolver);
 						saxSource = new SAXSource(xmlReader, inputSource);
 						saxSource.getXMLReader().getContentHandler();
-					} catch (MalformedURLException e) {
-//	  					logger.error(e, e);
-	  				} catch (SAXException e) {
-//	  					logger.error(e, e);
-	  				} catch (IOException e) {
+					} catch (IOException | SAXException e) {
 //	  					logger.error(e, e);
 	  				}
 				}

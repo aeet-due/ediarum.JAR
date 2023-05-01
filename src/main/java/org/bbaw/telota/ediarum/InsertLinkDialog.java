@@ -95,8 +95,8 @@ public class InsertLinkDialog extends JDialog {
 
 		// Oben wird ein Auswahlfeld mit den offenen Dateien erzeugt, ..
 		fileListe.setMultipleMode(false);
-		for (int i=0; i<file.length; i++){
-			fileListe.add(file[i]);
+		for (String s : file) {
+			fileListe.add(s);
 		}
 		fileListe.addItemListener(new fileListListener());
 		add("North", fileListe);
@@ -108,14 +108,10 @@ public class InsertLinkDialog extends JDialog {
 		// und unten werden die Knöpfe "Ok" und "Abbrechen" eingesetzt.
 		Panel panel = new Panel();
 		JButton ok = new JButton("Ok");
-		ok.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent arg0) {
-			okAction();
-		}});
+		ok.addActionListener(arg0 -> okAction());
 		panel.add(ok);
 		JButton cancel = new JButton("Abbrechen");
-		cancel.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent arg0) {
-			cancelAction();
-		}});
+		cancel.addActionListener(arg0 -> cancelAction());
 		panel.add(cancel);
 		add("South", panel);
 		getRootPane().setDefaultButton(ok);

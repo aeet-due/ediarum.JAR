@@ -51,21 +51,21 @@ public class SurroundWithDifferentFragmentsOperation implements AuthorOperation 
 
         // Die ID wird an den entsprechenden Stellen eingefügt.
         String[] firstElementInParts = firstElementArgVal.split("\\$ID");
-        String firstElementWithID = firstElementInParts[0];
+        StringBuilder firstElementWithID = new StringBuilder(firstElementInParts[0]);
         for (int i = 1; i < firstElementInParts.length; i++) {
-            firstElementWithID += idArgVal + firstElementInParts[i];
+            firstElementWithID.append(idArgVal).append(firstElementInParts[i]);
         }
 
         // Die ID wird an den entsprechenden Stellen eingefügt.
         String[] secondElementInParts = secondElementArgVal.split("\\$ID");
-        String secondElementWithID = secondElementInParts[0];
+        StringBuilder secondElementWithID = new StringBuilder(secondElementInParts[0]);
         for (int i = 1; i < secondElementInParts.length; i++) {
-            secondElementWithID += idArgVal + secondElementInParts[i];
+            secondElementWithID.append(idArgVal).append(secondElementInParts[i]);
         }
 
         // .. das erste wird vor der Selektion eingefügt, und das zweite dahinter.
-        authorAccess.getDocumentController().insertXMLFragment(secondElementWithID, selEnd);
-        authorAccess.getDocumentController().insertXMLFragment(firstElementWithID, selStart);
+        authorAccess.getDocumentController().insertXMLFragment(secondElementWithID.toString(), selEnd);
+        authorAccess.getDocumentController().insertXMLFragment(firstElementWithID.toString(), selStart);
     }
 
     /**

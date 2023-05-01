@@ -69,13 +69,9 @@ public class AskDialog extends JDialog{
 		// Die Knöpfe zur Bestätigung und zum Abbruch werden erzeugt.
 		JButton ok = new JButton("OK");
 		ok.setBounds(125, 85, 85, 23);
-		ok.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e) {
-			okAction();
-		}});
+		ok.addActionListener(e -> okAction());
 		JButton cancel = new JButton("Abbrechen");
-		cancel.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e) {
-			cancelAction();
-		}});
+		cancel.addActionListener(e -> cancelAction());
 		cancel.setBounds(217, 85, 85, 23);
 		add(ok);
 		add(cancel);

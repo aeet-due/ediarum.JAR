@@ -125,7 +125,7 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
 		this.clearReferencesCache();
 		id = "";
 		getText = false;
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		// Wenn der zu verarbeitende Knoten ein Elementknoten ist, ..
 		if (node.getType() == AuthorNode.NODE_TYPE_ELEMENT) {
 			AuthorElement element = (AuthorElement) node;
@@ -149,15 +149,13 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
 						// .. und verarbeite diese mit der definierten Routine.
  						xmlReader.parse(inputSource);
  						// Kürze schließlich überflüssige Leerzeichen im auszugebenden Text, ..
- 						result = linkText.replace("\n", "").replace("\r", "").replaceAll("\\s+", " ").trim();
-					} catch (SAXException e) {
-						e.printStackTrace();
+ 						result = new StringBuilder(linkText.replace("\n", "").replace("\r", "").replaceAll("\\s+", " ").trim());
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
-					} catch (IOException e) {
+					} catch (SAXException | IOException e) {
 						e.printStackTrace();
 					}
- 					}
+					}
  				}
 			}
 			// Fallback für alle Elemente ..
@@ -168,13 +166,13 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
 					// .. nimm alle Werte, ..
 					String[] values = attribute.getValue().split(" ");
 					// .. und lese dann für jeden ..
-					for (int i=0; i<values.length; i++) {
-						if ("#".equals(values[i].substring(0, "#".length()))) {
+					for (String value : values) {
+						if ("#".equals(value.substring(0, "#".length()))) {
 							// .. zunächst die ID aus dem Attribut aus.
-							id = values[i].substring("#".length());
-		 					try {
-		 						linkText = "";
-		 						// Erzeuge eine XML-Verarbeitung ..
+							id = value.substring("#".length());
+							try {
+								linkText = "";
+								// Erzeuge eine XML-Verarbeitung ..
 								XMLReader xmlReader = XMLReaderFactory.createXMLReader();
 								// .. mit den richtig definierten Verarbeitungsroutinen, ..
 								xmlReader.setContentHandler(this);
@@ -182,23 +180,21 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
 								URL absoluteUrl = new URL(indexURI);
 								InputSource inputSource = new InputSource(absoluteUrl.toString());
 								// .. und verarbeite diese mit der definierten Routine.
-		 						xmlReader.parse(inputSource);
-		 						// Kürze schließlich überflüssige Leerzeichen im auszugebenden Text, ..
-		 						result += linkText.replace("\n", "").replace("\r", "").replaceAll("\\s+", " ").trim() + "; ";
-							} catch (SAXException e) {
-								e.printStackTrace();
+								xmlReader.parse(inputSource);
+								// Kürze schließlich überflüssige Leerzeichen im auszugebenden Text, ..
+								result.append(linkText.replace("\n", "").replace("\r", "").replaceAll("\\s+", " ").trim()).append("; ");
 							} catch (MalformedURLException e) {
 								e.printStackTrace();
-							} catch (IOException e) {
+							} catch (SAXException | IOException e) {
 								e.printStackTrace();
 							}
 						}
- 					}
+					}
  				}
 			}
 		}
 		// .. und gebe ihn aus.
-		return result;
+		return result.toString();
 	}
 
 	/**

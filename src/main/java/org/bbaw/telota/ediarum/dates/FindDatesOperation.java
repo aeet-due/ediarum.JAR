@@ -90,7 +90,7 @@ public class FindDatesOperation implements AuthorOperation {
 
 			// während der Datumserkenner in der Datei such, soll ein Ladebalken
 			// die Wartezeit überbrücken. Das wird mit einem SwingWorker gelöst
-			SwingWorker<Void, Void> sw = new SwingWorker<Void, Void>() {
+			SwingWorker<Void, Void> sw = new SwingWorker<>() {
 				@Override
 				protected Void doInBackground() {
 					try {
@@ -123,7 +123,7 @@ public class FindDatesOperation implements AuthorOperation {
 						// Daten erkennen
 						tool.findOccurences(res);
 						// awa.showInformationMessage(debug(res));
-						List<SearchResult> list = new ArrayList<SearchResult>();
+						List<SearchResult> list = new ArrayList<>();
 						for (int i = 0; i < res.getOccurrencesConfig().size(); i++) {
 							AmbiguousDate date = res.getOccurrencesConfig().get(i);
 							int date_start = start + date.getStart();
@@ -159,10 +159,10 @@ public class FindDatesOperation implements AuthorOperation {
 						new SearchGUI(list, aa, (String) elem);
 
 					} catch (Exception e) {
-						StringBuffer sb = new StringBuffer();
-						sb.append(e + "\n");
+						StringBuilder sb = new StringBuilder();
+						sb.append(e).append("\n");
 						for (int i = 0; i < e.getStackTrace().length; i++)
-							sb.append(e.getStackTrace()[i] + "\n");
+							sb.append(e.getStackTrace()[i]).append("\n");
 						awa.showErrorMessage(sb.toString());
 					}
 					return null;
@@ -172,13 +172,10 @@ public class FindDatesOperation implements AuthorOperation {
 			// sobald alle Datumsangaben erkannt worden sind, soll der
 			// Ladebalken-Dialog verschwinden
 			final JDialog dialog = new JDialog();
-			sw.addPropertyChangeListener(new PropertyChangeListener() {
-				@Override
-				public void propertyChange(PropertyChangeEvent evt) {
-					if (evt.getPropertyName().equals("state")) {
-						if (evt.getNewValue() == SwingWorker.StateValue.DONE) {
-							dialog.dispose();
-						}
+			sw.addPropertyChangeListener(evt -> {
+				if (evt.getPropertyName().equals("state")) {
+					if (evt.getNewValue() == SwingWorker.StateValue.DONE) {
+						dialog.dispose();
 					}
 				}
 			});
@@ -200,10 +197,10 @@ public class FindDatesOperation implements AuthorOperation {
 
 			// Ausgabe von Exception in OxyGen
 		} catch (Exception e) {
-			StringBuffer sb = new StringBuffer();
-			sb.append(e + "\n");
+			StringBuilder sb = new StringBuilder();
+			sb.append(e).append("\n");
 			for (int i = 0; i < e.getStackTrace().length; i++)
-				sb.append(e.getStackTrace()[i] + "\n");
+				sb.append(e.getStackTrace()[i]).append("\n");
 			awa.showErrorMessage(sb.toString());
 		}
 	}
