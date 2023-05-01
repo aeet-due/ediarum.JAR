@@ -82,8 +82,8 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
 
 
 	/**
-	 * Wird aufgerufen wenn eine entsprechende Datei geöffnet wird und übergibt den AuthorAccess.
-	 * Liest zudem die entsprechenden Editor Variablen aus.
+	 * Wird aufgerufen, wenn eine entsprechende Datei geöffnet wird, und übergibt den AuthorAccess.
+	 * Liest zudem die entsprechenden Editor-Variablen aus.
 	 */
 	@Override
 	public void activated(AuthorAccess authorAcc) {

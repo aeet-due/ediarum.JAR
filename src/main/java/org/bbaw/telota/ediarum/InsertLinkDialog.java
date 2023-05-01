@@ -116,7 +116,7 @@ public class InsertLinkDialog extends JDialog {
 		add("South", panel);
 		getRootPane().setDefaultButton(ok);
 
-		// Die Eigenschaften des Dialogfenster werden angepaßt: die Größe, der Ort und die Sichtbarkeit.
+		// Die Eigenschaften des Dialogfenster werden angepasst: die Größe, der Ort und die Sichtbarkeit.
 		setSize(H_SIZE, V_SIZE);
 		setLocation( (parent.getBounds().width - H_SIZE) /2, (parent.getBounds().height - V_SIZE) /2);
 		setVisible(true);

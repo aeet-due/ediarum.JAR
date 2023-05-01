@@ -33,8 +33,8 @@ import ro.sync.ecss.extensions.api.access.AuthorWorkspaceAccess;
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
 /**
- * Eine Oxygen Author-Operation, die im ausgewählten Text alle Datumsangaben
- * sucht, sie mit Hilfe einer GUI ausgibt und ausgewählte Angaben im Text taggt
+ * Eine Oxygen-Author-Operation, die im ausgewählten Text alle Datumsangaben
+ * sucht, sie mit Hilfe einer GUI ausgibt und ausgewählte Angaben im Text tagt
  *
  * @author Philipp Belitz
  */

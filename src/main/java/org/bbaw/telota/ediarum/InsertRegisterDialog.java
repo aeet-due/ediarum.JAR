@@ -147,7 +147,7 @@ public class InsertRegisterDialog extends JDialog {
 		add("South", panel);
 		getRootPane().setDefaultButton(ok);
 
-		// Die Eigenschaften des Dialogfenster werden angepaßt: die Größe, der Ort in der Bildschirmmitte, die Schließaktion und die Sichtbarkeit.
+		// Die Eigenschaften des Dialogfensters werden angepasst: die Größe, der Ort in der Bildschirmmitte, die Schließaktion und die Sichtbarkeit.
 		setSize(H_SIZE, V_SIZE);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
