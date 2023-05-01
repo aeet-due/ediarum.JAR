@@ -34,25 +34,40 @@ public class InsertLinkDialog extends JDialog {
 	static int V_SIZE = 300;
 
 	/**
-	 * Dies sind die privaten Variablen.
-	 * fileListe Dies ist das Auswahlfeld mit den Dateien.
-	 * linkListe Dies ist das Auswahlfeld mit den Verweiszielen.
-	 * files Enthält die Dateinamen.
-	 * filesIDs Enthält die Dateiidentfikatoren.
-	 * links Enthält die Verweiseziele.
-	 * IDs Enthält die IDs der Verweisziele.
-	 * selectedID Enthält die ID des ausgewählten Verweiszieles.
-	 * selectedFile Enthält den ausgewählten Dateinamen.
-	 * selectedFileID Enthält die ID der ausgewählten Datei.
+	 * Auswahlfeld mit den Dateien
 	 */
 	List fileListe = new List();
+	/**
+	 * Auswahlfeld mit den Verweiszielen
+	 */
 	List linkListe = new List();
+	/**
+	 * die Dateinamen
+	 */
 	String[] files;
+	/**
+	 * die Dateiidentfikatoren
+	 */
 	String[] filesIDs;
+	/**
+	 * die Verweiseziele
+	 */
 	String[][] links;
+	/**
+	 * IDs der Verweisziele
+	 */
 	String[][] IDs;
+	/**
+	 * ID des ausgewählten Verweiszieles
+	 */
 	String selectedID = "";
+	/**
+	 * ausgewählter Dateiname
+	 */
 	String selectedFile = "";
+	/**
+	 * ID der ausgewählten Datei
+	 */
 	String selectedFileID = "";
 
 	/**
