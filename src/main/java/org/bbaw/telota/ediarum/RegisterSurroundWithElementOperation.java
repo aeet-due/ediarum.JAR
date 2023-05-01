@@ -16,7 +16,7 @@ import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
 /**
  * surround a selection with an element.
- * 
+ * <p>
  * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
  * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
  * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
@@ -40,6 +40,7 @@ public class RegisterSurroundWithElementOperation implements AuthorOperation {
     });
 
     static EdiarumArgumentDescriptor[] ARGUMENTS;
+
     static {
         ARGUMENTS = ARGUMENTS_MAP.getArguments();
     }

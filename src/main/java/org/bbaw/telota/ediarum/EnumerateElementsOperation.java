@@ -7,7 +7,7 @@ import ro.sync.ecss.extensions.api.node.AttrValue;
 import ro.sync.ecss.extensions.api.node.AuthorElement;
 import ro.sync.ecss.extensions.api.node.AuthorNode;
 
-public class EnumerateElementsOperation implements AuthorOperation{
+public class EnumerateElementsOperation implements AuthorOperation {
 
     /**
      * Argument describing the element to be enumerated. E.g. "l"
@@ -31,7 +31,7 @@ public class EnumerateElementsOperation implements AuthorOperation{
      */
     private static final String DESCRIPTOR_EUMERATE_RESET_ELEMENT =
             "Element which should reset the current enumeration, e.g. 'pb'. " +
-            "If empty the enumeration is never reseted.";
+                    "If empty the enumeration is never reseted.";
 
     /**
      * Argument describing the start number for the enumeration. E.g. 1
@@ -93,11 +93,10 @@ public class EnumerateElementsOperation implements AuthorOperation{
     });
 
     static EdiarumArgumentDescriptor[] ARGUMENTS;
+
     static {
         ARGUMENTS = ARGUMENTS_MAP.getArguments();
     }
-
-
 
 
     /**
@@ -130,15 +129,13 @@ public class EnumerateElementsOperation implements AuthorOperation{
         AuthorNode[] enumerateNodes = authorDocumentController.findNodesByXPath(nodePath, true, true, true);
 
         // Iterate over all nodes
-        for (AuthorNode enumerateNode: enumerateNodes)
-        {
+        for (AuthorNode enumerateNode : enumerateNodes) {
 
             // Cast the found node to an element
             AuthorElement enumerateElement = (AuthorElement) enumerateNode;
 
 
-            if (enumerateElement.getLocalName().equals(enumerateElementValue))
-            {
+            if (enumerateElement.getLocalName().equals(enumerateElementValue)) {
                 // Create a new attribute value from the counter
                 AttrValue enumerateValue = new AttrValue(String.valueOf(enumerateCounter));
 
@@ -147,11 +144,7 @@ public class EnumerateElementsOperation implements AuthorOperation{
 
                 // Increment the counter by 1
                 enumerateCounter += 1;
-            }
-
-
-            else if (enumerateElement.getLocalName().equals(enumerateResetElementValue))
-            {
+            } else if (enumerateElement.getLocalName().equals(enumerateResetElementValue)) {
 
                 enumerateCounter = Integer.parseInt(enumerateCounterStartValue);
 
@@ -177,7 +170,6 @@ public class EnumerateElementsOperation implements AuthorOperation{
     public String getDescription() {
         return "Enumerates all elements of one kind and adds a n-attribute.";
     }
-
 
 
 }

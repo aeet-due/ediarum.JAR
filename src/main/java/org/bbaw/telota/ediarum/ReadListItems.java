@@ -36,7 +36,7 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 
 /**
  * load and read external Documents for the ListItemOperations.
- * 
+ * <p>
  * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
  * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
  * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).

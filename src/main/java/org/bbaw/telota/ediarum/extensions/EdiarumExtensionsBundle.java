@@ -15,29 +15,29 @@ import ro.sync.ecss.extensions.api.link.LinkTextResolver;
  */
 public class EdiarumExtensionsBundle extends ExtensionsBundle {
 
-	@Override
-	public String getDescription() {
-		return "org.bbaw.telota.ediarum.documenttype";
-	}
+    @Override
+    public String getDescription() {
+        return "org.bbaw.telota.ediarum.documenttype";
+    }
 
-	@Override
-	public String getDocumentTypeID() {
-		return "A custom extensions bundle used for the Ediarum " +
+    @Override
+    public String getDocumentTypeID() {
+        return "A custom extensions bundle used for the Ediarum " +
                 "Framework document type";
-	}
+    }
 
-	@Override
-	public AuthorExtensionStateListener createAuthorExtensionStateListener() {
-		return new EdiarumAuthorExtensionStateListener();
-	}
+    @Override
+    public AuthorExtensionStateListener createAuthorExtensionStateListener() {
+        return new EdiarumAuthorExtensionStateListener();
+    }
 
-//	@Override
+    //	@Override
 //	public AuthorReferenceResolver createAuthorReferenceResolver() {
 //		return new EdiarumReferencesResolver();
 //	}
 //
-	@Override
-	public LinkTextResolver createLinkTextResolver() {
-		return new EdiarumLinkTextResolver();
-	}
+    @Override
+    public LinkTextResolver createLinkTextResolver() {
+        return new EdiarumLinkTextResolver();
+    }
 }

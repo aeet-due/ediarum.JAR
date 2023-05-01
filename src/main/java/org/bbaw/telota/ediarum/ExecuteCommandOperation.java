@@ -13,7 +13,7 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 
 /**
  * an operation for executing an external program
- * 
+ * <p>
  * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
  * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
  * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
@@ -23,48 +23,50 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
  */
 public class ExecuteCommandOperation implements AuthorOperation {
 
-	/**
-	 * Arguments.
-	 */
-	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
-			EdiarumArgumentDescriptor.ARGUMENT_COMMAND,
-	});
+    /**
+     * Arguments.
+     */
+    private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
+            EdiarumArgumentDescriptor.ARGUMENT_COMMAND,
+    });
 
-	static EdiarumArgumentDescriptor[] ARGUMENTS;
-	static {
-		ARGUMENTS = ARGUMENTS_MAP.getArguments();
-	}
+    static EdiarumArgumentDescriptor[] ARGUMENTS;
 
-	/**
-	 * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)
-	 */
-	@Override
-	public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
-		// Die übergebenen Argumente werden eingelesen ..
+    static {
+        ARGUMENTS = ARGUMENTS_MAP.getArguments();
+    }
+
+    /**
+     * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)
+     */
+    @Override
+    public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
+        // Die übergebenen Argumente werden eingelesen ..
         String cmdArgVal = ARGUMENTS_MAP.validateStringArgument(EdiarumArgumentNames.ARGUMENT_COMMAND, args);
-		// .. und überprüft.
-		try {
-			Process p = Runtime.getRuntime().exec(cmdArgVal);
-			p.waitFor();
-		} catch (IOException e) {} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        // .. und überprüft.
+        try {
+            Process p = Runtime.getRuntime().exec(cmdArgVal);
+            p.waitFor();
+        } catch (IOException e) {
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * @see ro.sync.ecss.extensions.api.AuthorOperation#getArguments()
-	 */
-	@Override
-	public ArgumentDescriptor[] getArguments() {
-		return ARGUMENTS;
-	}
+    /**
+     * @see ro.sync.ecss.extensions.api.AuthorOperation#getArguments()
+     */
+    @Override
+    public ArgumentDescriptor[] getArguments() {
+        return ARGUMENTS;
+    }
 
-	/**
-	 * @see ro.sync.ecss.extensions.api.AuthorOperation#getDescription()
-	 */
-	@Override
-	public String getDescription() {
-		return "Executes an external command.";
-	}
+    /**
+     * @see ro.sync.ecss.extensions.api.AuthorOperation#getDescription()
+     */
+    @Override
+    public String getDescription() {
+        return "Executes an external command.";
+    }
 }

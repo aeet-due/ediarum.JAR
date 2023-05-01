@@ -20,7 +20,7 @@ import static org.korpora.aeet.ediarum.EdiarumArgumentNames.ARGUMENT_XPATH_LOCAT
 /**
  * add an element at a specified position after other elements
  * in a way that a predefined order of elements is preserved.
- * 
+ * <p>
  * It belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
  * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
  * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
