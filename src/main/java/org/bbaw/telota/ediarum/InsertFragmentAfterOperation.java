@@ -1,12 +1,3 @@
-/**
- * InsertFragmentAfterOperation.java - is a class add an element at a specified position after other elements.
- * So, that a predefined order of elements is preserved.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- *
- * @author Martin Fechner
- */
 package org.bbaw.telota.ediarum;
 
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
@@ -26,6 +17,16 @@ import javax.swing.text.BadLocationException;
 
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.ARGUMENT_XPATH_LOCATION;
 
+/**
+ * add an element at a specified position after other elements
+ * in a way that a predefined order of elements is preserved.
+ * 
+ * It belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ */
 public class InsertFragmentAfterOperation implements AuthorOperation {
     /**
      * Argument describing the insertNode.

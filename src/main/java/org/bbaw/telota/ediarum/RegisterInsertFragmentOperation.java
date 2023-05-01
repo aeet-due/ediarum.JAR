@@ -1,11 +1,3 @@
-/**
- * RegisterInsertFragmentOperation.java - is a class add an element from an selection to an specified position.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- *
- * @author Martin Fechner
- */
 package org.bbaw.telota.ediarum;
 
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
@@ -26,6 +18,15 @@ import java.awt.Frame;
 
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
+/**
+ * add an element from an selection to an specified position.
+ * 
+ * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ */
 public class RegisterInsertFragmentOperation implements AuthorOperation {
 
     /**

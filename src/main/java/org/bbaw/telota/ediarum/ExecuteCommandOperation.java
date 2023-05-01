@@ -1,11 +1,3 @@
-/**
- * ExecuteCommandOperation.java - is a an operation for executing an external program.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- * @author Martin Fechner
- * @version 1.0.0
- */
 package org.bbaw.telota.ediarum;
 
 import java.io.IOException;
@@ -19,6 +11,16 @@ import ro.sync.ecss.extensions.api.AuthorAccess;
 import ro.sync.ecss.extensions.api.AuthorOperation;
 import ro.sync.ecss.extensions.api.AuthorOperationException;
 
+/**
+ * an operation for executing an external program
+ * 
+ * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ * @version 1.0.0
+ */
 public class ExecuteCommandOperation implements AuthorOperation {
 
 	/**

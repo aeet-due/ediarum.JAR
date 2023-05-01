@@ -1,12 +1,3 @@
-/**
- * InsertReferenceForLinkTargetOperation.java - is a class for inserting a link element to a link target from another open file.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- *
- * @author Martin Fechner
- * @version 1.0.2
- */
 package org.bbaw.telota.ediarum;
 
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
@@ -22,6 +13,16 @@ import ro.sync.exml.workspace.api.editor.page.author.WSAuthorEditorPage;
 import java.awt.*;
 import java.net.URL;
 
+/**
+ * insert a link element to a link target from another open file.
+ * 
+ * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ * @version 1.0.2
+ */
 public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
 
     /**

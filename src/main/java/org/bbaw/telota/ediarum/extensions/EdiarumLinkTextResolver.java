@@ -1,11 +1,3 @@
-/**
- * EdiarumLinkTextResolver.java - is a class to link text to a node.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- * @author Martin Fechner
- * @version 1.0.1
- */
 package org.bbaw.telota.ediarum.extensions;
 
 import java.io.IOException;
@@ -27,6 +19,15 @@ import ro.sync.ecss.extensions.api.node.AttrValue;
 import ro.sync.ecss.extensions.api.node.AuthorElement;
 import ro.sync.ecss.extensions.api.node.AuthorNode;
 
+/**
+ * EdiarumLinkTextResolver.java - is a class to link text to a node.
+ * It belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ * @version 1.0.1
+ */
 public class EdiarumLinkTextResolver extends LinkTextResolver implements ContentHandler {
 
 	/**

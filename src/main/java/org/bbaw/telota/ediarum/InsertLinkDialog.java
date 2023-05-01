@@ -1,11 +1,3 @@
-/**
- * InsertLinkDialog.java - is a class for opening a dialog to select a file and a reference.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- * @author Martin Fechner
- * @version 1.1.1
- */
 package org.bbaw.telota.ediarum;
 
 import java.awt.BorderLayout;
@@ -20,6 +12,16 @@ import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+/**
+ * open a dialog to select a file and a reference.
+ * 
+ * belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ * 
+ * @author Martin Fechner
+ * @version 1.1.1
+ */
 public class InsertLinkDialog extends JDialog {
 
 	/**

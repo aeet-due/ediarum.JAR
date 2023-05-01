@@ -1,11 +1,3 @@
-/**
- * RegisterChangeAttributeOperation.java - is a class to add an attribute to a selected element.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- *
- * @author Martin Fechner
- */
 package org.bbaw.telota.ediarum;
 
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
@@ -20,6 +12,15 @@ import java.awt.*;
 
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
+/**
+ * add an attribute to a selected element.
+ * 
+ * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ */
 public class RegisterChangeAttributeOperation implements AuthorOperation {
 
     /**

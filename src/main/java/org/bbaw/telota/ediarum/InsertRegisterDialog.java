@@ -1,11 +1,3 @@
-/**
- * InsertRegisterDialog.java - is a class for opening a dialog to select a register entry.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- * @author Martin Fechner
- * @version 1.1.3
- */
 package org.bbaw.telota.ediarum;
 
 import java.awt.BorderLayout;
@@ -35,6 +27,16 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
+/**
+ * open a dialog to select a register entry.
+ * 
+ * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ * @version 1.1.3
+ */
 public class InsertRegisterDialog extends JDialog {
 
 	/**

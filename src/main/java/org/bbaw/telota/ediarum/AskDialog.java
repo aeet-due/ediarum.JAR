@@ -1,11 +1,3 @@
-/**
- * AskDialog.java - is a class for opening a dialog equal to the Oxygen Ask Dialog.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- * @author Martin Fechner
- * @version 1.0.1
- */
 package org.bbaw.telota.ediarum;
 
 import java.awt.Frame;
@@ -18,6 +10,15 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+/**
+ * class for opening a dialog equal to the Oxygen Ask Dialog.
+ * It belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ * @version 1.0.1
+ */
 public class AskDialog extends JDialog{
 
 	/**

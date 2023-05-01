@@ -1,6 +1,6 @@
 /**
  * SurroundWithElement.java - is a class for inserting elements before and after a selection.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
+ * It belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
  * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
  * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
  *

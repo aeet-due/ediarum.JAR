@@ -1,11 +1,3 @@
-/**
- * RegisterSurroundWithElementOperation.java - is a class to surround a selection with an element.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- *
- * @author Martin Fechner
- */
 package org.bbaw.telota.ediarum;
 
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
@@ -22,6 +14,15 @@ import java.awt.Frame;
 
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
+/**
+ * surround a selection with an element.
+ * 
+ * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ */
 public class RegisterSurroundWithElementOperation implements AuthorOperation {
 
     /**
