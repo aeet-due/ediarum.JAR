@@ -82,7 +82,7 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
                     "An ID which can be used multiple times at different places", "");
 
     public static EdiarumArgumentDescriptor ARGUMENT_ID_TARGET = new EdiarumArgumentDescriptor(
-            ARGUMENT_ID,
+            EdiarumArgumentNames.ARGUMENT_ID,
             ArgumentDescriptor.TYPE_STRING,
 				"The name of the ID attribute of the target element, e.g. " +
                     "xml:id")
