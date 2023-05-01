@@ -320,6 +320,7 @@ public class InsertRegisterDialog extends JDialog {
         while (i < registerListe.getModel().getSize() & index == -1) {
             if (registerListe.getModel().getElementAt(i).toLowerCase().startsWith(eingabe)) {
                 index = i;
+                break;
             }
             i++;
         }
