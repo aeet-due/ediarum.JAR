@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * a simple map-based NamespaceContext, which by default already provides, e.g. the XML and TEI namespaces
- * (configurable in {@Code resources/json/default-namespaces.json} when compiling)
+ * (configurable in {@code resources/json/default-namespaces.json} when compiling)
  */
 public class EdiarumNamespaceContext implements NamespaceContext {
 
