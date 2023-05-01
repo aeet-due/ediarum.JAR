@@ -20,6 +20,7 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
+@SuppressWarnings("unused")
 public class SurroundWithDifferentFragmentsOperation implements AuthorOperation {
 
     /**

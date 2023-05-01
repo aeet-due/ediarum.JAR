@@ -4,9 +4,6 @@ import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.AuthorConstants;
 import ro.sync.ecss.extensions.api.AuthorOperation;
 
-import static org.korpora.aeet.ediarum.EdiarumArgumentNames.ARGUMENT_ELEMENT;
-import static org.korpora.aeet.ediarum.EdiarumArgumentNames.ARGUMENT_FIRST_ELEMENT;
-
 /**
  * Wrapper for Oxygen {@link ArgumentDescriptor}, which allows to state whether
  * an argument is nullable.
