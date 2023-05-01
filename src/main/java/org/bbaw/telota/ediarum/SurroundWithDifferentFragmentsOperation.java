@@ -10,55 +10,52 @@ package org.bbaw.telota.ediarum;
 
 import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
 
+import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorAccess;
 import ro.sync.ecss.extensions.api.AuthorOperation;
 import ro.sync.ecss.extensions.api.AuthorOperationException;
 
+
+import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+
 public class SurroundWithDifferentFragmentsOperation implements AuthorOperation {
-	/**
-	 * Argument describing the first node.
-	 */
-	private static final String ARGUMENT_FIRST_ELEMENT = "first element";
-
-	/**
-	 * Argument describing the second node.
-	 */
-	private static final String ARGUMENT_SECOND_ELEMENT = "second element";
-
-	/**
-	 * Argument describing the elements.
-	 */
-	private static final String ARGUMENT_ID = "id";
 
 	/**
 	 * Arguments.
 	 */
-	private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
-		new ArgumentDescriptor(
+	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[] {
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_ID,
 				ArgumentDescriptor.TYPE_STRING,
-				"A ID which are usable at multiple locations."),
-		new ArgumentDescriptor(
+				"A ID which are usable at multiple locations.",
+				""),
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_FIRST_ELEMENT,
 				ArgumentDescriptor.TYPE_STRING,
 				"The XML fragment which should be inserted before the selection."
 				+ " The id is inserted with the variable $ID"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_SECOND_ELEMENT,
 				ArgumentDescriptor.TYPE_STRING,
 				"The XML fragment which should be inserted after the selection."
 				+ " The id is inserted with the variable $ID"),
-	};
+	});
+	static EdiarumArgumentDescriptor[] ARGUMENTS;
+	static {
+		ARGUMENTS = ARGUMENTS_MAP.getArguments();
+	}
+
 
 	/**
 	 * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)
 	 */
 	public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
-		String firstElementArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_FIRST_ELEMENT, args);
-		String secondElementArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_SECOND_ELEMENT, args);
-		String idArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ID, args, "");
+		String firstElementArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_FIRST_ELEMENT, args);
+		String secondElementArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_SECOND_ELEMENT, args);
+		String idArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ID, args);
 
 		// Falls im Text nichts selektiert ist, wird das aktuelle Word ausgewählt.
 		if (!authorAccess.getEditorAccess().hasSelection()) {

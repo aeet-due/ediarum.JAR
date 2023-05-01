@@ -7,6 +7,8 @@
  */
 package org.bbaw.telota.ediarum;
 
+import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorAccess;
@@ -18,92 +20,45 @@ import ro.sync.ecss.extensions.api.node.AuthorElement;
 import ro.sync.ecss.extensions.api.node.AuthorNode;
 
 import java.awt.Frame;
-import java.util.HashMap;
 
 import javax.swing.text.BadLocationException;
 
 import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
 
+import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+
 public class RegisterChangeAttributeOperation implements AuthorOperation{
-	/**
-	 * Argument describing the url.
-	 */
-	private static final String ARGUMENT_URL = "URL";
-
-	/**
-	 * Argument describing the node.
-	 */
-	private static final String ARGUMENT_NODE = "node";
-
-	/**
-	 * Argument describing the namespaces.
-	 */
-	private static final String ARGUMENT_NAMESPACES = "namespaces";
-
-	/**
-	 * Argument describing the expression.
-	 */
-	private static final String ARGUMENT_EXPRESSION = "item rendering";
-
-	/**
-	 * Argument describing the item variables.
-	 */
-	private static final String ARGUMENT_VARIABLE = "item variable";
-
-	/**
-	 * Argument describing if multiple selection is possible.
-	 */
-	private static final String ARGUMENT_MULTIPLE_SELECTION = "multiple selection";
-
-	/**
-	 * Argument describing the separating string.
-	 */
-	private static final String ARGUMENT_SEPARATION = "item separator";
-
-	/**
-	 * Argument describing the new attribute name.
-	 */
-	private static final String ARGUMENT_ATTRIBUTENAME = "attribute name";
-
-	/**
-	 * Argument describing the xpath to the element with the new attribute.
-	 */
-	private static final String ARGUMENT_XPATHFROMSELECTION = "xpath to element of the attribute";
-
-	/**
-	 * Argument describing the new attribute.
-	 */
-	private static final String ARGUMENT_ATTRIBUTEVALUE = "attribute value";
 
 	/**
 	 * Arguments.
 	 */
-	private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
-		new ArgumentDescriptor(
+	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
+
+			new EdiarumArgumentDescriptor(
 				ARGUMENT_URL,
 				ArgumentDescriptor.TYPE_STRING,
 				"The URL to the .xml file with the list, e.g.: " +
 				"http://user:passwort@www.example.com:port/exist/webdav/db/register.xml"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_NODE,
 				ArgumentDescriptor.TYPE_STRING,
 				"An XPath expression for the list items, e.g.: //item"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_NAMESPACES,
 				ArgumentDescriptor.TYPE_STRING,
 				"An whitespace separated list of namespace declarations with QNames before a colon, e.g.: tei:http://www.tei-c.org/ns/1.0",
 				null),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_EXPRESSION,
 				ArgumentDescriptor.TYPE_STRING,
 				"A string how the items are rendered in the list. "
 				+ "Use $XPATH{expression} for xpath expressions (starting with @, /, //, ./), "
 				+ "E.g.: $XPATH{/name}, $XPATH{/vorname} ($XPATH{/lebensdaten})"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_VARIABLE,
 				ArgumentDescriptor.TYPE_STRING,
 				"The item variable which is used for the XML fragment, e.g.: #$XPATH{@id}"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_MULTIPLE_SELECTION,
 				ArgumentDescriptor.TYPE_CONSTANT_LIST,
 				"When is enabled, multiple selection will be possible",
@@ -112,27 +67,34 @@ public class RegisterChangeAttributeOperation implements AuthorOperation{
 					AuthorConstants.ARG_VALUE_FALSE,
 				},
 				AuthorConstants.ARG_VALUE_TRUE),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_SEPARATION,
 				ArgumentDescriptor.TYPE_STRING,
 				"The string for separating the item variables. Default value is a space."),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_ATTRIBUTENAME,
 				ArgumentDescriptor.TYPE_STRING,
 				"The name of the new attribute, e.g.: " +
 				"key"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_XPATHFROMSELECTION,
 				ArgumentDescriptor.TYPE_STRING,
 				"A relative XPath expression from current context node "
 				+ "to the element with the new attribute: " +
 				"./child"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_ATTRIBUTEVALUE,
 				ArgumentDescriptor.TYPE_STRING,
 				"The content of the new attribute, e.g.: " +
 				"some text.. $ITEMS")
-	};
+	});
+
+
+	static EdiarumArgumentDescriptor[] ARGUMENTS;
+	static {
+		ARGUMENTS = ARGUMENTS_MAP.getArguments();
+	}
+
 
 	/**
 	 * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)

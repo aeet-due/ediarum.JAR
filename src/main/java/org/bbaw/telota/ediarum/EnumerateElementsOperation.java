@@ -1,8 +1,8 @@
 package org.bbaw.telota.ediarum;
 
-import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
+import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.*;
-import ro.sync.ecss.extensions.api.link.Attr;
 import ro.sync.ecss.extensions.api.node.AttrValue;
 import ro.sync.ecss.extensions.api.node.AuthorElement;
 import ro.sync.ecss.extensions.api.node.AuthorNode;
@@ -24,7 +24,7 @@ public class EnumerateElementsOperation implements AuthorOperation{
     /**
      * Argument describing the element that resets the counter for the enumerate-element. E.g. "pb"
      */
-    private static final String ARGUMENT_ENUMERATE_RESET_ELEMENET = "enumerate-reset-element";
+    private static final String ARGUMENT_ENUMERATE_RESET_ELEMENT = "enumerate-reset-element";
 
     /**
      * German description text for the enumerate-reset-element parameter.
@@ -58,36 +58,45 @@ public class EnumerateElementsOperation implements AuthorOperation{
     /**
      * Arguments.
      */
-    private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
+    private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
 
             // enumerate-element
-            new ArgumentDescriptor(
+            new EdiarumArgumentDescriptor(
                     ARGUMENT_ENUMERATE_ELEMENT,
                     ArgumentDescriptor.TYPE_STRING,
                     DESCRIPTOR_ENUMERATE_ELEMENT
             ),
 
             // enumerate-reset-element
-            new ArgumentDescriptor(
-                    ARGUMENT_ENUMERATE_RESET_ELEMENET,
+            new EdiarumArgumentDescriptor(
+                    ARGUMENT_ENUMERATE_RESET_ELEMENT,
                     ArgumentDescriptor.TYPE_STRING,
-                    DESCRIPTOR_EUMERATE_RESET_ELEMENT
+                    DESCRIPTOR_EUMERATE_RESET_ELEMENT,
+                    ""
             ),
 
             // enumerate-counter-start
-            new ArgumentDescriptor(
+            new EdiarumArgumentDescriptor(
                     ARGUMENT_ENUMERATE_COUNTER_START,
                     ArgumentDescriptor.TYPE_STRING,
-                    DESCRIPTOR_ENUMERATE_COUNTER_START
+                    DESCRIPTOR_ENUMERATE_COUNTER_START,
+                    "1"
             ),
 
             // enumerate-interval
-            new ArgumentDescriptor(
+            new EdiarumArgumentDescriptor(
                     ARGUMENT_ENUMERATE_COUNTER_INTERVAL,
                     ArgumentDescriptor.TYPE_STRING,
-                    DESCRIPTOR_ENUMERATE_COUNTER_INTERVAL
+                    DESCRIPTOR_ENUMERATE_COUNTER_INTERVAL,
+                    "1"
             ),
-    };
+    });
+
+    static EdiarumArgumentDescriptor[] ARGUMENTS;
+    static {
+        ARGUMENTS = ARGUMENTS_MAP.getArguments();
+    }
+
 
 
 
@@ -97,10 +106,10 @@ public class EnumerateElementsOperation implements AuthorOperation{
     public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
 
         // Parse arguments
-        String enumerateElementValue = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ENUMERATE_ELEMENT, args);
-        String enumerateResetElementValue = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ENUMERATE_RESET_ELEMENET, args, "");
-        String enumerateCounterStartValue = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ENUMERATE_COUNTER_START, args, "1");
-        String enumerateIntervalValue = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ENUMERATE_COUNTER_INTERVAL, args, "1");
+        String enumerateElementValue = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ENUMERATE_ELEMENT, args);
+        String enumerateResetElementValue = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ENUMERATE_RESET_ELEMENT, args);
+        String enumerateCounterStartValue = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ENUMERATE_COUNTER_START, args);
+        String enumerateIntervalValue = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ENUMERATE_COUNTER_INTERVAL, args);
 
         // Read the integer start value as an interger
         int enumerateCounter = Integer.parseInt(enumerateCounterStartValue);

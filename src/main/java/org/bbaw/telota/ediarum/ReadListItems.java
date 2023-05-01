@@ -100,7 +100,7 @@ public class ReadListItems {
             if (namespaceDecl != null) {
                 String[] namespaceSplit = namespaceDecl.split(" ");
 //            String[][] namespaces = new String[namespaceSplit.length][2];
-                
+
                 for (int i = 0; i < namespaceSplit.length; i++) {
                     String currentNamespace = namespaceSplit[i];
                     int k = currentNamespace.indexOf(":");
@@ -187,7 +187,6 @@ public class ReadListItems {
             // .. und der Ausdruck selbst ausgewertet:
             String xpathExpression = matcher.group("expression");
             try {
-                System.err.println(xpathExpression);
                 XPathExpression queryExpr = xpath.compile(xpathExpression);
                 expressions.add(queryExpr);
             } catch (XPathExpressionException e) {
@@ -195,7 +194,6 @@ public class ReadListItems {
             }
             start = matcher.end();
         }
-        System.err.println("Finally add: " + expression.substring(start));
         expressions.add(expression.substring(start));
 
         return expressions;

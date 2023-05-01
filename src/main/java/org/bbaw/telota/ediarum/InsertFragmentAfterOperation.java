@@ -8,6 +8,8 @@
  */
 package org.bbaw.telota.ediarum;
 
+import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorAccess;
@@ -46,25 +48,30 @@ public class InsertFragmentAfterOperation implements AuthorOperation{
 	/**
 	 * Arguments.
 	 */
-	private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
-			new ArgumentDescriptor(
+	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
+			new EdiarumArgumentDescriptor(
 					ARGUMENT_ELEMENT,
 					ArgumentDescriptor.TYPE_STRING,
 					"The XML fragment which should be inserted at the insert location."),
 			// Argument defining the location where the operation will be executed as an XPath expression.
-			new ArgumentDescriptor(
+			new EdiarumArgumentDescriptor(
 					ARGUMENT_XPATH_LOCATION,
 					ArgumentDescriptor.TYPE_XPATH_EXPRESSION,
 					"An XPath expression indicating the insert location for the fragment.\n" +
 					"Note: If it is not defined then the insert location will be at the caret."),
 			// Argument defining the relative position to the node obtained from the XPath location.
-			new ArgumentDescriptor(
+			new EdiarumArgumentDescriptor(
 					ARGUMENT_XPATH_BEFORE_LOCATIONS,
 					ArgumentDescriptor.TYPE_STRING,
 					"A comma separated list of XPath expressions which are allowed as preceding siblings."
 					),
-			SCHEMA_AWARE_ARGUMENT_DESCRIPTOR
-	};
+			EdiarumArgumentDescriptor.SCHEMA_AWARE_ARGUMENT_DESCRIPTOR
+	});
+
+	static EdiarumArgumentDescriptor[] ARGUMENTS;
+	static {
+		ARGUMENTS = ARGUMENTS_MAP.getArguments();
+	}
 
 	/**
 	 * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)
@@ -72,9 +79,9 @@ public class InsertFragmentAfterOperation implements AuthorOperation{
 	public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
 		// Die übergebenen Argumente werden eingelesen ..
 		// .. und überprüft.
-		String elementArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ELEMENT, args);
+		String elementArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ELEMENT, args);
 		Object xpathLocation = args.getArgumentValue(ARGUMENT_XPATH_LOCATION);
-		String xpathBeforeLocations = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_XPATH_BEFORE_LOCATIONS, args);
+		String xpathBeforeLocations = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_XPATH_BEFORE_LOCATIONS, args);
 
 		String xmlFragment = (String) elementArgVal;
 

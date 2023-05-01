@@ -8,6 +8,8 @@
  */
 package org.bbaw.telota.ediarum;
 
+import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorAccess;
@@ -17,72 +19,40 @@ import java.awt.Frame;
 
 import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
 
+import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+
 
 public class RegisterSurroundWithDifferentFragmentsOperation implements AuthorOperation{
 	/**
-	 * Argument describing the URL.
-	 */
-	private static final String ARGUMENT_URL = "URL";
-
-	/**
-	 * Argument describing the node.
-	 */
-	private static final String ARGUMENT_NODE = "node";
-
-	/**
-	 * Argument describing the namespaces.
-	 */
-	private static final String ARGUMENT_NAMESPACES = "namespaces";
-
-	/**
-	 * Argument describing the expression.
-	 */
-	private static final String ARGUMENT_EXPRESSION = "expression";
-
-	/**
-	 * Argument describing the ID for all elements.
-	 */
-	private static final String ARGUMENT_ID = "id";
-
-	/**
-	 * Argument describing the first node.
-	 */
-	private static final String ARGUMENT_FIRST_ELEMENT = "first element";
-
-	/**
-	 * Argument describing the second node.
-	 */
-	private static final String ARGUMENT_SECOND_ELEMENT = "second element";
-
-	/**
 	 * Arguments.
 	 */
-	private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
-		new ArgumentDescriptor(
+	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
+			new EdiarumArgumentDescriptor(
 				ARGUMENT_URL,
 				ArgumentDescriptor.TYPE_STRING,
 				"The URL of the external index file, e.g. " +
 				"http://user:passwort@www.example.com:port/exist/webdav/db/register.xml"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_NODE,
 				ArgumentDescriptor.TYPE_STRING,
 				"An XPath expression for the list items, e.g.: //item"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_NAMESPACES,
 				ArgumentDescriptor.TYPE_STRING,
 				"An whitespace separated list of namespace declarations with QNames before a colon, e.g.: tei:http://www.tei-c.org/ns/1.0",
 				null),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_EXPRESSION,
 				ArgumentDescriptor.TYPE_STRING,
 				"A string how the items are rendered in the list. "
 				+ "Use $XPATH{expression} for xpath expressions (starting with @, /, //, ./, # (for functions)), "
 				+ "E.g.: $XPATH{/name}, $XPATH{/forename} ($XPATH{/data})"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_ID,
 				ArgumentDescriptor.TYPE_STRING,
-				"An ID which can be used multiple times at different places"),
-		new ArgumentDescriptor(
+				"An ID which can be used multiple times at different places",
+				""),
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_FIRST_ELEMENT,
 				ArgumentDescriptor.TYPE_STRING,
 				"Before the selected text this element is inserted."
@@ -90,26 +60,32 @@ public class RegisterSurroundWithDifferentFragmentsOperation implements AuthorOp
 				+ "e.g.: <index xmlns='http://www.tei-c.org/ns/1.0' spantTo='$ID' indexName='persons' corresp='$XPATH{@xml:id}'>"
 				+ "<term>$XPATH{/name}, $XPATH{/forename}</term>"
 				+ "</index>"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_SECOND_ELEMENT,
 				ArgumentDescriptor.TYPE_STRING,
 				"After the selected text this element is inserted."
 				+ "Use $ID for  the reusable id, $XPATH{expression} for xpath expressions (starting with @, /, //, ./, # (for functions)), "
 				+ "e.g.: <anchor xmlns='http://www.tei-c.org/ns/1.0' xml:id='$ID' />"),
-	};
+	});
+
+	static EdiarumArgumentDescriptor[] ARGUMENTS;
+	static {
+		ARGUMENTS = ARGUMENTS_MAP.getArguments();
+	}
 
 	/**
 	 * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)
 	 */
 	public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
 		// Die übergebenen Argumente werden eingelesen.
-        String urlArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_URL, args);
-        String nodeArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NODE, args);
-        String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args, null);
-        String expressionArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_EXPRESSION, args);
-        String idArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ID, args, "");
-        String firstElementArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_FIRST_ELEMENT, args);
-        String secondElementArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_SECOND_ELEMENT, args);
+        String urlArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_URL, args);
+        String nodeArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_NODE, args);
+        String namespacesArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_NAMESPACES, args);
+        String expressionArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_EXPRESSION, args
+		);
+        String idArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ID, args);
+        String firstElementArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_FIRST_ELEMENT, args);
+        String secondElementArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_SECOND_ELEMENT, args);
 
         // Wenn im aktuellen Dokument nichts selektiert ist, wird das aktuelle Wort ausgewählt.
 		if (!authorAccess.getEditorAccess().hasSelection()) {

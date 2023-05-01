@@ -30,6 +30,8 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 import ro.sync.ecss.extensions.api.access.AuthorEditorAccess;
 import ro.sync.ecss.extensions.api.access.AuthorWorkspaceAccess;
 
+import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+
 /**
  * Eine Oxygen Author-Operation, die im ausgewählten Text alle Datumsangaben
  * sucht, sie mit Hilfe einer GUI ausgibt und ausgewählte Angaben im Text taggt
@@ -40,15 +42,6 @@ import ro.sync.ecss.extensions.api.access.AuthorWorkspaceAccess;
 public class FindDatesOperation implements AuthorOperation {
 
 	private static final int AROUND_LIMIT = 50;
-
-	/**
-	 * Der absolute Pfad, in dem die Konfigurationsdatei zu finden ist.
-	 */
-	private static final String ARGUMENT_PATH = "path";
-	/**
-	 * Das XML-Fragment, welches die erkannten Datumsangaben umschließen soll.
-	 */
-	private static final String ARGUMENT_ELEMENT = "element";
 
 	/**
 	 * Die Argumente.

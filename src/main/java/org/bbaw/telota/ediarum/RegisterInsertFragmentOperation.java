@@ -7,6 +7,8 @@
  */
 package org.bbaw.telota.ediarum;
 
+import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorAccess;
@@ -17,91 +19,44 @@ import ro.sync.ecss.extensions.api.schemaaware.SchemaAwareHandlerResult;
 import ro.sync.ecss.extensions.api.schemaaware.SchemaAwareHandlerResultInsertConstants;
 import ro.sync.ecss.extensions.commons.operations.MoveCaretUtil;
 
+
 import java.awt.Frame;
 
 import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
 
+import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+
 public class RegisterInsertFragmentOperation implements AuthorOperation{
-	/**
-	 * Argument describing the url.
-	 */
-	private static final String ARGUMENT_URL = "URL";
-
-	/**
-	 * Argument describing the node.
-	 */
-	private static final String ARGUMENT_NODE = "node";
-
-	/**
-	 * Argument describing the namespaces.
-	 */
-	private static final String ARGUMENT_NAMESPACES = "namespaces";
-
-	/**
-	 * Argument describing the expression.
-	 */
-	private static final String ARGUMENT_EXPRESSION = "item rendering";
-
-	/**
-	 * Argument describing the item variables.
-	 */
-	private static final String ARGUMENT_VARIABLE = "item variable";
-
-	/**
-	 * Argument describing if multiple selection is possible.
-	 */
-	private static final String ARGUMENT_MULTIPLE_SELECTION = "multiple selection";
-
-	/**
-	 * Argument describing the insertNode.
-	 */
-	private static final String ARGUMENT_ELEMENT = "element";
-
-	/**
-	 * Argument describing the separating string.
-	 */
-	private static final String ARGUMENT_SEPARATION = "item separator";
-
-	/**
-	 * The insert location argument.
-	 * The value is <code>insertLocation</code>.
-	 */
-	private static final String ARGUMENT_XPATH_LOCATION = "insertLocation";
-	/**
-	 * The insert position argument.
-	 * The value is <code>insertPosition</code>.
-	 */
-	private static final String ARGUMENT_RELATIVE_LOCATION = "insertPosition";
 
 	/**
 	 * Arguments.
 	 */
-	private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
-		new ArgumentDescriptor(
+	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_URL,
 				ArgumentDescriptor.TYPE_STRING,
 				"The URL to the .xml file with the list, e.g.: " +
 				"http://user:passwort@www.example.com:port/exist/webdav/db/register.xml"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_NODE,
 				ArgumentDescriptor.TYPE_STRING,
 				"An XPath expression for the list items, e.g.: //item"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_NAMESPACES,
 				ArgumentDescriptor.TYPE_STRING,
 				"An whitespace separated list of namespace declarations with QNames before a colon, e.g.: tei:http://www.tei-c.org/ns/1.0",
 				null),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_EXPRESSION,
 				ArgumentDescriptor.TYPE_STRING,
 				"A string how the items are rendered in the list. "
 				+ "Use $XPATH{expression} for xpath expressions (starting with @, /, //, ./), "
 				+ "E.g.: $XPATH{/name}, $XPATH{/vorname} ($XPATH{/lebensdaten})"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_VARIABLE,
 				ArgumentDescriptor.TYPE_STRING,
 				"The item variable which is used for the XML fragment, e.g.: #$XPATH{@id}"),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_MULTIPLE_SELECTION,
 				ArgumentDescriptor.TYPE_CONSTANT_LIST,
 				"When is enabled, multiple selection will be possible",
@@ -110,25 +65,25 @@ public class RegisterInsertFragmentOperation implements AuthorOperation{
 					AuthorConstants.ARG_VALUE_FALSE,
 				},
 				AuthorConstants.ARG_VALUE_TRUE),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_SEPARATION,
 				ArgumentDescriptor.TYPE_STRING,
 				"The string for separating the item variables. Default value is a space."),
-		new ArgumentDescriptor(
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_ELEMENT,
 				ArgumentDescriptor.TYPE_STRING,
 				"The XML fragment which should be inserted at current caret position."
 				+ "Multiple list selections will be separated through spaces, e.g.: "
 				+ "<persName xmlns='http://www.tei-c.org/ns/1.0' key='$ITEMS' />"),
 		// Argument defining the location where the operation will be executed as an XPath expression.
-		new ArgumentDescriptor(
-				ARGUMENT_XPATH_LOCATION,
+		new EdiarumArgumentDescriptor(
+				EdiarumArgumentNames.ARGUMENT_XPATH_LOCATION,
 				ArgumentDescriptor.TYPE_XPATH_EXPRESSION,
 				"An XPath expression indicating the insert location for the fragment.\n" +
 				"Note: If it is not defined then the insert location will be at the caret."),
 		// Argument defining the relative position to the node obtained from the XPath location.
-		new ArgumentDescriptor(
-				ARGUMENT_RELATIVE_LOCATION,
+		new EdiarumArgumentDescriptor(
+				EdiarumArgumentNames.ARGUMENT_RELATIVE_LOCATION,
 				ArgumentDescriptor.TYPE_CONSTANT_LIST,
 				"The insert position relative to the node determined by the XPath expression.\n" +
 				"Can be: " +
@@ -144,8 +99,13 @@ public class RegisterInsertFragmentOperation implements AuthorOperation{
 				AuthorConstants.POSITION_AFTER,
 				},
 				AuthorConstants.POSITION_INSIDE_FIRST),
-		SCHEMA_AWARE_ARGUMENT_DESCRIPTOR
-	};
+		EdiarumArgumentDescriptor.SCHEMA_AWARE_ARGUMENT_DESCRIPTOR
+	});
+
+	static EdiarumArgumentDescriptor[] ARGUMENTS;
+	static {
+		ARGUMENTS = ARGUMENTS_MAP.getArguments();
+	}
 
 	/**
 	 * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)
@@ -153,15 +113,15 @@ public class RegisterInsertFragmentOperation implements AuthorOperation{
 	public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
 		// Die übergebenen Argumente werden eingelesen ..
 		// .. und überprüft.
-		String urlArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_URL, args);
-		String nodeArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NODE, args);
-		String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args, null);
-		String expressionArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_EXPRESSION, args);
-		String variableArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_VARIABLE, args);
-		String separationArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_SEPARATION, args);
-		String elementArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ELEMENT, args);
-		Object xpathLocation = args.getArgumentValue(ARGUMENT_XPATH_LOCATION);
-		Object relativeLocation = args.getArgumentValue(ARGUMENT_RELATIVE_LOCATION);
+		String urlArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_URL, args);
+		String nodeArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_NODE, args);
+		String namespacesArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_NAMESPACES, args);
+		String expressionArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_EXPRESSION, args);
+		String variableArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_VARIABLE, args);
+		String separationArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_SEPARATION, args);
+		String elementArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ELEMENT, args);
+		Object xpathLocation = args.getArgumentValue(EdiarumArgumentNames.ARGUMENT_XPATH_LOCATION);
+		Object relativeLocation = args.getArgumentValue(EdiarumArgumentNames.ARGUMENT_RELATIVE_LOCATION);
 		Object multipleSelection = args.getArgumentValue(ARGUMENT_MULTIPLE_SELECTION);
 
 		// Für die spätere Verwendung werden die Variablen für die Registereinträge und IDs erzeugt.

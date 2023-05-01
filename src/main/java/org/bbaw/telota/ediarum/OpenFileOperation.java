@@ -12,27 +12,32 @@ import java.io.IOException;
 
 import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
 
+import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorAccess;
 import ro.sync.ecss.extensions.api.AuthorOperation;
 import ro.sync.ecss.extensions.api.AuthorOperationException;
 
+import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+
 public class OpenFileOperation implements AuthorOperation {
-	/**
-	 * Argument describing the url.
-	 */
-	private static final String ARGUMENT_URL = "URL";
 
 	/**
 	 * Arguments.
 	 */
-	private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
-		new ArgumentDescriptor(
+	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
+		new EdiarumArgumentDescriptor(
 				ARGUMENT_URL,
 				ArgumentDescriptor.TYPE_STRING,
 				"The URL of the file. A local file can be opened with 'file://path-to-file'.")
-	};
+	});
+
+	static EdiarumArgumentDescriptor[] ARGUMENTS;
+	static {
+		ARGUMENTS = ARGUMENTS_MAP.getArguments();
+	}
 
 	/**
 	 * @see ro.sync.ecss.extensions.api.AuthorOperation#doOperation(AuthorAccess, ArgumentsMap)
@@ -40,7 +45,7 @@ public class OpenFileOperation implements AuthorOperation {
 	@Override
 	public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws IllegalArgumentException, AuthorOperationException {
 		// Die übergebenen Argumente werden eingelesen.
-		String urlArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_URL, args);
+		String urlArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_URL, args);
 
 		if (isWindowsSystem()) {
 			// exec windows commands ...

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
+import org.bbaw.telota.ediarum.EdiarumArgumentNames;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorAccess;
@@ -13,15 +14,10 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 public class OpenDateConfigOperation implements AuthorOperation {
 
 	/**
-	 * Der absolute Pfad, in dem die Konfigurationsdatei zu finden ist.
-	 */
-	private static final String ARGUMENT_PATH = "path";
-
-	/**
 	 * Die Argumente.
 	 */
 	private static final ArgumentDescriptor[] ARGUMENTS = new ArgumentDescriptor[] {
-			new ArgumentDescriptor(ARGUMENT_PATH, ArgumentDescriptor.TYPE_STRING,
+			new ArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_PATH, ArgumentDescriptor.TYPE_STRING,
 					"Path of the config file of the date recognition app.") };
 
 	@Override
@@ -32,7 +28,7 @@ public class OpenDateConfigOperation implements AuthorOperation {
 	@Override
 	public void doOperation(AuthorAccess arg0, ArgumentsMap arg1)
 			throws IllegalArgumentException, AuthorOperationException {
-		final Object path = arg1.getArgumentValue(ARGUMENT_PATH);
+		final Object path = arg1.getArgumentValue(EdiarumArgumentNames.ARGUMENT_PATH);
 
 		if (path == null || !(path instanceof String) || ((String) path).isEmpty())
 			throw new IllegalArgumentException("The argument \"path\" is not declared.");
