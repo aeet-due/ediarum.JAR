@@ -13,3 +13,4 @@
 /WorkspaceAccess/
 *.jardesc
 **/test/
+.attach_pid*
