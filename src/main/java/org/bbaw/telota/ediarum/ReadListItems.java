@@ -100,6 +100,7 @@ public class ReadListItems {
             if (namespaceDecl != null) {
                 String[] namespaceSplit = namespaceDecl.split(" ");
 //            String[][] namespaces = new String[namespaceSplit.length][2];
+                
                 for (int i = 0; i < namespaceSplit.length; i++) {
                     String currentNamespace = namespaceSplit[i];
                     int k = currentNamespace.indexOf(":");
