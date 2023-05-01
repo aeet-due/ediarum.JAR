@@ -81,39 +81,30 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_ID, ArgumentDescriptor.TYPE_STRING,
                     "An ID which can be used multiple times at different places", "");
 
-    public static EdiarumArgumentDescriptor ARGUMENT_ID_TARGET = new EdiarumArgumentDescriptor(
-            EdiarumArgumentNames.ARGUMENT_ID,
-            ArgumentDescriptor.TYPE_STRING,
-				"The name of the ID attribute of the target element, e.g. " +
-                    "xml:id")
+    public static EdiarumArgumentDescriptor ARGUMENT_ID_TARGET =
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_ID, ArgumentDescriptor.TYPE_STRING,
+                    "The name of the ID attribute of the target element, e.g. " + "xml:id");
 
     public static EdiarumArgumentDescriptor ARGUMENT_FIRST_ELEMENT =
-            new EdiarumArgumentDescriptor(
-                    EdiarumArgumentNames.ARGUMENT_FIRST_ELEMENT,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "Before the selected text this element is inserted."
-                            + "Use $ID for  the reusable id, $XPATH{expression} for xpath expressions (starting with @, /, //, ./, # (for functions)), "
-                            + "e.g.: <index xmlns='http://www.tei-c.org/ns/1.0' spantTo='$ID' indexName='persons' corresp='$XPATH{@xml:id}'>"
-                            + "<term>$XPATH{/name}, $XPATH{/forename}</term>"
-                            + "</index>");
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_FIRST_ELEMENT, ArgumentDescriptor.TYPE_STRING,
+                    "Before the selected text this element is inserted." +
+                            "Use $ID for  the reusable id, $XPATH{expression} for xpath expressions (starting with @, /, //, ./, # (for functions)), " +
+                            "e.g.: <index xmlns='http://www.tei-c.org/ns/1.0' spantTo='$ID' indexName='persons' corresp='$XPATH{@xml:id}'>" +
+                            "<term>$XPATH{/name}, $XPATH{/forename}</term>" + "</index>");
 
     public static EdiarumArgumentDescriptor ARGUMENT_SECOND_ELEMENT =
-            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_SECOND_ELEMENT,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "After the selected text this element is inserted."
-                            + "Use $ID for  the reusable id, $XPATH{expression} for xpath expressions (starting with @, /, //, ./, # (for functions)), "
-                            + "e.g.: <anchor xmlns='http://www.tei-c.org/ns/1.0' xml:id='$ID' />");
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_SECOND_ELEMENT, ArgumentDescriptor.TYPE_STRING,
+                    "After the selected text this element is inserted." +
+                            "Use $ID for  the reusable id, $XPATH{expression} for xpath expressions (starting with @, /, //, ./, # (for functions)), " +
+                            "e.g.: <anchor xmlns='http://www.tei-c.org/ns/1.0' xml:id='$ID' />");
 
     public static EdiarumArgumentDescriptor ARGUMENT_ATTRIBUTENAME =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_ATTRIBUTENAME, ArgumentDescriptor.TYPE_STRING,
                     "The name of the new attribute, e.g.: " + "key");
 
     public static EdiarumArgumentDescriptor ARGUMENT_XPATH =
-            new EdiarumArgumentDescriptor(
-            ARGUMENT_XPATH,
-            ArgumentDescriptor.TYPE_STRING,
-				"The XPath expression to the link target element, e.g.: " +
-                    "//anchor");
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_XPATH, ArgumentDescriptor.TYPE_STRING,
+                    "The XPath expression to the link target element, e.g.: " + "//anchor");
 
     public static EdiarumArgumentDescriptor ARGUMENT_XPATHFROMSELECTION =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_XPATHFROMSELECTION,
@@ -121,76 +112,54 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
                     "to the element with the new attribute: " + "./child");
 
     public static EdiarumArgumentDescriptor ARGUMENT_ATTRIBUTEVALUE =
-            new EdiarumArgumentDescriptor(
-                    EdiarumArgumentNames.ARGUMENT_ATTRIBUTEVALUE,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "The content of the new attribute, e.g.: " +
-                            "some text.. $ITEMS");
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_ATTRIBUTEVALUE, ArgumentDescriptor.TYPE_STRING,
+                    "The content of the new attribute, e.g.: " + "some text.. $ITEMS");
 
     public static EdiarumArgumentDescriptor ARGUMENT_VARIABLE =
-            new EdiarumArgumentDescriptor(
-                    EdiarumArgumentNames.ARGUMENT_VARIABLE,
-                    ArgumentDescriptor.TYPE_STRING,
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_VARIABLE, ArgumentDescriptor.TYPE_STRING,
                     "The item variable which is used for the XML fragment, e.g.: #$XPATH{@id}");
 
 
-    public static EdiarumArgumentDescriptor ARGUMENT_MULTIPLE_SELECTION = new EdiarumArgumentDescriptor(
-            EdiarumArgumentNames.ARGUMENT_MULTIPLE_SELECTION,
-            ArgumentDescriptor.TYPE_CONSTANT_LIST,
-            "When is enabled, multiple selection will be possible",
-            new String[]{
-                    AuthorConstants.ARG_VALUE_TRUE,
-                    AuthorConstants.ARG_VALUE_FALSE,
-            },
-            AuthorConstants.ARG_VALUE_TRUE);
-    public static EdiarumArgumentDescriptor ARGUMENT_MULTIPLE_SELECTION_FALSE = new EdiarumArgumentDescriptor(
-            EdiarumArgumentNames.ARGUMENT_MULTIPLE_SELECTION,
-            ArgumentDescriptor.TYPE_CONSTANT_LIST,
-            "When is enabled, multiple selection will be possible",
-            new String[]{
-                    AuthorConstants.ARG_VALUE_TRUE,
-                    AuthorConstants.ARG_VALUE_FALSE,
-            },
-            AuthorConstants.ARG_VALUE_FALSE);
+    public static EdiarumArgumentDescriptor ARGUMENT_MULTIPLE_SELECTION =
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_MULTIPLE_SELECTION,
+                    ArgumentDescriptor.TYPE_CONSTANT_LIST, "When is enabled, multiple selection will be possible",
+                    new String[]{AuthorConstants.ARG_VALUE_TRUE, AuthorConstants.ARG_VALUE_FALSE,},
+                    AuthorConstants.ARG_VALUE_TRUE);
+    public static EdiarumArgumentDescriptor ARGUMENT_MULTIPLE_SELECTION_FALSE =
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_MULTIPLE_SELECTION,
+                    ArgumentDescriptor.TYPE_CONSTANT_LIST, "When is enabled, multiple selection will be possible",
+                    new String[]{AuthorConstants.ARG_VALUE_TRUE, AuthorConstants.ARG_VALUE_FALSE,},
+                    AuthorConstants.ARG_VALUE_FALSE);
 
-    public static EdiarumArgumentDescriptor ARGUMENT_XPATH_LOCATION = new EdiarumArgumentDescriptor(
-            EdiarumArgumentNames.ARGUMENT_XPATH_LOCATION,
-            ArgumentDescriptor.TYPE_XPATH_EXPRESSION,
-            "An XPath expression indicating the insert location for the fragment.\n" +
-                    "Note: If it is not defined then the insert location will be at the caret.");
+    public static EdiarumArgumentDescriptor ARGUMENT_XPATH_LOCATION =
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_XPATH_LOCATION,
+                    ArgumentDescriptor.TYPE_XPATH_EXPRESSION,
+                    "An XPath expression indicating the insert location for the fragment.\n" +
+                            "Note: If it is not defined then the insert location will be at the caret.");
 
     public static EdiarumArgumentDescriptor ARGUMENT_XPATH_BEFORE_LOCATIONS =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_XPATH_BEFORE_LOCATIONS,
                     ArgumentDescriptor.TYPE_STRING,
                     "A comma separated list of XPath expressions which are allowed as preceding siblings.");
 
-    public static EdiarumArgumentDescriptor ARGUMENT_RELATIVE_LOCATION = new EdiarumArgumentDescriptor(
-            EdiarumArgumentNames.ARGUMENT_RELATIVE_LOCATION,
-            ArgumentDescriptor.TYPE_CONSTANT_LIST,
-            "The insert position relative to the node determined by the XPath expression.\n" +
-                    "Can be: " +
-                    AuthorConstants.POSITION_BEFORE + ", " +
-                    AuthorConstants.POSITION_INSIDE_FIRST + ", " +
-                    AuthorConstants.POSITION_INSIDE_LAST + " or " +
-                    AuthorConstants.POSITION_AFTER + ".\n" +
-                    "Note: If the XPath expression is not defined this argument is ignored",
-            new String[]{
-                    AuthorConstants.POSITION_BEFORE,
-                    AuthorConstants.POSITION_INSIDE_FIRST,
-                    AuthorConstants.POSITION_INSIDE_LAST,
-                    AuthorConstants.POSITION_AFTER,
-            },
-            AuthorConstants.POSITION_INSIDE_FIRST);
+    public static EdiarumArgumentDescriptor ARGUMENT_RELATIVE_LOCATION =
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_RELATIVE_LOCATION,
+                    ArgumentDescriptor.TYPE_CONSTANT_LIST,
+                    "The insert position relative to the node determined by the XPath expression.\n" + "Can be: " +
+                            AuthorConstants.POSITION_BEFORE + ", " + AuthorConstants.POSITION_INSIDE_FIRST + ", " +
+                            AuthorConstants.POSITION_INSIDE_LAST + " or " + AuthorConstants.POSITION_AFTER + ".\n" +
+                            "Note: If the XPath expression is not defined this argument is ignored",
+                    new String[]{AuthorConstants.POSITION_BEFORE, AuthorConstants.POSITION_INSIDE_FIRST,
+                            AuthorConstants.POSITION_INSIDE_LAST, AuthorConstants.POSITION_AFTER,},
+                    AuthorConstants.POSITION_INSIDE_FIRST);
 
-    public static EdiarumArgumentDescriptor ARGUMENT_COMMAND = new EdiarumArgumentDescriptor(
-            EdiarumArgumentNames.ARGUMENT_COMMAND,
-            ArgumentDescriptor.TYPE_STRING,
-            "The command which should be executed.");
+    public static EdiarumArgumentDescriptor ARGUMENT_COMMAND =
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_COMMAND, ArgumentDescriptor.TYPE_STRING,
+                    "The command which should be executed.");
 
-    public static EdiarumArgumentDescriptor ARGUMENT_PATH= new EdiarumArgumentDescriptor(
-            EdiarumArgumentNames.ARGUMENT_PATH,
-            ArgumentDescriptor.TYPE_STRING,
-				"Starting string of the files which contain link targets. This part isn't displayed as title. Usually the database path, e.g. /exist/webdav/db/."),
+    public static EdiarumArgumentDescriptor ARGUMENT_PATH =
+            new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_PATH, ArgumentDescriptor.TYPE_STRING,
+                    "Starting string of the files which contain link targets. This part isn't displayed as title. Usually the database path, e.g. /exist/webdav/db/.");
 
     boolean isNullable() {
         return nullable;
