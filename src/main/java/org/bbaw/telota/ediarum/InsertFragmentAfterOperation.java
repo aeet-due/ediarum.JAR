@@ -61,7 +61,7 @@ public class InsertFragmentAfterOperation implements AuthorOperation {
         String xpathBeforeLocations = ARGUMENTS_MAP.validateStringArgument(
                 EdiarumArgumentNames.ARGUMENT_XPATH_BEFORE_LOCATIONS, args);
 
-        String xmlFragment = (String) elementArgVal;
+        String xmlFragment = elementArgVal;
 
         int insertionOffset = authorAccess.getEditorAccess().getCaretOffset();
 
@@ -71,7 +71,7 @@ public class InsertFragmentAfterOperation implements AuthorOperation {
             // Das Element soll als letzte Möglichkeit als letztes im Elternelement eingefügt (xpathLocation) werden.
             // Evaluate the expression and obtain the offset of the first node from the result
             insertionOffset = authorAccess.getDocumentController().getXPathLocationOffset((String) xpathLocation,
-                    (String) AuthorConstants.POSITION_INSIDE_LAST);
+                    AuthorConstants.POSITION_INSIDE_LAST);
         }
         AuthorNode parentNode;
         try {
@@ -84,7 +84,7 @@ public class InsertFragmentAfterOperation implements AuthorOperation {
             for (AuthorNode child : childElements) {
                 // .. wenn sie nicht als gültige Vorgänger in Frage kommen, ..
                 AuthorNode[] xpathBeforeNodes =
-                        authorAccess.getDocumentController().findNodesByXPath((String) xpathBeforeLocations, parentNode,
+                        authorAccess.getDocumentController().findNodesByXPath(xpathBeforeLocations, parentNode,
                                 true, true, true, true);
                 boolean childIsInBeforeNodes = Arrays.asList(xpathBeforeNodes).contains(child);
                 if (!childIsInBeforeNodes) {

@@ -30,7 +30,7 @@ public class OpenDateConfigOperation implements AuthorOperation {
 			throws IllegalArgumentException, AuthorOperationException {
 		final Object path = arg1.getArgumentValue(EdiarumArgumentNames.ARGUMENT_PATH);
 
-		if (path == null || !(path instanceof String) || ((String) path).isEmpty())
+		if (!(path instanceof String) || ((String) path).isEmpty())
 			throw new IllegalArgumentException("The argument \"path\" is not declared.");
 
 		try {

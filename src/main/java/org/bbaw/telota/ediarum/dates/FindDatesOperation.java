@@ -69,7 +69,7 @@ public class FindDatesOperation implements AuthorOperation {
 		String pattern2 = "<(\\w*)([\\s\\S]*)?><\\/\\w*>";
 
 		// Überprüfung, ob die Argumente angegeben wurden und valide sind
-		if (path == null || !(path instanceof String) || elem == null || !(elem instanceof String)
+		if (!(path instanceof String) || !(elem instanceof String)
 				|| ((String) path).isEmpty() || ((String) elem).isEmpty())
 			throw new IllegalArgumentException("One or more of the argument values are not declared, they are: path - "
 					+ path + ", elem - " + elem);

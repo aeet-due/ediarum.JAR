@@ -96,7 +96,7 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
         // Es werden die URLs aller offenen Dateien gelesen.
         URL[] openFiles = authorAccess.getWorkspaceAccess().getAllEditorLocations();
         // Zum Pfadvergleich wird die Pfadvariable gelesen, ..
-        String Pfad = (String) pathArgVal;
+        String Pfad = pathArgVal;
         // .. und die Arrays für die Einträge und IDs werden vorbereitet.
         String[] alleDateien = new String[openFiles.length];
         String[] alleDateiID = new String[openFiles.length];
@@ -120,11 +120,11 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
                         // .. wird die ID in die Liste aufgenommen, ..
                         alleDateiID[i] =
                                 fileAuthorPage.getDocumentController().getAuthorDocumentNode().getRootElement().getAttribute(
-                                        "xml:id").getValue().toString();
+                                        "xml:id").getValue();
                         // .. es werden alle Referenzziele entsprechend der gesetzten Variablen herausgefiltert und ..
                         AuthorNode[] linkNodes = fileAuthorPage.getDocumentController().findNodesByXPath(
-                                (String) xpathArgVal + "[starts-with(@" + (String) idArgVal + ",'" +
-                                        (String) idstartArgVal + "')]", false, true, true);
+                                xpathArgVal + "[starts-with(@" + idArgVal + ",'" +
+                                        idstartArgVal + "')]", false, true, true);
                         // .. die Arrays für die Einträge und IDs entsprechend vorbereitet.
                         alleEintraege[i] = new String[linkNodes.length];
                         alleLinkIDs[i] = new String[linkNodes.length];
@@ -134,17 +134,17 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
                             for (int j = 0; j < linkNodes.length; j++) {
                                 // .. die ID im Array gespeichert, ..
                                 alleLinkIDs[i][j] = ((AuthorElement) linkNodes[j]).getAttribute(
-                                        (String) idArgVal).getValue().toString().substring(
-                                        ((String) idstartArgVal).length());
+                                        idArgVal).getValue().substring(
+                                        idstartArgVal.length());
                                 // .. weiterhin werden Beginn und Ende des Verweiszieles gefunden ..
                                 int linkPosition = linkNodes[j].getEndOffset();
                                 int endPosition;
                                 if (fileAuthorPage.getDocumentController().findNodesByXPath(
-                                        (String) xpathArgVal + "[@" + (String) idArgVal + "='" + (String) idstopArgVal +
+                                        xpathArgVal + "[@" + idArgVal + "='" + idstopArgVal +
                                                 alleLinkIDs[i][j] + "']", false, true, true).length != 0) {
                                     endPosition = fileAuthorPage.getDocumentController().findNodesByXPath(
-                                            (String) xpathArgVal + "[@" + (String) idArgVal + "='" +
-                                                    (String) idstopArgVal + alleLinkIDs[i][j] + "']", false, true,
+                                            xpathArgVal + "[@" + idArgVal + "='" +
+                                                    idstopArgVal + alleLinkIDs[i][j] + "']", false, true,
                                             true)[0].getStartOffset();
                                 } else {
                                     endPosition = fileAuthorPage.getDocumentController().getXPathLocationOffset("/",
@@ -190,7 +190,7 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
         // Falls ein Verweisziel ausgewählt wurde, ..
         if (!LinkDialog.getSelectedID().isEmpty()) {
             // .. wird zunächst der Parameter für das einzufügende Element zerteilt, ..
-            String elementString = (String) elementArgVal;
+            String elementString = elementArgVal;
             elementString = elementString.replace("$FILEPATH", "++$FILEPATH++");
             elementString = elementString.replace("$FILE_ID", "++$FILE_ID++");
             elementString = elementString.replace("$STARTPREFIX", "++$STARTPREFIX++");
@@ -226,7 +226,7 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
             // Falls kein Verweisziel ausgewählt wurde, aber eine Datei ausgewählt worden ist, ..
         } else if (!LinkDialog.getSelectedFile().isEmpty()) {
             // .. wird zunächst wieder der Parameter für das einzufügende Element zerteilt, ..
-            String elementString = (String) altelementArgVal;
+            String elementString = altelementArgVal;
             elementString = elementString.replace("$FILEPATH", "++$FILEPATH++");
             elementString = elementString.replace("$FILE_ID", "++$FILE_ID++");
             String[] elementStrings = elementString.split("[+][+]");

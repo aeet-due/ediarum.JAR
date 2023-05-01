@@ -21,7 +21,7 @@ public class EdiarumArgumentValidator {
         Object argumentValue = args.getArgumentValue(argument);
 
         // Test if argument value is a string
-        if ((argumentValue == null) || ! (argumentValue instanceof String))
+        if (!(argumentValue instanceof String))
         {
             throw new IllegalArgumentException(
                     "The following parameter is not declared or has an invalid value: " +
@@ -53,7 +53,7 @@ public class EdiarumArgumentValidator {
         if (defaultValue == null) {
             // fall through
         }
-        else if (argumentValue != null && argumentValue instanceof String)
+        else if (argumentValue instanceof String)
         {
             return (String) argumentValue;
         }

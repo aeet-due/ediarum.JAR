@@ -46,7 +46,7 @@ public class DetailDialog extends JDialog {
 		String fulltxt = sr.getFullText();
 		String date = sr.getText();
 		String before = fulltxt.substring(0, fulltxt.indexOf(date));
-		String after = fulltxt.substring(fulltxt.indexOf(date) + date.length(), fulltxt.length());
+		String after = fulltxt.substring(fulltxt.indexOf(date) + date.length());
 
 		try {
 			doc.insertString(0, "..." + before, null);

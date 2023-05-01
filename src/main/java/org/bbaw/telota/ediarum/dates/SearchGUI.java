@@ -162,7 +162,7 @@ public class SearchGUI extends JDialog {
 		String halftxt = sr.getHalfText();
 		String date = sr.getText();
 		String before = halftxt.substring(0, halftxt.indexOf(date));
-		String after = halftxt.substring(halftxt.indexOf(date) + date.length(), halftxt.length());
+		String after = halftxt.substring(halftxt.indexOf(date) + date.length());
 
 		JLabel space1 = new JLabel();
 		gc.gridx = 2;

@@ -71,7 +71,7 @@ public class RegisterSurroundWithElementOperation implements AuthorOperation {
 
         // Dann wird das Registerdokument eingelesen, wobei auf die einzelnen Registerelement und ..
         // .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
-        ReadListItems register = new ReadListItems((String) urlArgVal, (String) nodeArgVal, (String) expressionArgVal, (String) variableArgVal, (String) namespacesArgVal);
+        ReadListItems register = new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
         // Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
         eintrag = register.getEintrag();
         id = register.getID();
@@ -81,8 +81,8 @@ public class RegisterSurroundWithElementOperation implements AuthorOperation {
         // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
         if (!RegisterDialog.getSelectedID().isEmpty()) {
             // wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.
-            String element = (String) elementArgVal;
-            String IDitems = String.join((String) separationArgVal, RegisterDialog.getSelectedIDs());
+            String element = elementArgVal;
+            String IDitems = String.join(separationArgVal, RegisterDialog.getSelectedIDs());
             element = element.replaceAll("[$]ITEMS", IDitems);
             authorAccess.getDocumentController().surroundInFragment(element, selStart, selEnd);
         }

@@ -81,19 +81,19 @@ public class RegisterChangeAttributeOperation implements AuthorOperation {
         id = register.getID();
 
         // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
-        InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, ((String) multipleSelection).equals(AuthorConstants.ARG_VALUE_TRUE));
+        InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE));
         // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
         if (!RegisterDialog.getSelectedID().isEmpty()) {
             // wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.
             AuthorElement selElement;
             try {
                 AuthorNode selNode = authorAccess.getDocumentController().getNodeAtOffset(selStart);
-                selElement = (AuthorElement) (authorAccess.getDocumentController().findNodesByXPath((String) xpathfromselectionArgVal, selNode, false, true, true, false))[0];
+                selElement = (AuthorElement) (authorAccess.getDocumentController().findNodesByXPath(xpathfromselectionArgVal, selNode, false, true, true, false))[0];
                 String newAttrValue = attributevalArgVal;
-                String IDitems = String.join((String) separationArgVal, RegisterDialog.getSelectedIDs());
+                String IDitems = String.join(separationArgVal, RegisterDialog.getSelectedIDs());
                 newAttrValue = newAttrValue.replaceAll("[$]ITEMS", IDitems);
 
-                authorAccess.getDocumentController().setAttribute((String) attributenameArgVal, new AttrValue(newAttrValue), selElement);
+                authorAccess.getDocumentController().setAttribute(attributenameArgVal, new AttrValue(newAttrValue), selElement);
             } catch (BadLocationException e) {
             }
         }
