@@ -1,6 +1,12 @@
 package org.korpora.aeet.ediarum;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.korpora.useful.LangUtilities;
+
 import javax.xml.namespace.NamespaceContext;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -11,7 +17,6 @@ import java.util.Map;
 public class EdiarumNamespaceContext implements NamespaceContext {
 
     Map<String, String> namespaces;
-
     /**
      * create a new namespace context
      *
@@ -19,8 +24,20 @@ public class EdiarumNamespaceContext implements NamespaceContext {
      */
     public EdiarumNamespaceContext(Map<String, String> namespaces) {
         this.namespaces = new HashMap<>();
-        this.namespaces.put("xml", "http://www.w3.org/XML/1998/namespace");
-        this.namespaces.put("tei", "http://www.tei-c.org/ns/1.0");
+
+        ObjectMapper mapper = new ObjectMapper();
+        try (InputStream str = LangUtilities.class.getClassLoader()
+                .getResourceAsStream("json/default-namespaces.json")) {
+            Map defaultNamespaces = mapper.readValue(str,
+                    new TypeReference<Map<String, String>>() {
+                    });
+            this.namespaces.putAll(defaultNamespaces);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+//        this.namespaces.put("xml", "http://www.w3.org/XML/1998/namespace");
+//        this.namespaces.put("tei", "http://www.tei-c.org/ns/1.0");
         this.namespaces.putAll(namespaces);
     }
 

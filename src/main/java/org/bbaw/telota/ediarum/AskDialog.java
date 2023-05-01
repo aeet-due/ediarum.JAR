@@ -31,12 +31,15 @@ public class AskDialog extends JDialog{
 	static int H_SIZE = 322;
 	static int V_SIZE = 153;
 
+
+	// Dies sind die privaten Variablen.
 	/**
-	 * Dies sind die privaten Variablen.
-	 * result Enthält den eingegebenen Text nach Bestätigung.
-	 * textField Enthält den eingegebenen Text.
+	 * enthält den eingegebenen Text nach Bestätigung
 	 */
 	private String result = "";
+	/**
+	 * enthält den eingegebenen Text
+	 */
 	private JTextField textField;
 
 	/**
@@ -85,7 +88,7 @@ public class AskDialog extends JDialog{
 	}
 
 	/**
-	 * Bei Bestätigung wird der eingegeben Text ausgelesen und das Fenster geschlossen.
+	 * Bei Bestätigung wird der eingegebene Text ausgelesen und das Fenster geschlossen.
 	 */
 	public void okAction(){
 		result = textField.getText();

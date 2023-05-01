@@ -81,7 +81,7 @@
           <artifactId>jool</artifactId>
           <version>0.9.14</version>
         </dependency-->
-        <!--dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
@@ -90,7 +90,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>de.bbaw.telota</groupId>
             <artifactId>lib-pdr-dates-plugin</artifactId>
@@ -112,6 +112,13 @@
                 <directory>src/main/xsl</directory>
                 <includes>
                     <include>**/*.xsl</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/xquery</directory>
+                <includes>
+                    <include>**/*.xq</include>
+                    <include>**/*.xql</include>
                 </includes>
             </resource>
             <resource>

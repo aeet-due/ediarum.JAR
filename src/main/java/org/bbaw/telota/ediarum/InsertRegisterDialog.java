@@ -49,21 +49,28 @@ public class InsertRegisterDialog extends JDialog {
 	static int V_SIZE = 300;
 
 	/**
-	 * Dies sind die privaten Variablen.
-	 * registerListe Dies ist das Auswahlfeld mit den Registereinträgen.
-	 * registerItems Enthält alle Registereinträge.
-	 * registerIDs Enthält die IDs zu den Registereinträgen.
-	 * registerID Enthält die ID des ausgewählten Eintrags.
-	 * filterVerweise Enthält nur gefilterte Einträge mit ihren Originalpositionen.
+	 * Dies ist das Auswahlfeld mit den Registereinträgen.
 	 */
-	JList<String> registerListe;
-	String[] registerItems;
-	String[] registerIDs;
-	String registerID = "";
-	String[] selectedRegisterIDs;
-	HashMap<Integer, Integer> filterVerweise = new HashMap<Integer, Integer>();
-	Boolean setFilter = false;
-	JTextField globalEingabeFeld;
+	private JList<String> registerListe;
+	/**
+	 * enthält alle Registereinträge.
+	 */
+	private String[] registerItems;
+	/**
+	 * Enthält die IDs zu den Registereinträgen.
+	 */
+	private String[] registerIDs;
+	/**
+	 * enthält die ID des ausgewählten Eintrags.
+	 */
+	private String registerID = "";
+	private String[] selectedRegisterIDs;
+	/**
+	 * enthält nur gefilterte Einträge mit ihren Originalpositionen.
+	 */
+	private HashMap<Integer, Integer> filterVerweise = new HashMap<Integer, Integer>();
+	private Boolean setFilter = false;
+	private JTextField globalEingabeFeld;
 
 	/**
 	 * Der Konstruktor der Klasse erzeugt einen Dialog zum Auswählen eines Registereintrags.

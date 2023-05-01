@@ -1,12 +1,3 @@
-/**
- * ReadRegister.java - is a class to load and read external Documents for the ListItemOperations.
- * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
- * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
- * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
- *
- * @author Martin Fechner
- * @version 1.0.0
- */
 package org.bbaw.telota.ediarum;
 
 import java.io.IOException;
@@ -41,6 +32,16 @@ import org.xml.sax.SAXException;
 import org.korpora.useful.XMLUtilities;
 
 import ro.sync.ecss.extensions.api.AuthorOperationException;
+
+/**
+ * a class to load and read external Documents for the ListItemOperations.
+ * It belongs to package ro.sync.ecss.extensions.ediarum for the modification of the Oxygen framework
+ * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
+ * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
+ *
+ * @author Martin Fechner
+ * @version 1.0.0
+ */
 
 public class ReadListItems {
 
@@ -96,7 +97,7 @@ public class ReadListItems {
             XPath xpath = XPathFactory.newInstance().newXPath();
             // Für Namespaces:
             Map<String, String> namespaces = new ConcurrentHashMap<>();
-            if (namespaceDecl == null) {
+            if (namespaceDecl != null) {
                 String[] namespaceSplit = namespaceDecl.split(" ");
 //            String[][] namespaces = new String[namespaceSplit.length][2];
                 for (int i = 0; i < namespaceSplit.length; i++) {

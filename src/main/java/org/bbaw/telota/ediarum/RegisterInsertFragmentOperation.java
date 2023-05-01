@@ -89,7 +89,8 @@ public class RegisterInsertFragmentOperation implements AuthorOperation{
 		new ArgumentDescriptor(
 				ARGUMENT_NAMESPACES,
 				ArgumentDescriptor.TYPE_STRING,
-				"An whitespace separated list of namespace declarations with QNames before a colon, e.g.: tei:http://www.tei-c.org/ns/1.0"),
+				"An whitespace separated list of namespace declarations with QNames before a colon, e.g.: tei:http://www.tei-c.org/ns/1.0",
+				null),
 		new ArgumentDescriptor(
 				ARGUMENT_EXPRESSION,
 				ArgumentDescriptor.TYPE_STRING,
@@ -154,7 +155,7 @@ public class RegisterInsertFragmentOperation implements AuthorOperation{
 		// .. und überprüft.
 		String urlArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_URL, args);
 		String nodeArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NODE, args);
-		String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args);
+		String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args, null);
 		String expressionArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_EXPRESSION, args);
 		String variableArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_VARIABLE, args);
 		String separationArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_SEPARATION, args);
@@ -168,18 +169,18 @@ public class RegisterInsertFragmentOperation implements AuthorOperation{
 
 		// Dann wird das Registerdokument eingelesen, wobei auf die einzelnen Registerelement und ..
 		// .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
-		ReadListItems register = new ReadListItems((String)urlArgVal, (String) nodeArgVal, (String) expressionArgVal, (String) variableArgVal, (String) namespacesArgVal);
+		ReadListItems register = new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
 		// Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
 		eintrag = register.getEintrag();
 		id = register.getID();
 
 		// Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
-		InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, ((String) multipleSelection).equals(AuthorConstants.ARG_VALUE_TRUE));
+		InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, (multipleSelection).equals(AuthorConstants.ARG_VALUE_TRUE));
 		// Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
 		if (!RegisterDialog.getSelectedID().isEmpty()){
 			// wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.
-			String element = (String) elementArgVal;
-			String IDitems = String.join((String)separationArgVal, RegisterDialog.getSelectedIDs());
+			String element = elementArgVal;
+			String IDitems = String.join(separationArgVal, RegisterDialog.getSelectedIDs());
 			String xmlFragment = element.replaceAll("[$]ITEMS", IDitems);
 
 			//The XML may contain an editor template for caret positioning.

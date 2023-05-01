@@ -50,7 +50,10 @@ public class EdiarumArgumentValidator {
         Object argumentValue = args.getArgumentValue(argument);
 
         // Test if argument is a string and not null
-        if (argumentValue != null && argumentValue instanceof String)
+        if (defaultValue == null) {
+            // fall through
+        }
+        else if (argumentValue != null && argumentValue instanceof String)
         {
             return (String) argumentValue;
         }
