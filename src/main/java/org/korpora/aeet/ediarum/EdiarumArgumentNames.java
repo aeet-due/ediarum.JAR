@@ -83,4 +83,20 @@ public class EdiarumArgumentNames {
      * The value is <code>insertPosition</code>.
      */
     public static final String ARGUMENT_XPATH_BEFORE_LOCATIONS = "insertAfter";
+    /**
+     * Argument describing the xpath to the source-element.
+     */
+    public static final String ARGUMENT_XPATH = "xpath";
+    /**
+     * Argument describing the prefix of the id-Attribute of the source-element.
+     */
+    public static final String ARGUMENT_IDSTARTPREFIX = "id start prefix";
+    /**
+     * Argument describing the prefix of the id-Attribute of the source-element.
+     */
+    public static final String ARGUMENT_IDSTOPPREFIX = "id stop prefix";
+    /**
+     * Argument describing the element without marked ID.
+     */
+    public static final String ARGUMENT_ALTELEMENT = "altern. element";
 }

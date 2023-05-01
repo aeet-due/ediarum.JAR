@@ -10,21 +10,13 @@ package org.bbaw.telota.ediarum;
 
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
 import org.korpora.aeet.ediarum.EdiarumArguments;
-import ro.sync.ecss.extensions.api.ArgumentDescriptor;
-import ro.sync.ecss.extensions.api.ArgumentsMap;
-import ro.sync.ecss.extensions.api.AuthorAccess;
-import ro.sync.ecss.extensions.api.AuthorConstants;
-import ro.sync.ecss.extensions.api.AuthorOperation;
-import ro.sync.ecss.extensions.api.AuthorOperationException;
+import ro.sync.ecss.extensions.api.*;
 import ro.sync.ecss.extensions.api.node.AttrValue;
 import ro.sync.ecss.extensions.api.node.AuthorElement;
 import ro.sync.ecss.extensions.api.node.AuthorNode;
 
-import java.awt.Frame;
-
 import javax.swing.text.BadLocationException;
-
-import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
+import java.awt.*;
 
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
@@ -60,15 +52,15 @@ public class RegisterChangeAttributeOperation implements AuthorOperation {
     public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
         // Die übergebenen Argumente werden eingelesen ..
         // .. und überprüft.
-        String urlArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_URL, args);
-        String nodeArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NODE, args);
-        String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args, null);
-        String expressionArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_EXPRESSION, args);
-        String variableArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_VARIABLE, args);
-        String separationArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_SEPARATION, args);
-        String attributenameArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ATTRIBUTENAME, args);
-        String xpathfromselectionArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_XPATHFROMSELECTION, args);
-        String attributevalArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ATTRIBUTEVALUE, args);
+        String urlArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_URL, args);
+        String nodeArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_NODE, args);
+        String namespacesArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_NAMESPACES, args);
+        String expressionArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_EXPRESSION, args);
+        String variableArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_VARIABLE, args);
+        String separationArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_SEPARATION, args);
+        String attributenameArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ATTRIBUTENAME, args);
+        String xpathfromselectionArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_XPATHFROMSELECTION, args);
+        String attributevalArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ATTRIBUTEVALUE, args);
         Object multipleSelection = args.getArgumentValue(ARGUMENT_MULTIPLE_SELECTION);
 
         // Wenn im aktuellen Dokument nichts selektiert ist, wird das aktuelle Wort ausgewählt.

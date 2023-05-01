@@ -48,14 +48,6 @@ public class RegisterSurroundWithElementOperation implements AuthorOperation {
      */
     public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
         // Die übergebenen Argumente werden eingelesen ..
-//		String urlArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_URL, args);
-//		String nodeArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NODE, args);
-//		String namespacesArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_NAMESPACES, args, null);
-//		String expressionArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_EXPRESSION, args);
-//		String variableArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_VARIABLE, args);
-//		String separationArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_SEPARATION, args);
-//		String elementArgVal = EdiarumArgumentValidator.validateStringArgument(ARGUMENT_ELEMENT, args);
-//		Object multipleSelection = args.getArgumentValue(ARGUMENT_MULTIPLE_SELECTION);
 
         String urlArgVal = ARGUMENTS_MAP.validateStringArgument(EdiarumArgumentNames.ARGUMENT_URL, args);
         String nodeArgVal = ARGUMENTS_MAP.validateStringArgument(EdiarumArgumentNames.ARGUMENT_NODE, args);

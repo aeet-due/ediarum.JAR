@@ -81,6 +81,11 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_ID, ArgumentDescriptor.TYPE_STRING,
                     "An ID which can be used multiple times at different places", "");
 
+    public static EdiarumArgumentDescriptor ARGUMENT_ID_TARGET = new EdiarumArgumentDescriptor(
+            ARGUMENT_ID,
+            ArgumentDescriptor.TYPE_STRING,
+				"The name of the ID attribute of the target element, e.g. " +
+                    "xml:id")
 
     public static EdiarumArgumentDescriptor ARGUMENT_FIRST_ELEMENT =
             new EdiarumArgumentDescriptor(
@@ -102,6 +107,13 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
     public static EdiarumArgumentDescriptor ARGUMENT_ATTRIBUTENAME =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_ATTRIBUTENAME, ArgumentDescriptor.TYPE_STRING,
                     "The name of the new attribute, e.g.: " + "key");
+
+    public static EdiarumArgumentDescriptor ARGUMENT_XPATH =
+            new EdiarumArgumentDescriptor(
+            ARGUMENT_XPATH,
+            ArgumentDescriptor.TYPE_STRING,
+				"The XPath expression to the link target element, e.g.: " +
+                    "//anchor");
 
     public static EdiarumArgumentDescriptor ARGUMENT_XPATHFROMSELECTION =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_XPATHFROMSELECTION,
@@ -174,6 +186,11 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
             EdiarumArgumentNames.ARGUMENT_COMMAND,
             ArgumentDescriptor.TYPE_STRING,
             "The command which should be executed.");
+
+    public static EdiarumArgumentDescriptor ARGUMENT_PATH= new EdiarumArgumentDescriptor(
+            EdiarumArgumentNames.ARGUMENT_PATH,
+            ArgumentDescriptor.TYPE_STRING,
+				"Starting string of the files which contain link targets. This part isn't displayed as title. Usually the database path, e.g. /exist/webdav/db/."),
 
     boolean isNullable() {
         return nullable;
