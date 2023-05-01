@@ -64,19 +64,16 @@ public class RegisterSurroundWithDifferentFragmentsOperation implements AuthorOp
         int selStart = authorAccess.getEditorAccess().getSelectionStart();
         int selEnd = authorAccess.getEditorAccess().getSelectionEnd();
 
-        // Für die spätere Verwendung werden die Variablen für die Registereinträge und Elemente erzeugt.
-        String[] eintrag = null, elements = null;
-
         //  Der später einzufügende Ausdruck wird gebaut.
         String variable = firstElementArgVal + "$SELECTION" + secondElementArgVal;
 
-        // Dann wird das Registerdokument eingelesen, wobei auf die einzelnen Registerelement und
+        // Das Registerdokument wird eingelesen, wobei auf die einzelnen Registerelement und
         // die Ausdrücke für die Einträge und Elemente Rücksicht genommen wird.
         ReadListItems register = new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variable, namespacesArgVal);
 
         // Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
-        eintrag = register.getEintrag();
-        elements = register.getID();
+        String[] eintrag = register.getEintrag();
+        String[] elements = register.getID();
 
         // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
         InsertRegisterDialog RegisterDialog =

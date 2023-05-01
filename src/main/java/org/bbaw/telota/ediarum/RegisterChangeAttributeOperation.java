@@ -70,15 +70,12 @@ public class RegisterChangeAttributeOperation implements AuthorOperation {
         }
         int selStart = authorAccess.getEditorAccess().getSelectionStart();
 
-        // Für die spätere Verwendung werden die Variablen für die Registereinträge und IDs erzeugt.
-        String[] eintrag = null, id = null;
-
-        // Dann wird das Registerdokument eingelesen, wobei auf die einzelnen Registerelement und ..
+        // Das Registerdokument wird eingelesen, wobei auf die einzelnen Registerelement und ..
         // .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
         ReadListItems register = new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
         // Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
-        eintrag = register.getEintrag();
-        id = register.getID();
+        String[] eintrag = register.getEintrag();
+        String[] id = register.getID();
 
         // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
         InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE));
