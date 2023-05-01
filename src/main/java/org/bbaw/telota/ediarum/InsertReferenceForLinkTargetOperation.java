@@ -116,8 +116,7 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
                     // Von der Datei ..
                     WSEditorPage filePage =
                             authorAccess.getWorkspaceAccess().getEditorAccess(openFiles[i]).getCurrentPage();
-                    if (filePage instanceof WSAuthorEditorPage) {
-                        WSAuthorEditorPage fileAuthorPage = (WSAuthorEditorPage) filePage;
+                    if (filePage instanceof WSAuthorEditorPage fileAuthorPage) {
                         // .. wird die ID in die Liste aufgenommen, ..
                         alleDateiID[i] =
                                 fileAuthorPage.getDocumentController().getAuthorDocumentNode().getRootElement().getAttribute(
@@ -199,31 +198,31 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
             elementString = elementString.replace("$ID", "++$ID++");
             String[] elementStrings = elementString.split("[+][+]");
             // .. und dann wird das Element von Null an ..
-            elementString = "";
+            StringBuilder finalElementString = new StringBuilder();
             // .. aus den einzelnen Teilen zusammengesetzt. Die Teile ..
             for (String string : elementStrings) {
                 // .. können den Dateipfad hinter dem allgemeine Pfad bezeichnen, ..
-                if (string.equals("$FILEPATH")) {
-                    elementString += LinkDialog.getSelectedFile();
+                switch (string) {
+                    case "$FILEPATH" -> finalElementString.append(LinkDialog.getSelectedFile());
+
                     // .. oder die ID der Datei, ..
-                } else if (string.equals("$FILE_ID")) {
-                    elementString += LinkDialog.getSelectedFileID();
+                    case "$FILE_ID" -> finalElementString.append(LinkDialog.getSelectedFileID());
+
                     // .. eventuell auch den Startprefix, ..
-                } else if (string.equals("$STARTPREFIX")) {
-                    elementString += (String) idstartArgVal;
+                    case "$STARTPREFIX" -> finalElementString.append((String) idstartArgVal);
+
                     // .. den Stopprefix ..
-                } else if (string.equals("$STOPPREFIX")) {
-                    elementString += (String) idstopArgVal;
+                    case "$STOPPREFIX" -> finalElementString.append((String) idstopArgVal);
+
                     // .. oder die ID selbst, ..
-                } else if (string.equals("$ID")) {
-                    elementString += LinkDialog.getSelectedID();
+                    case "$ID" -> finalElementString.append(LinkDialog.getSelectedID());
+
                     // .. alle übrigen Teile werden als Strings übernommen.
-                } else {
-                    elementString += string;
+                    default -> finalElementString.append(string);
                 }
             }
             // Das so konstruierte Element wird schließlich an der richtigen Stelle eingesetzt.
-            authorAccess.getDocumentController().surroundInFragment(elementString, selStart, selEnd);
+            authorAccess.getDocumentController().surroundInFragment(finalElementString.toString(), selStart, selEnd);
             // Falls kein Verweisziel ausgewählt wurde, aber eine Datei ausgewählt worden ist, ..
         } else if (!LinkDialog.getSelectedFile().isEmpty()) {
             // .. wird zunächst wieder der Parameter für das einzufügende Element zerteilt, ..
@@ -232,22 +231,22 @@ public class InsertReferenceForLinkTargetOperation implements AuthorOperation {
             elementString = elementString.replace("$FILE_ID", "++$FILE_ID++");
             String[] elementStrings = elementString.split("[+][+]");
             // .. und dann wird das Element auch von Null an ..
-            elementString = "";
+            StringBuilder finalElementString = new StringBuilder();
             // .. aus den einzelnen Teilen zusammengesetzt. Die Teile ..
             for (String string : elementStrings) {
-                // .. können den Dateipfad hinter dem allgemeine Pfad bezeichnen, ..
+                // .. können den Dateipfad hinter dem allgemeinen Pfad bezeichnen, ..
                 if (string.equals("$FILEPATH")) {
-                    elementString += LinkDialog.getSelectedFile();
+                    finalElementString.append(LinkDialog.getSelectedFile());
                     // .. oder die ID der Datei, ..
                 } else if (string.equals("$FILE_ID")) {
-                    elementString += LinkDialog.getSelectedFileID();
+                    finalElementString.append(LinkDialog.getSelectedFileID());
                     // .. alle übrigen Teile werden als Strings übernommen.
                 } else {
-                    elementString += string;
+                    finalElementString.append(string);
                 }
             }
             // Das so konstruierte Element wird schließlich an der richtigen Stelle eingesetzt.
-            authorAccess.getDocumentController().surroundInFragment(elementString, selStart, selEnd);
+            authorAccess.getDocumentController().surroundInFragment(finalElementString.toString(), selStart, selEnd);
         }
     }
 

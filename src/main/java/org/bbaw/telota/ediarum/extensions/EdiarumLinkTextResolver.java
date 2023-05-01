@@ -150,8 +150,6 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
  						xmlReader.parse(inputSource);
  						// Kürze schließlich überflüssige Leerzeichen im auszugebenden Text, ..
  						result = new StringBuilder(linkText.replace("\n", "").replace("\r", "").replaceAll("\\s+", " ").trim());
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
 					} catch (SAXException | IOException e) {
 						e.printStackTrace();
 					}
@@ -183,8 +181,6 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
 								xmlReader.parse(inputSource);
 								// Kürze schließlich überflüssige Leerzeichen im auszugebenden Text, ..
 								result.append(linkText.replace("\n", "").replace("\r", "").replaceAll("\\s+", " ").trim()).append("; ");
-							} catch (MalformedURLException e) {
-								e.printStackTrace();
 							} catch (SAXException | IOException e) {
 								e.printStackTrace();
 							}
