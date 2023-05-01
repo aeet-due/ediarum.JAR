@@ -16,6 +16,19 @@ import java.util.Map;
  */
 public class EdiarumNamespaceContext implements NamespaceContext {
 
+    static Map<String, String> defaultNamespaces;
+    static {
+        ObjectMapper mapper = new ObjectMapper();
+        try (InputStream str = LangUtilities.class.getClassLoader()
+                .getResourceAsStream("json/default-namespaces.json")) {
+            defaultNamespaces = mapper.readValue(str,
+                    new TypeReference<Map<String, String>>() {
+                    });
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+    }
     Map<String, String> namespaces;
     /**
      * create a new namespace context
@@ -24,20 +37,7 @@ public class EdiarumNamespaceContext implements NamespaceContext {
      */
     public EdiarumNamespaceContext(Map<String, String> namespaces) {
         this.namespaces = new HashMap<>();
-
-        ObjectMapper mapper = new ObjectMapper();
-        try (InputStream str = LangUtilities.class.getClassLoader()
-                .getResourceAsStream("json/default-namespaces.json")) {
-            Map defaultNamespaces = mapper.readValue(str,
-                    new TypeReference<Map<String, String>>() {
-                    });
-            this.namespaces.putAll(defaultNamespaces);
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
-//        this.namespaces.put("xml", "http://www.w3.org/XML/1998/namespace");
-//        this.namespaces.put("tei", "http://www.tei-c.org/ns/1.0");
+        this.namespaces.putAll(defaultNamespaces);
         this.namespaces.putAll(namespaces);
     }
 
