@@ -30,7 +30,7 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 import ro.sync.ecss.extensions.api.access.AuthorEditorAccess;
 import ro.sync.ecss.extensions.api.access.AuthorWorkspaceAccess;
 
-import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
 /**
  * Eine Oxygen Author-Operation, die im ausgewählten Text alle Datumsangaben

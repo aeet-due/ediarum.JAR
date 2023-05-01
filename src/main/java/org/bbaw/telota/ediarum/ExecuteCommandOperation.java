@@ -10,9 +10,8 @@ package org.bbaw.telota.ediarum;
 
 import java.io.IOException;
 
-import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
-
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArgumentNames;
 import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
@@ -21,19 +20,12 @@ import ro.sync.ecss.extensions.api.AuthorOperation;
 import ro.sync.ecss.extensions.api.AuthorOperationException;
 
 public class ExecuteCommandOperation implements AuthorOperation {
-	/**
-	 * Argument describing the url.
-	 */
-	private static final String ARGUMENT_COMMAND = "Command";
 
 	/**
 	 * Arguments.
 	 */
 	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
-			new EdiarumArgumentDescriptor(
-				ARGUMENT_COMMAND,
-				ArgumentDescriptor.TYPE_STRING,
-				"The command which should be executed.")
+			EdiarumArgumentDescriptor.ARGUMENT_COMMAND,
 	});
 
 	static EdiarumArgumentDescriptor[] ARGUMENTS;
@@ -47,7 +39,7 @@ public class ExecuteCommandOperation implements AuthorOperation {
 	@Override
 	public void doOperation(AuthorAccess authorAccess, ArgumentsMap args) throws AuthorOperationException {
 		// Die übergebenen Argumente werden eingelesen ..
-        String cmdArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_COMMAND, args);
+        String cmdArgVal = ARGUMENTS_MAP.validateStringArgument(EdiarumArgumentNames.ARGUMENT_COMMAND, args);
 		// .. und überprüft.
 		try {
 			Process p = Runtime.getRuntime().exec(cmdArgVal);

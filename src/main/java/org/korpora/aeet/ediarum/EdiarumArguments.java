@@ -21,7 +21,7 @@ public class EdiarumArguments {
     }
 
     public EdiarumArgumentDescriptor[] getArguments(){
-        return argumentMap.keySet().toArray(new EdiarumArgumentDescriptor[0]);
+        return argumentMap.values().toArray(new EdiarumArgumentDescriptor[0]);
     }
 
     public EdiarumArgumentDescriptor getDescriptor(String name) {

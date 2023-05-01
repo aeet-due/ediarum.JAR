@@ -9,6 +9,7 @@
 package org.bbaw.telota.ediarum;
 
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
+import org.korpora.aeet.ediarum.EdiarumArgumentNames;
 import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
 import ro.sync.ecss.extensions.api.ArgumentsMap;
@@ -19,7 +20,7 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 
 import java.awt.Frame;
 
-import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
 public class RegisterSurroundWithElementOperation implements AuthorOperation {
 
@@ -27,49 +28,14 @@ public class RegisterSurroundWithElementOperation implements AuthorOperation {
      * Arguments.
      */
     private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_URL,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "The URL to the .xml file with the list, e.g.: " +
-                            "http://user:passwort@www.example.com:port/exist/webdav/db/register.xml"),
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_NODE,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "An XPath expression for the list items, e.g.: //item"),
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_NAMESPACES,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "An whitespace separated list of namespace declarations with QNames before a colon, e.g.: tei:http://www.tei-c.org/ns/1.0",
-                    null),
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_EXPRESSION,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "A string how the items are rendered in the list. "
-                            + "Use $XPATH{expression} for xpath expressions (starting with @, /, //, ./, # (for functions)), "
-                            + "E.g.: $XPATH{/name}, $XPATH{/vorname} ($XPATH{/lebensdaten})"),
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_VARIABLE,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "The item variable which is used for the XML fragment, e.g.: #$XPATH{@id}"),
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_MULTIPLE_SELECTION,
-                    ArgumentDescriptor.TYPE_CONSTANT_LIST,
-                    "When is enabled, multiple selection will be possible",
-                    new String[]{
-                            AuthorConstants.ARG_VALUE_TRUE,
-                            AuthorConstants.ARG_VALUE_FALSE,
-                    },
-                    AuthorConstants.ARG_VALUE_TRUE),
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_SEPARATION,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "The string for separating the item variables. Default value is a space."),
-            new EdiarumArgumentDescriptor(
-                    ARGUMENT_ELEMENT,
-                    ArgumentDescriptor.TYPE_STRING,
-                    "The XML fragment which should be inserted at current caret position."
-                            + "Multiple list selections will be separated through spaces, e.g.: "
-                            + "<persName xmlns='http://www.tei-c.org/ns/1.0' key='$ITEMS' />")
+            EdiarumArgumentDescriptor.ARGUMENT_URL_LIST,
+            EdiarumArgumentDescriptor.ARGUMENT_NODE,
+            EdiarumArgumentDescriptor.ARGUMENT_NAMESPACES,
+            EdiarumArgumentDescriptor.ARGUMENT_EXPRESSION,
+            EdiarumArgumentDescriptor.ARGUMENT_VARIABLE,
+            EdiarumArgumentDescriptor.ARGUMENT_MULTIPLE_SELECTION,
+            EdiarumArgumentDescriptor.ARGUMENT_SEPARATION,
+            EdiarumArgumentDescriptor.ARGUMENT_ELEMENT
     });
 
     static EdiarumArgumentDescriptor[] ARGUMENTS;

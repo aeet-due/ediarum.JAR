@@ -10,8 +10,6 @@ package org.bbaw.telota.ediarum;
 
 import java.io.IOException;
 
-import org.bbaw.telota.ediarum.extensions.EdiarumArgumentValidator;
-
 import org.korpora.aeet.ediarum.EdiarumArgumentDescriptor;
 import org.korpora.aeet.ediarum.EdiarumArguments;
 import ro.sync.ecss.extensions.api.ArgumentDescriptor;
@@ -20,7 +18,7 @@ import ro.sync.ecss.extensions.api.AuthorAccess;
 import ro.sync.ecss.extensions.api.AuthorOperation;
 import ro.sync.ecss.extensions.api.AuthorOperationException;
 
-import static org.bbaw.telota.ediarum.EdiarumArgumentNames.*;
+import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
 
 public class OpenFileOperation implements AuthorOperation {
 
@@ -28,10 +26,7 @@ public class OpenFileOperation implements AuthorOperation {
 	 * Arguments.
 	 */
 	private static final EdiarumArguments ARGUMENTS_MAP = new EdiarumArguments(new EdiarumArgumentDescriptor[]{
-		new EdiarumArgumentDescriptor(
-				ARGUMENT_URL,
-				ArgumentDescriptor.TYPE_STRING,
-				"The URL of the file. A local file can be opened with 'file://path-to-file'.")
+		EdiarumArgumentDescriptor.ARGUMENT_URL
 	});
 
 	static EdiarumArgumentDescriptor[] ARGUMENTS;
