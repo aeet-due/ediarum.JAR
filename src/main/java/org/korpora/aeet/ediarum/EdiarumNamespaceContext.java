@@ -12,7 +12,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * a simple map-based NamespaceContext, which by default already provides the XML and TEI namespaces
+ * a simple map-based NamespaceContext, which by default already provides, e.g. the XML and TEI namespaces
+ * (configurable in {@Code resources/json/default-namespaces.json} when compiling)
  */
 public class EdiarumNamespaceContext implements NamespaceContext {
 
@@ -33,7 +34,7 @@ public class EdiarumNamespaceContext implements NamespaceContext {
     /**
      * create a new namespace context
      *
-     * @param namespaces a map of prefix and URL ("tei" and "xml" are mapped by default)
+     * @param namespaces a map of prefix and URL (used on top of default namespaces)
      */
     public EdiarumNamespaceContext(Map<String, String> namespaces) {
         this.namespaces = new HashMap<>();
