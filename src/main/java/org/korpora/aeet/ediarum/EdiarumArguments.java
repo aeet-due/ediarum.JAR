@@ -8,7 +8,7 @@ import java.util.TreeMap;
  * just a container for ArgumentDescriptors that makes access to descriptors by name easier
  */
 public class EdiarumArguments {
-    TreeMap<String, EdiarumArgumentDescriptor> argumentMap;
+    private final TreeMap<String, EdiarumArgumentDescriptor> argumentMap;
     public EdiarumArguments(EdiarumArgumentDescriptor[] arguments) {
         argumentMap = new TreeMap<>();
         for (EdiarumArgumentDescriptor descriptor: arguments) {

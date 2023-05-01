@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class EdiarumNamespaceContext implements NamespaceContext {
 
-    static Map<String, String> defaultNamespaces;
+    static final Map<String, String> defaultNamespaces;
     static {
         ObjectMapper mapper = new ObjectMapper();
         try (InputStream str = LangUtilities.class.getClassLoader()

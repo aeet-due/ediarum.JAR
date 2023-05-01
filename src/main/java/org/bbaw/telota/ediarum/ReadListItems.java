@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.lang.model.type.UnionType;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -178,7 +179,7 @@ public class ReadListItems {
      * allow to quote braces by doubling, breaking compatibility
      */
     public static List<Object> parseExpression(String expression, XPath xpath) {
-        ArrayList expressions = new ArrayList<>();
+        ArrayList<Object> expressions = new ArrayList<>();
         Pattern xpathPart = Pattern.compile("\\$XPATH\\{#?(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}");
         Matcher matcher = xpathPart.matcher(expression);
         int start = 0;

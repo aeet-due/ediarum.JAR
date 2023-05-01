@@ -31,11 +31,6 @@ import ro.sync.ecss.extensions.api.node.AuthorNode;
 public class EdiarumLinkTextResolver extends LinkTextResolver implements ContentHandler {
 
 	/**
-	 * Der AuthorAccess zu der geöffneten Datei
-	 */
-	private AuthorAccess authorAccess;
-
-	/**
 	 * Der Name des referenzierenden Elementes
 	 */
 	private String refElement = "";
@@ -92,15 +87,17 @@ public class EdiarumLinkTextResolver extends LinkTextResolver implements Content
 	 */
 	@Override
 	public void activated(AuthorAccess authorAcc) {
-		this.authorAccess = authorAcc;
-		String linktext_url = authorAccess.getUtilAccess().expandEditorVariables("${EDIARUM_LINKTEXT_URL}", null);
+		/**
+		 * Der AuthorAccess zu der geöffneten Datei
+		 */
+		String linktext_url = authorAcc.getUtilAccess().expandEditorVariables("${EDIARUM_LINKTEXT_URL}", null);
 		if (!linktext_url.startsWith("http")) {
 //			String errorMessage = "Die ${EDIARUM_LINKTEXT_URL} ist nicht korrekt gesetzt.";
 //			authorAccess.getWorkspaceAccess().showErrorMessage(errorMessage);
 		} else {
 			indexURI = linktext_url;
 		}
-		String[] linktext_vars = (" "+authorAccess.getUtilAccess().expandEditorVariables("${EDIARUM_LINKTEXT_VARS}", null)+" ").split(",");
+		String[] linktext_vars = (" "+ authorAcc.getUtilAccess().expandEditorVariables("${EDIARUM_LINKTEXT_VARS}", null)+" ").split(",");
 		if (linktext_vars.length != 6) {
 //			String errorMessage = "Die ${EDIARUM_LINKTEXT_VARS} sind nicht korrekt gesetzt: " +
 //					"refElement, refAttr, refIDprefix, indexElem, indexAttr, indexIDprefix";

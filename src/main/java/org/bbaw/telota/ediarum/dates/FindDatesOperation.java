@@ -160,7 +160,7 @@ public class FindDatesOperation implements AuthorOperation {
 
 					} catch (Exception e) {
 						StringBuffer sb = new StringBuffer();
-						sb.append(e.toString() + "\n");
+						sb.append(e + "\n");
 						for (int i = 0; i < e.getStackTrace().length; i++)
 							sb.append(e.getStackTrace()[i] + "\n");
 						awa.showErrorMessage(sb.toString());
@@ -201,7 +201,7 @@ public class FindDatesOperation implements AuthorOperation {
 			// Ausgabe von Exception in OxyGen
 		} catch (Exception e) {
 			StringBuffer sb = new StringBuffer();
-			sb.append(e.toString() + "\n");
+			sb.append(e + "\n");
 			for (int i = 0; i < e.getStackTrace().length; i++)
 				sb.append(e.getStackTrace()[i] + "\n");
 			awa.showErrorMessage(sb.toString());

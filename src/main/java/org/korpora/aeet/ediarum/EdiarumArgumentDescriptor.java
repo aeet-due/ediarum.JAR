@@ -159,7 +159,7 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
 
     public static EdiarumArgumentDescriptor ARGUMENT_PATH =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_PATH, ArgumentDescriptor.TYPE_STRING,
-                    "Starting string of the files which contain link targets. This part isn't displayed as title. Usually the database path, e.g. /exist/webdav/db/.");
+                        "Starting string of the files which contain link targets. This part isn't displayed as title. Usually the database path, e.g. /exist/webdav/db/.");
 
     boolean isNullable() {
         return nullable;
