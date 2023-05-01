@@ -15,7 +15,7 @@ import java.net.URL;
 
 /**
  * insert a link element to a link target from another open file.
- * 
+ * <p>
  * The class belongs to package org.bbaw.telota.ediarum for the modification of the Oxygen framework
  * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
  * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
