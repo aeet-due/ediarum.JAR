@@ -61,7 +61,8 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
 
     public static EdiarumArgumentDescriptor ARGUMENT_NODE =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_NODE, ArgumentDescriptor.TYPE_STRING,
-                    "An XPath expression for the list items, e.g.: //item");
+                    "An XPath expression for the list items, e.g.: //item",
+                    "/li|/tei:li");
 
     public static EdiarumArgumentDescriptor ARGUMENT_NAMESPACES =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_NAMESPACES, ArgumentDescriptor.TYPE_STRING,
@@ -72,7 +73,8 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_EXPRESSION, ArgumentDescriptor.TYPE_STRING,
                     "A string how the items are rendered in the list. " +
                             "Use $XPATH{expression} for xpath expressions (starting with @, /, //, ./), " +
-                            "E.g.: $XPATH{/name}, $XPATH{/vorname} ($XPATH{/lebensdaten})");
+                            "E.g.: $XPATH{/name}, $XPATH{/vorname} ($XPATH{/lebensdaten})",
+                    "$XPATH{/span|/tei:span}");
 
     public static EdiarumArgumentDescriptor ARGUMENT_ID =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_ID, ArgumentDescriptor.TYPE_STRING,
@@ -114,7 +116,8 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
 
     public static EdiarumArgumentDescriptor ARGUMENT_VARIABLE =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_VARIABLE, ArgumentDescriptor.TYPE_STRING,
-                    "The item variable which is used for the XML fragment, e.g.: #$XPATH{@id}");
+                    "The item variable which is used for the XML fragment, e.g. per default: $XPATH{@id}",
+                    "$XPATH{@xml:id}");
 
 
     public static EdiarumArgumentDescriptor ARGUMENT_MULTIPLE_SELECTION =

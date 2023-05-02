@@ -317,7 +317,7 @@ public class InsertRegisterDialog extends JDialog {
         int i = 0;
         // und die Schleife durchläuft die Liste, solange bis die Liste zu Ende ist oder
         // ein Registereintrag gefunden wurde, dessen Anfang mit dem Text übereinstimmt.
-        while (i < registerListe.getModel().getSize() & index == -1) {
+        while (i < registerListe.getModel().getSize()) {
             if (registerListe.getModel().getElementAt(i).toLowerCase().startsWith(eingabe)) {
                 index = i;
                 break;
