@@ -16,6 +16,9 @@ import ro.sync.ecss.extensions.api.AuthorOperation;
  */
 public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
 
+    /**
+     * whether null is a useful value for this argument
+     */
     boolean nullable;
 
     public EdiarumArgumentDescriptor(String name, int type, String description, String defaultValue) {

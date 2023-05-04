@@ -5,7 +5,7 @@
     <groupId>org.korpora.aeet</groupId>
     <artifactId>ediarum-jar</artifactId>
     <version>4.0-SNAPSHOT</version>
-    <name>Utilities</name>
+    <name>ediarum.JAR</name>
     <description>Utilities for Korpora.org-Projects</description>
     <properties>
         <!-- project settings -->
