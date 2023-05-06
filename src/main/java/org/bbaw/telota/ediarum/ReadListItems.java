@@ -60,6 +60,11 @@ public class ReadListItems {
     private static HashMap<cacheIndex, eintragId> cache;
 
     static {
+        resetCache();
+    }
+
+    // TODO: add button or similar to reset cache and trigger reload
+    public static void resetCache() {
         cache = new HashMap<>();
     }
 
