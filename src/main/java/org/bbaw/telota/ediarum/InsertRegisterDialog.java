@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Serial;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonModel;
@@ -47,8 +48,8 @@ public class InsertRegisterDialog extends JDialog {
     /**
      * Dies sind die Parameter für die Fenstergröße des Dialogs.
      */
-    private final static int H_SIZE = 400;
-    private final static int V_SIZE = 300;
+    private final static int H_SIZE = 1280;
+    private final static int V_SIZE = 800;
 
     /**
      * Dies ist das Auswahlfeld mit den Registereinträgen.
@@ -88,23 +89,12 @@ public class InsertRegisterDialog extends JDialog {
         setLayout(new BorderLayout());
         setTitle("Eintrag auswaehlen");
 
-        // Eine Schriftart für die Textfelder wird benutzt, die auch Sonderzeichen darstellen kann.
-//	     try {
-//		     GraphicsEnvironment ge =
-//		         GraphicsEnvironment.getLocalGraphicsEnvironment();
-//				ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Resources/FreeSans.ttf")));
-//				ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Resources/LinLibertine_Rah.ttf")));
-//			} catch (FontFormatException | IOException e) {
-        // TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
         Font fontWithSpecialCharacters = new Font("Noto Sans", Font.PLAIN, 12);
 
         // Oben wird ein Eingabefeld erzeugt, mit welchem man zu den Einträgen springen kann.
         JTextField eingabeFeld = new JTextField();
         globalEingabeFeld = eingabeFeld;
         eingabeFeld.getDocument().addDocumentListener(new eingabeFeldListener());
-//		eingabeFeld.setFont(fontWithSpecialCharacters);
         eingabeFeld.setColumns(28);
         eingabeFeld.requestFocus();
         JToggleButton doFilteringButton = new JToggleButton();
@@ -160,9 +150,6 @@ public class InsertRegisterDialog extends JDialog {
      */
     public void okAction() {
         registerID = registerIDs[filterVerweise.get(registerListe.getSelectedIndex() - 1)];
-//		String registerItem = registerItems[filterVerweise.get(registerListe.getSelectedIndex()-1)];
-//		registerID = registerIDs[registerListe.getSelectedIndex()];
-//		System.out.print(registerID+":"+registerItem);
         int[] selectedIndices = registerListe.getSelectedIndices();
         selectedRegisterIDs = new String[selectedIndices.length];
         for (int i = 0; i < selectedIndices.length; i++) {
@@ -236,7 +223,8 @@ public class InsertRegisterDialog extends JDialog {
             setFilter = selected;
             String eingabe;
             try {
-                eingabe = globalEingabeFeld.getDocument().getText(0, globalEingabeFeld.getDocument().getLength()).toLowerCase();
+                eingabe = globalEingabeFeld.getDocument().getText(0, globalEingabeFeld.getDocument().getLength())
+                        .toLowerCase();
                 if (!selected) {
                     filterRegisterListe("");
                     goToItem(eingabe);
@@ -311,19 +299,10 @@ public class InsertRegisterDialog extends JDialog {
     }
 
     private void goToItem(String eingabe) {
-        // Ein Index von -1 wählt zunächst nichts aus.
-        int index = -1;
-        // Der Zähler i wird auf den Anfang der Liste gesetzt ..
-        int i = 0;
-        // und die Schleife durchläuft die Liste, solange bis die Liste zu Ende ist oder
-        // ein Registereintrag gefunden wurde, dessen Anfang mit dem Text übereinstimmt.
-        while (i < registerListe.getModel().getSize()) {
-            if (registerListe.getModel().getElementAt(i).toLowerCase().startsWith(eingabe)) {
-                index = i;
-                break;
-            }
-            i++;
-        }
+        // Registereintrag suchen, dessen Anfang mit dem Text übereinstimmt
+        int index = IntStream.range(0, registerListe.getModel().getSize())
+                .filter(i -> registerListe.getModel().getElementAt(i).toLowerCase().startsWith(eingabe)).findFirst()
+                .orElse(-1);
         // Falls ein Eintrag gefunden wurde, wird dieser ausgewählt, sonst wird nichts ausgewählt.
         registerListe.setSelectedIndex(index);
         registerListe.ensureIndexIsVisible(index);
