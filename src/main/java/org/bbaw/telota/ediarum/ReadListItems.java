@@ -38,8 +38,8 @@ import java.util.regex.Pattern;
  * for several projects at the Berlin-Brandenburgische Akademie der Wissenschaften (BBAW) to build a
  * framework for edition projects (Ediarum - die Editionsarbeitsumgebung).
  *
- * @author Martin Fechner
- * @version 1.0.0
+ * @author Martin Fechner, Bernhard Fisseni
+ * @version 2.0.0
  */
 
 public class ReadListItems {
@@ -63,7 +63,9 @@ public class ReadListItems {
         resetCache();
     }
 
-    // TODO: add button or similar to reset cache and trigger reload
+    /**
+     * reset cache, use with {@link ResetRegisterCacheOperation}
+     */
     public static void resetCache() {
         cache = new HashMap<>();
     }
