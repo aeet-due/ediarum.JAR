@@ -1,38 +1,35 @@
 package org.bbaw.telota.ediarum;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.lang.model.type.UnionType;
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.*;
-
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.korpora.aeet.ediarum.EdiarumNamespaceContext;
+import org.korpora.useful.XMLUtilities;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import org.korpora.useful.XMLUtilities;
-
 import ro.sync.ecss.extensions.api.AuthorOperationException;
+
+import javax.xml.namespace.NamespaceContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * load and read external Documents for the ListItemOperations.
@@ -47,11 +44,24 @@ import ro.sync.ecss.extensions.api.AuthorOperationException;
 
 public class ReadListItems {
 
-    /**
-     * interne Variablen, die Einträge und IDs des Registers.
-     */
-    private String[] eintrag, id;
 
+    private static boolean CompatibleWithBBAW = true;
+    private static Pattern xpathPart = Pattern.compile(
+             String.format("\\$XPATH\\{%s(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}",
+                     CompatibleWithBBAW ? "#?" : "")
+    );
+    private static String subElement = "^/(?!/)";
+
+    private record cacheIndex (String indexURI, String node, String eintragExpString, String idExpStrings, String namespaceDecl) {}
+    private record eintragId(String[] eintrag, String[]  id) {}
+
+    private final cacheIndex parameters;
+
+    private static HashMap<cacheIndex, eintragId> cache;
+
+    static {
+        cache = new HashMap<>();
+    }
 
     /**
      * Der Konstruktor liest das Dokument der URL mit den benannten Knoten aus und konstruiert den Eintrag und die Id für jeden Knoten.
@@ -63,8 +73,28 @@ public class ReadListItems {
      * @throws AuthorOperationException
      */
     public ReadListItems(String indexURI, String node, String eintragExpString, String idExpStrings, String namespaceDecl) {
+        /**
+         * interne Variablen, die Einträge und IDs des Registers.
+         */
+
+        parameters = new cacheIndex(indexURI, node, eintragExpString, idExpStrings, namespaceDecl);
+
+        cache.computeIfAbsent(parameters, (cp) -> readListItems(cp)
+        );
+    }
+
+    public eintragId readListItems(cacheIndex params){
+
+        final String indexURI = params.indexURI();
+        final String node = params.node();
+        final String eintragExpString = params.eintragExpString();
+        final String idExpStrings = params.idExpStrings();
+        String namespaceDecl = params.namespaceDecl();
+
 
         try {
+            String[] eintrag;
+            String[] id;
             // Das neue Dokument wird vorbereitet.
             DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
             domFactory.setNamespaceAware(true);
@@ -137,9 +167,11 @@ public class ReadListItems {
                 // … und der einzufügende Wert:
                 id[i] = evaluateExpression(registerNodes.item(i), idExpressions, false);
             }
+            return new eintragId(eintrag, id);
         } catch (XPathExpressionException | SAXException | ParserConfigurationException | IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
@@ -149,7 +181,7 @@ public class ReadListItems {
      * @return das Array der Einträge
      */
     public String[] getEintrag() {
-        return eintrag;
+        return cache.get(parameters).eintrag();
     }
 
     /**
@@ -158,7 +190,7 @@ public class ReadListItems {
      * @return das Array der IDs
      */
     public String[] getID() {
-        return id;
+        return cache.get(parameters).id();
     }
 
     /**
@@ -173,7 +205,7 @@ public class ReadListItems {
      */
     public static List<Object> parseExpression(String expression, XPath xpath) {
         ArrayList<Object> expressions = new ArrayList<>();
-        Pattern xpathPart = Pattern.compile("\\$XPATH\\{#?(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}");
+        // concession to BBAW: "#" as function marker
         Matcher matcher = xpathPart.matcher(expression);
         int start = 0;
         while (matcher.find()) {
@@ -181,6 +213,8 @@ public class ReadListItems {
             expressions.add(expression.substring(start, matcher.start()));
             // .. und der Ausdruck selbst ausgewertet:
             String xpathExpression = matcher.group("expression");
+            if (CompatibleWithBBAW && xpathExpression.matches(subElement))
+                xpathExpression = "." + xpathExpression;
             try {
                 XPathExpression queryExpr = xpath.compile(xpathExpression);
                 expressions.add(queryExpr);
