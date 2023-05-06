@@ -45,21 +45,21 @@ import java.util.regex.Pattern;
 public class ReadListItems {
 
 
-    private static boolean CompatibleWithBBAW = true;
-    private static Pattern xpathPart = Pattern.compile(
-            String.format("\\$XPATH\\{%s(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}", CompatibleWithBBAW ? "#?" : ""));
-    private static String subElement = "^/(?!/)";
+    private static boolean COMPATIBLE_WITH_BBAW = true;
+    private static Pattern XPATH_PART = Pattern.compile(
+            String.format("\\$XPATH\\{%s(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}", COMPATIBLE_WITH_BBAW ? "#?" : ""));
+    private static String SUB_ELEMENT = "^/(?!/)";
 
     private record cacheIndex(String indexURI, String node, String eintragExpString, String idExpStrings,
                               String namespaceDecl) {
     }
 
-    private record eintragId(String[] eintrag, String[] id) {
+    private record Suggestions(String[] eintrag, String[] id) {
     }
 
     private final cacheIndex parameters;
 
-    private static HashMap<cacheIndex, eintragId> cache;
+    private static HashMap<cacheIndex, Suggestions> cache;
 
     static {
         resetCache();
@@ -92,7 +92,7 @@ public class ReadListItems {
         cache.computeIfAbsent(parameters, (cp) -> readListItems(cp));
     }
 
-    public eintragId readListItems(cacheIndex params) {
+    public Suggestions readListItems(cacheIndex params) {
 
         final String indexURI = params.indexURI();
         final String node = params.node();
@@ -151,14 +151,10 @@ public class ReadListItems {
             NamespaceContext ctx = new EdiarumNamespaceContext(namespaces);
 
             xpath.setNamespaceContext(ctx);
-            // Das XPath-Query wird definiert.
-            //XPathExpression expr = xpath.compile(node);
 
             // Die Resultate werden ausgelesen..
-            //Object result = expr.evaluate(indexDoc, XPathConstants.NODESET);
             Object result = xpath.evaluate(node, indexDoc, XPathConstants.NODESET);
             NodeList registerNodes = (NodeList) result;
-//            System.err.format("Gefunden: %d Einträge [%s] => [%s]\n", registerNodes.getLength(), node, eintragExpString);
 
             // .. dann werden für die Einträge und IDs entsprechend lange Arrays angelegt.
             eintrag = new String[registerNodes.getLength()];
@@ -177,11 +173,10 @@ public class ReadListItems {
                 // … und der einzufügende Wert:
                 id[i] = evaluateExpression(registerNodes.item(i), idExpressions, false);
             }
-            return new eintragId(eintrag, id);
+            return new Suggestions(eintrag, id);
         } catch (XPathExpressionException | SAXException | ParserConfigurationException | IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 
@@ -216,14 +211,14 @@ public class ReadListItems {
     public static List<Object> parseExpression(String expression, XPath xpath) {
         ArrayList<Object> expressions = new ArrayList<>();
         // concession to BBAW: "#" as function marker
-        Matcher matcher = xpathPart.matcher(expression);
+        Matcher matcher = XPATH_PART.matcher(expression);
         int start = 0;
         while (matcher.find()) {
             // .. wird der String davor als Text eingefügt, ..
             expressions.add(expression.substring(start, matcher.start()));
             // .. und der Ausdruck selbst ausgewertet:
             String xpathExpression = matcher.group("expression");
-            if (CompatibleWithBBAW && xpathExpression.matches(subElement)) xpathExpression = "." + xpathExpression;
+            if (COMPATIBLE_WITH_BBAW && xpathExpression.matches(SUB_ELEMENT)) xpathExpression = "." + xpathExpression;
             try {
                 XPathExpression queryExpr = xpath.compile(xpathExpression);
                 expressions.add(queryExpr);

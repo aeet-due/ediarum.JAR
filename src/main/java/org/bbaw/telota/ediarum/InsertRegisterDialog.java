@@ -4,10 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Panel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serial;
 import java.util.HashMap;
 
 import javax.swing.AbstractButton;
@@ -42,13 +41,14 @@ public class InsertRegisterDialog extends JDialog {
     /**
      *
      */
+    @Serial
     private static final long serialVersionUID = -190895918216985737L;
 
     /**
      * Dies sind die Parameter für die Fenstergröße des Dialogs.
      */
-    static int H_SIZE = 400;
-    static int V_SIZE = 300;
+    private final static int H_SIZE = 400;
+    private final static int V_SIZE = 300;
 
     /**
      * Dies ist das Auswahlfeld mit den Registereinträgen.
@@ -98,7 +98,7 @@ public class InsertRegisterDialog extends JDialog {
         // TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-        Font fontWithSpecialCharacters = new Font("Consolas", Font.PLAIN, 12);
+        Font fontWithSpecialCharacters = new Font("Noto Sans", Font.PLAIN, 12);
 
         // Oben wird ein Eingabefeld erzeugt, mit welchem man zu den Einträgen springen kann.
         JTextField eingabeFeld = new JTextField();
