@@ -47,13 +47,15 @@ public class ReadListItems {
 
     private static boolean CompatibleWithBBAW = true;
     private static Pattern xpathPart = Pattern.compile(
-             String.format("\\$XPATH\\{%s(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}",
-                     CompatibleWithBBAW ? "#?" : "")
-    );
+            String.format("\\$XPATH\\{%s(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}", CompatibleWithBBAW ? "#?" : ""));
     private static String subElement = "^/(?!/)";
 
-    private record cacheIndex (String indexURI, String node, String eintragExpString, String idExpStrings, String namespaceDecl) {}
-    private record eintragId(String[] eintrag, String[]  id) {}
+    private record cacheIndex(String indexURI, String node, String eintragExpString, String idExpStrings,
+                              String namespaceDecl) {
+    }
+
+    private record eintragId(String[] eintrag, String[] id) {
+    }
 
     private final cacheIndex parameters;
 
@@ -79,18 +81,18 @@ public class ReadListItems {
      * @param idExpStrings     Der Ausdruck um die ID für einen Registereintrag zu konstruieren. Er setzt sich wie eintragExp zusammen.
      * @throws AuthorOperationException
      */
-    public ReadListItems(String indexURI, String node, String eintragExpString, String idExpStrings, String namespaceDecl) {
+    public ReadListItems(String indexURI, String node, String eintragExpString, String idExpStrings,
+                         String namespaceDecl) {
         /**
          * interne Variablen, die Einträge und IDs des Registers.
          */
 
         parameters = new cacheIndex(indexURI, node, eintragExpString, idExpStrings, namespaceDecl);
 
-        cache.computeIfAbsent(parameters, (cp) -> readListItems(cp)
-        );
+        cache.computeIfAbsent(parameters, (cp) -> readListItems(cp));
     }
 
-    public eintragId readListItems(cacheIndex params){
+    public eintragId readListItems(cacheIndex params) {
 
         final String indexURI = params.indexURI();
         final String node = params.node();
@@ -112,7 +114,8 @@ public class ReadListItems {
             if (indexURI.indexOf('@') > -1) {
                 // .. werden die Verbindungsdaten gelesen ..
                 String authString = indexURI.substring(indexURI.indexOf("://") + 3, indexURI.indexOf('@'));
-                String webPage = indexURI.substring(0, indexURI.indexOf("://") + 3) + indexURI.substring(indexURI.indexOf('@') + 1);
+                String webPage = indexURI.substring(0, indexURI.indexOf("://") + 3) +
+                        indexURI.substring(indexURI.indexOf('@') + 1);
                 byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
                 String authStringEnc = new String(authEncBytes);
 
@@ -220,8 +223,7 @@ public class ReadListItems {
             expressions.add(expression.substring(start, matcher.start()));
             // .. und der Ausdruck selbst ausgewertet:
             String xpathExpression = matcher.group("expression");
-            if (CompatibleWithBBAW && xpathExpression.matches(subElement))
-                xpathExpression = "." + xpathExpression;
+            if (CompatibleWithBBAW && xpathExpression.matches(subElement)) xpathExpression = "." + xpathExpression;
             try {
                 XPathExpression queryExpr = xpath.compile(xpathExpression);
                 expressions.add(queryExpr);
@@ -264,7 +266,8 @@ public class ReadListItems {
                     throw new RuntimeException(e);
                 }
             } else {
-                throw new RuntimeException(String.format("Broken expression list component of type %s", component.getClass()));
+                throw new RuntimeException(
+                        String.format("Broken expression list component of type %s", component.getClass()));
             }
         }
 //        System.err.format("Ergebnis: %s\n", expressionValue.toString());
