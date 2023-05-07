@@ -77,10 +77,14 @@ public class WrapableBulletList<E> extends JList<E>{
             // this is just to lure the ta's internal sizing mechanism into action
             if (width > 0)
                 textArea.setSize(width, Short.MAX_VALUE);
-            if (isSelected)
+            if (isSelected) {
+                textArea.setForeground(list.getSelectionForeground());
                 textArea.setBackground(list.getSelectionBackground());
-            else
+            }
+            else {
+                textArea.setForeground(list.getForeground());
                 textArea.setBackground(list.getBackground());
+            }
             return panel;
 
         }

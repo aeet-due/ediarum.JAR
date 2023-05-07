@@ -97,7 +97,7 @@ public class InsertRegisterDialog extends JDialog {
         eingabeFeld.setColumns(28);
         eingabeFeld.requestFocus();
         JToggleButton doFilteringButton = new JToggleButton();
-        doFilteringButton.setText("Filtern");
+        doFilteringButton.setText("Filtern [✘]");
         doFilteringButton.addChangeListener(new FilterChangeListener());
         Panel panelNorth = new Panel();
         panelNorth.setLayout(new BorderLayout());
@@ -229,8 +229,10 @@ public class InsertRegisterDialog extends JDialog {
                 if (!selected) {
                     filterRegisterListe("");
                     goToItem(eingabe);
+                    ((JToggleButton) changeEvent.getSource()).setText("Filtern [✘]");
                 } else {
                     filterRegisterListe(eingabe);
+                    ((JToggleButton) changeEvent.getSource()).setText("Filtern [✔]");
                 }
             } catch (BadLocationException e) {
                 // TODO Auto-generated catch block
