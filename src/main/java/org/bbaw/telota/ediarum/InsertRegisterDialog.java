@@ -1,9 +1,8 @@
 package org.bbaw.telota.ediarum;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Panel;
+import org.korpora.aeet.ediarum.WrappableBulletList;
+
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Serial;
@@ -46,10 +45,10 @@ public class InsertRegisterDialog extends JDialog {
     private static final long serialVersionUID = -190895918216985737L;
 
     /**
-     * Dies sind die Parameter für die Fenstergröße des Dialogs.
+     * Dies sind die Parameter für die (maximale) Fenstergröße des Dialogs.
      */
-    private final static int H_SIZE = 1280;
-    private final static int V_SIZE = 800;
+    private final static int H_SIZE = 600;
+    private final static int V_SIZE = 2048;
 
     /**
      * Dies ist das Auswahlfeld mit den Registereinträgen.
@@ -87,9 +86,9 @@ public class InsertRegisterDialog extends JDialog {
         super(parent, true);
         // Für den Dialog wird das Layout (North, South, .., Center) ausgewählt und der Titel gesetzt.
         setLayout(new BorderLayout());
-        setTitle("Eintrag auswaehlen");
+        setTitle("Eintrag auswählen");
 
-        Font fontWithSpecialCharacters = new Font("Noto Sans", Font.PLAIN, 12);
+        Font fontWithSpecialCharacters = new Font("Noto Serif", Font.PLAIN, 14);
 
         // Oben wird ein Eingabefeld erzeugt, mit welchem man zu den Einträgen springen kann.
         JTextField eingabeFeld = new JTextField();
@@ -108,7 +107,7 @@ public class InsertRegisterDialog extends JDialog {
 
         // Die Einträge werden initialisiert.
         registerItems = eintrag;
-        registerListe = new JList<>(new DefaultListModel<>());
+        registerListe = new WrappableBulletList<>(new DefaultListModel<>());
         filterRegisterListe("");
         // In der Mitte wird das Auswahlfeld mit den Registereinträgen erzeugt, ..
         if (multipleSelection) {
@@ -137,6 +136,8 @@ public class InsertRegisterDialog extends JDialog {
         panel.add(cancel);
         add("South", panel);
         getRootPane().setDefaultButton(ok);
+
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Die Eigenschaften des Dialogfensters werden angepasst: die Größe, der Ort in der Bildschirmmitte, die Schließaktion und die Sichtbarkeit.
         setSize(H_SIZE, V_SIZE);
