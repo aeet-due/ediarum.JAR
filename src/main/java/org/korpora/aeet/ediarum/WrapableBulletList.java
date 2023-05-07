@@ -72,7 +72,7 @@ public class WrapableBulletList<E> extends JList<E>{
 
             textArea.setText((String) value);
             int width = list.getWidth();
-            // this is just to lure the text areaa's internal sizing mechanism into action
+            // this is just to lure the text area's internal sizing mechanism into action
             if (width > 0)
                 textArea.setSize(width, Short.MAX_VALUE);
             if (isSelected) {
