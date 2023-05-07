@@ -31,9 +31,7 @@ public class WrapableBulletList<E> extends JList<E>{
 
             @Override
             public void componentResized(ComponentEvent e) {
-                // next line possible if list is of type JXList
-                // list.invalidateCellSizeCache();
-                // for core: force cache invalidation by temporarily setting fixed height
+                // force cache invalidation by temporarily setting fixed height
                 list.setFixedCellHeight(10);
                 list.setFixedCellHeight(-1);
             }
@@ -43,7 +41,7 @@ public class WrapableBulletList<E> extends JList<E>{
         this.addComponentListener(componentListener);
     }
 
-    public class WrappableCellRenderer implements ListCellRenderer {
+    private class WrappableCellRenderer implements ListCellRenderer {
 
         private JPanel panel;
         private JPanel labelPanel;
@@ -74,7 +72,7 @@ public class WrapableBulletList<E> extends JList<E>{
 
             textArea.setText((String) value);
             int width = list.getWidth();
-            // this is just to lure the ta's internal sizing mechanism into action
+            // this is just to lure the text areaa's internal sizing mechanism into action
             if (width > 0)
                 textArea.setSize(width, Short.MAX_VALUE);
             if (isSelected) {
