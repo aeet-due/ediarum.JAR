@@ -12,7 +12,7 @@ import java.awt.event.ComponentListener;
  * extended from <a href="https://stackoverflow.com/questions/7306295/swing-jlist-with-multiline-text-and-dynamic-height?rq=1/}">StackOverflow #7306295</a>
  * @param <E>
  */
-public class WrappableBulletList<E> extends JList<E>{
+public class WrapableBulletList<E> extends JList<E>{
 
     /**
      * @inherited <p>
@@ -22,10 +22,10 @@ public class WrappableBulletList<E> extends JList<E>{
         return true;
     }
 
-    public WrappableBulletList(ListModel model) {
+    public WrapableBulletList(ListModel model) {
         super(model);
-        WrappableBulletList<E> list = this;
-        this.setCellRenderer(new MyCellRenderer());
+        WrapableBulletList<E> list = this;
+        this.setCellRenderer(new WrappableCellRenderer());
 
         ComponentListener componentListener = new ComponentAdapter() {
 
@@ -43,23 +43,22 @@ public class WrappableBulletList<E> extends JList<E>{
         this.addComponentListener(componentListener);
     }
 
-    public class MyCellRenderer implements ListCellRenderer {
+    public class WrappableCellRenderer implements ListCellRenderer {
 
         private JPanel panel;
-        private JPanel iconPanel;
+        private JPanel labelPanel;
         private JLabel label;
         private JTextArea textArea;
 
-        public MyCellRenderer() {
+        public WrappableCellRenderer() {
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
 
-            // icon
-            iconPanel = new JPanel(new BorderLayout());
-            label = new JLabel("• "); // <-- this will be an icon instead of a
-            // text
-            iconPanel.add(label, BorderLayout.NORTH);
-            panel.add(iconPanel, BorderLayout.WEST);
+            // label
+            labelPanel = new JPanel(new BorderLayout());
+            label = new JLabel("• ");
+            labelPanel.add(label, BorderLayout.NORTH);
+            panel.add(labelPanel, BorderLayout.WEST);
 
             // text
             textArea = new JTextArea();
