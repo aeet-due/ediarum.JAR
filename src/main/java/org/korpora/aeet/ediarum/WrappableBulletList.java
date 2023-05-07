@@ -12,7 +12,7 @@ import java.awt.event.ComponentListener;
  * extended from <a href="https://stackoverflow.com/questions/7306295/swing-jlist-with-multiline-text-and-dynamic-height?rq=1/}">StackOverflow #7306295</a>
  * @param <E>
  */
-public class WrapableBulletList<E> extends JList<E>{
+public class WrappableBulletList<E> extends JList<E>{
 
     /**
      * @inherited <p>
@@ -22,9 +22,9 @@ public class WrapableBulletList<E> extends JList<E>{
         return true;
     }
 
-    public WrapableBulletList(ListModel model) {
+    public WrappableBulletList(ListModel model) {
         super(model);
-        WrapableBulletList<E> list = this;
+        WrappableBulletList<E> list = this;
         this.setCellRenderer(new WrappableCellRenderer());
 
         ComponentListener componentListener = new ComponentAdapter() {

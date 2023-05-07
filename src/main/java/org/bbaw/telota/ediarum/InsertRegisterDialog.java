@@ -1,6 +1,6 @@
 package org.bbaw.telota.ediarum;
 
-import org.korpora.aeet.ediarum.WrapableBulletList;
+import org.korpora.aeet.ediarum.WrappableBulletList;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -107,7 +107,7 @@ public class InsertRegisterDialog extends JDialog {
 
         // Die Einträge werden initialisiert.
         registerItems = eintrag;
-        registerListe = new WrapableBulletList<>(new DefaultListModel<>());
+        registerListe = new WrappableBulletList<>(new DefaultListModel<>());
         filterRegisterListe("");
         // In der Mitte wird das Auswahlfeld mit den Registereinträgen erzeugt, ..
         if (multipleSelection) {
