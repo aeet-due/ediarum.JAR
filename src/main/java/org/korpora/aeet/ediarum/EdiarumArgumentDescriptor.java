@@ -19,24 +19,58 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
     /**
      * whether null is a useful value for this argument
      */
-    boolean nullable;
+    private final boolean nullable;
 
+    /**
+     * Create an argument descriptor
+     * @param name        name of the argument.
+     * @param type        type of the argument, one of: {@link ArgumentDescriptor#TYPE_STRING},
+     *                    {@link ArgumentDescriptor#TYPE_FRAGMENT}, {@link ArgumentDescriptor#TYPE_SCRIPT},
+     *                    {@link ArgumentDescriptor#TYPE_XPATH_EXPRESSION},
+     *                    {@link ArgumentDescriptor#TYPE_CONSTANT_LIST}
+     * @param description The description of the argument
+     * @param defaultValue if the default Value is null, this.isNullable() will be true.
+     */
     public EdiarumArgumentDescriptor(String name, int type, String description, String defaultValue) {
         super(name, type, description, defaultValue);
-        if (defaultValue == null) nullable = true;
+        nullable = (defaultValue == null) ? true : false;
     }
 
+    /**
+     * This constructor is for arguments that may not be null.
+     *
+     * @param name        name of the argument.
+     * @param type        type of the argument, one of: {@link ArgumentDescriptor#TYPE_STRING},
+     *                    {@link ArgumentDescriptor#TYPE_FRAGMENT}, {@link ArgumentDescriptor#TYPE_SCRIPT},
+     *                    {@link ArgumentDescriptor#TYPE_XPATH_EXPRESSION},
+     *                    {@link ArgumentDescriptor#TYPE_CONSTANT_LIST}
+     * @param description The description of the argument
+     */
     public EdiarumArgumentDescriptor(String name, int type, String description) {
         super(name, type, description);
         nullable = false;
     }
 
+    /**
+     * Create an argument descriptor
+     * @param name        name of the argument.
+     * @param type        type of the argument, one of: {@link ArgumentDescriptor#TYPE_STRING},
+     *                    {@link ArgumentDescriptor#TYPE_FRAGMENT}, {@link ArgumentDescriptor#TYPE_SCRIPT},
+     *                    {@link ArgumentDescriptor#TYPE_XPATH_EXPRESSION},
+     *                    {@link ArgumentDescriptor#TYPE_CONSTANT_LIST}
+     * @param description The description of the argument
+     * @param allowedValues all permitted values
+     * @param defaultValue if the default Value is null, this.isNullable() will be true.
+     */
     public EdiarumArgumentDescriptor(String name, int type, String description, String[] allowedValues,
                                      String defaultValue) {
         super(name, type, description, allowedValues, defaultValue);
-        if (defaultValue == null) nullable = true;
+        nullable = (defaultValue == null) ? true : false;
     }
 
+    /**
+     * duplicates {@link AuthorOperation#SCHEMA_AWARE_ARGUMENT_DESCRIPTOR} for use in this class
+     */
     public static EdiarumArgumentDescriptor SCHEMA_AWARE_ARGUMENT_DESCRIPTOR =
             new EdiarumArgumentDescriptor(AuthorOperation.SCHEMA_AWARE_ARGUMENT_DESCRIPTOR.getName(),
                     AuthorOperation.SCHEMA_AWARE_ARGUMENT_DESCRIPTOR.getType(),
@@ -162,15 +196,14 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
 
     public static EdiarumArgumentDescriptor ARGUMENT_PATH =
             new EdiarumArgumentDescriptor(EdiarumArgumentNames.ARGUMENT_PATH, ArgumentDescriptor.TYPE_STRING,
-                        "Starting string of the files which contain link targets. This part isn't displayed as title. Usually the database path, e.g. /exist/webdav/db/.");
+                    "Starting string of the files which contain link targets. This part isn't displayed as title. Usually the database path, e.g. /exist/webdav/db/.");
 
     boolean isNullable() {
         return nullable;
     }
 
     String validateString(Object argumentValue) {
-        if (nullable && argumentValue == null) {
-        } else if (!(argumentValue instanceof String)) {
+        if ((!nullable && argumentValue == null) || !(argumentValue instanceof String)) {
             throw new IllegalArgumentException(
                     "The following parameter is not declared or has an invalid value: " + name + ": " + argumentValue);
         }
