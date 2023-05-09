@@ -202,8 +202,14 @@ public class EdiarumArgumentDescriptor extends ArgumentDescriptor {
         return nullable;
     }
 
-    String validateString(Object argumentValue) {
-        if ((!nullable && argumentValue == null) || !(argumentValue instanceof String)) {
+    /**
+     * check if an argument is valid
+     * @param argumentValue null is only permittet if this.isNullable()
+     * @return the argument value unchanged
+     * @throws IllegalArgumentException if missing (= non-nullable, but null) argument
+     */
+    public String validateString(Object argumentValue) {
+        if ((!nullable && argumentValue == null)) {
             throw new IllegalArgumentException(
                     "The following parameter is not declared or has an invalid value: " + name + ": " + argumentValue);
         }
