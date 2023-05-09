@@ -48,7 +48,6 @@ public class ReadListItems {
     private static boolean COMPATIBLE_WITH_BBAW = true;
     private static Pattern XPATH_PART = Pattern.compile(
             String.format("\\$XPATH\\{%s(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}", COMPATIBLE_WITH_BBAW ? "#?" : ""));
-    private static String SUB_ELEMENT = "^/(?!/)";
 
     private record cacheIndex(String indexURI, String node, String eintragExpString, String idExpStrings,
                               String namespaceDecl) {
@@ -218,6 +217,7 @@ public class ReadListItems {
             expressions.add(expression.substring(start, matcher.start()));
             // .. und der Ausdruck selbst ausgewertet:
             String xpathExpression = matcher.group("expression");
+            String SUB_ELEMENT = "^/(?!/)";
             if (COMPATIBLE_WITH_BBAW && xpathExpression.matches(SUB_ELEMENT)) xpathExpression = "." + xpathExpression;
             try {
                 XPathExpression queryExpr = xpath.compile(xpathExpression);

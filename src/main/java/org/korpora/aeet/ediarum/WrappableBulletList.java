@@ -8,11 +8,12 @@ import java.awt.event.ComponentListener;
 
 /**
  * a JList that uses list bullets and can be resized
- *
+ * <p>
  * extended from <a href="https://stackoverflow.com/questions/7306295/swing-jlist-with-multiline-text-and-dynamic-height?rq=1/}">StackOverflow #7306295</a>
+ *
  * @param <E>
  */
-public class WrappableBulletList<E> extends JList<E>{
+public class WrappableBulletList<E> extends JList<E> {
 
     /**
      * @inherited <p>
@@ -44,8 +45,6 @@ public class WrappableBulletList<E> extends JList<E>{
     private class WrappableCellRenderer implements ListCellRenderer {
 
         private JPanel panel;
-        private JPanel labelPanel;
-        private JLabel label;
         private JTextArea textArea;
 
         public WrappableCellRenderer() {
@@ -53,8 +52,8 @@ public class WrappableBulletList<E> extends JList<E>{
             panel.setLayout(new BorderLayout());
 
             // label
-            labelPanel = new JPanel(new BorderLayout());
-            label = new JLabel("• ");
+            JPanel labelPanel = new JPanel(new BorderLayout());
+            JLabel label = new JLabel("• ");
             labelPanel.add(label, BorderLayout.NORTH);
             panel.add(labelPanel, BorderLayout.WEST);
 
@@ -66,20 +65,17 @@ public class WrappableBulletList<E> extends JList<E>{
         }
 
         @Override
-        public Component getListCellRendererComponent(final JList list,
-                                                      final Object value, final int index, final boolean isSelected,
-                                                      final boolean hasFocus) {
+        public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+                                                      final boolean isSelected, final boolean hasFocus) {
 
             textArea.setText((String) value);
             int width = list.getWidth();
             // this is just to lure the text area's internal sizing mechanism into action
-            if (width > 0)
-                textArea.setSize(width, Short.MAX_VALUE);
+            if (width > 0) textArea.setSize(width, Short.MAX_VALUE);
             if (isSelected) {
                 textArea.setForeground(list.getSelectionForeground());
                 textArea.setBackground(list.getSelectionBackground());
-            }
-            else {
+            } else {
                 textArea.setForeground(list.getForeground());
                 textArea.setBackground(list.getBackground());
             }
