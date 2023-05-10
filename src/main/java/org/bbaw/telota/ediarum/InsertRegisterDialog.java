@@ -302,9 +302,9 @@ public class InsertRegisterDialog extends JDialog {
     }
 
     private void goToItem(String eingabe) {
-        // Registereintrag suchen, dessen Anfang mit dem Text übereinstimmt
+        // Registereintrag suchen, dessen Inhalt mit dem Text übereinstimmt
         int index = IntStream.range(0, registerListe.getModel().getSize())
-                .filter(i -> registerListe.getModel().getElementAt(i).toLowerCase().startsWith(eingabe)).findFirst()
+                .filter(i -> registerListe.getModel().getElementAt(i).toLowerCase().contains(eingabe)).findFirst()
                 .orElse(-1);
         // Falls ein Eintrag gefunden wurde, wird dieser ausgewählt, sonst wird nichts ausgewählt.
         registerListe.setSelectedIndex(index);
