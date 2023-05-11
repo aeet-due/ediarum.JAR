@@ -85,6 +85,7 @@ public class ReadListItems {
         /**
          * interne Variablen, die Einträge und IDs des Registers.
          */
+        // System.err.format("Reading %s [%s]", indexURI, node);
 
         parameters = new cacheIndex(indexURI, node, eintragExpString, idExpStrings, namespaceDecl);
 
@@ -110,7 +111,9 @@ public class ReadListItems {
 
             // Wenn es sich um eine URL mit Authentifizierung handelt, ..
             InputStream is;
-            if (indexURI.indexOf('@') > -1) {
+            // sicherstellen, dass man nicht auf "file://" anspringt, u.A. Sciebo baut entsprechende URLs
+            if ((indexURI.startsWith("http") || indexURI.startsWith("webdav"))
+                    && indexURI.indexOf('@') > -1) {
                 // .. werden die Verbindungsdaten gelesen ..
                 String authString = indexURI.substring(indexURI.indexOf("://") + 3, indexURI.indexOf('@'));
                 String webPage = indexURI.substring(0, indexURI.indexOf("://") + 3) +
