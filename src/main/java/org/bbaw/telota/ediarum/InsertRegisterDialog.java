@@ -48,7 +48,7 @@ public class InsertRegisterDialog extends JDialog {
      * Dies sind die Parameter für die (maximale) Fenstergröße des Dialogs.
      */
     private final static int H_SIZE = 600;
-    private final static int V_SIZE = 2048;
+    private final static int V_SIZE = (int) Math.floor(0.9 * Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 
     /**
      * Dies ist das Auswahlfeld mit den Registereinträgen.
