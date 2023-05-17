@@ -3,6 +3,7 @@ package org.bbaw.telota.ediarum;
 import org.korpora.aeet.ediarum.WrappableBulletList;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Serial;
@@ -96,15 +97,23 @@ public class InsertRegisterDialog extends JDialog {
         JTextField eingabeFeld = new JTextField();
         globalEingabeFeld = eingabeFeld;
         eingabeFeld.getDocument().addDocumentListener(new eingabeFeldListener());
-        eingabeFeld.setColumns(28);
+        // eingabeFeld.setColumns((int) (H_SIZE / (1.1 * fontWithSpecialCharacters.getSize())));
         eingabeFeld.requestFocus();
+        JButton textLöschen = new JButton("(zurücksetzen)");
+        textLöschen.addActionListener(e -> {
+            eingabeFeld.setText("");
+            filterRegisterListe("");
+            //textfield.setText(null); //or use this
+        });
+
         JToggleButton doFilteringButton = new JToggleButton();
         doFilteringButton.setText("Filtern [✘]");
         doFilteringButton.addChangeListener(new FilterChangeListener());
         Panel panelNorth = new Panel();
         panelNorth.setLayout(new BorderLayout());
-        panelNorth.add(eingabeFeld, BorderLayout.WEST);
-        panelNorth.add(doFilteringButton, BorderLayout.EAST);
+        panelNorth.add(textLöschen, BorderLayout.EAST);
+        panelNorth.add(eingabeFeld);
+        panelNorth.add(doFilteringButton, BorderLayout.WEST);
         add("North", panelNorth);
 
         // Die Einträge werden initialisiert.
