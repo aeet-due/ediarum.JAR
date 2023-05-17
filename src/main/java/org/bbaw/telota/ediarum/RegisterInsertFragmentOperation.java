@@ -79,7 +79,8 @@ public class RegisterInsertFragmentOperation implements AuthorOperation {
         String[] id = register.getID();
 
         // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
-        InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, (multipleSelection).equals(AuthorConstants.ARG_VALUE_TRUE));
+        InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, (multipleSelection).equals(AuthorConstants.ARG_VALUE_TRUE), null,
+                null);
         // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
         if (!RegisterDialog.getSelectedID().isEmpty()) {
             // wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.

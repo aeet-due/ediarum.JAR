@@ -10,6 +10,7 @@ import ro.sync.ecss.extensions.api.AuthorConstants;
 import ro.sync.ecss.extensions.api.AuthorOperation;
 import ro.sync.ecss.extensions.api.AuthorOperationException;
 
+import javax.swing.text.BadLocationException;
 import java.awt.Frame;
 
 import static org.korpora.aeet.ediarum.EdiarumArgumentNames.*;
@@ -66,16 +67,17 @@ public class RegisterSurroundWithElementOperation implements AuthorOperation {
         }
         int selStart = authorAccess.getEditorAccess().getSelectionStart();
         int selEnd = authorAccess.getEditorAccess().getSelectionEnd() - 1;
-
+        String selText = authorAccess.getEditorAccess().getSelectedText();
         // Das Registerdokument wird eingelesen, wobei auf die einzelnen Registerelement und ..
         // .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
-        ReadListItems register = new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
-        // Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
-        String[] eintrag = register.getEintrag();
-        String[] id = register.getID();
+        ReadListItems register =
+                new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
+
 
         // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
-        InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE));
+        InsertRegisterDialog RegisterDialog =
+                new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), register.getEintrag(), register.getID(),
+                        multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE), null, selText);
         // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
         if (!RegisterDialog.getSelectedID().isEmpty()) {
             // wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.

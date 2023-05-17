@@ -47,7 +47,7 @@ public class InsertRegisterDialog extends JDialog {
     /**
      * Dies sind die Parameter für die (maximale) Fenstergröße des Dialogs.
      */
-    private final static int H_SIZE = 600;
+    private final static int H_SIZE = Math.min(600, Toolkit.getDefaultToolkit().getScreenSize().getSize().width);
     private final static int V_SIZE = (int) Math.floor(0.9 * Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 
     /**
@@ -77,11 +77,13 @@ public class InsertRegisterDialog extends JDialog {
     /**
      * Der Konstruktor der Klasse erzeugt einen Dialog zum Auswählen eines Registereintrags.
      *
-     * @param parent  Das übergeordnete Fenster
-     * @param eintrag Ein Array, das alle Registereinträge enthält
-     * @param id      Ein Array, das die IDs zu den Registereinträgen enthält
+     * @param parent  das übergeordnete Fenster
+     * @param eintrag die Registereinträge
+     * @param id      die IDs zu den Registereinträgen
+     * @param selText der ausgewählte Text, wird als Suchhilfe genutzt
      */
-    public InsertRegisterDialog(Frame parent, String[] eintrag, String[] id, boolean multipleSelection) {
+    public InsertRegisterDialog(Frame parent, String[] eintrag, String[] id, boolean multipleSelection,
+                                String previousId, String selText) {
         // Calls the parent telling it this dialog is modal(i.e true)
         super(parent, true);
         // Für den Dialog wird das Layout (North, South, .., Center) ausgewählt und der Titel gesetzt.
@@ -108,13 +110,13 @@ public class InsertRegisterDialog extends JDialog {
         // Die Einträge werden initialisiert.
         registerItems = eintrag;
         registerListe = new WrappableBulletList<>(new DefaultListModel<>());
-        filterRegisterListe("");
         // In der Mitte wird das Auswahlfeld mit den Registereinträgen erzeugt, ..
         if (multipleSelection) {
             registerListe.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         } else {
             registerListe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }
+
         registerListe.setFont(fontWithSpecialCharacters);
         // Hier wird ein Listener eingefügt, der bei Doppelklick bestätigt.
         registerListe.addMouseListener(new RegisterListeMouseListener());
@@ -125,6 +127,17 @@ public class InsertRegisterDialog extends JDialog {
         add("Center", scrollPane);
         // .. während die zugehörigen IDs in der entsprechenden Variable hinterlegt werden.
         registerIDs = id;
+
+        if (previousId != null && !previousId.isBlank()) {
+            String[] previousIds = previousId.split("\\s+");
+            // doFilteringButton.doClick();
+            filterRegisterListeById(previousIds);
+        } else if (selText != null && !selText.isBlank()) {
+            filterRegisterListe(selText);
+            eingabeFeld.setText(selText);
+        }
+        else filterRegisterListe("");
+
 
         // Unten gibt es die zwei Knöpfe "Ok" (als Default) und "Abbrechen".
         Panel panel = new Panel();
@@ -300,6 +313,21 @@ public class InsertRegisterDialog extends JDialog {
             }
         }
     }
+
+    private void filterRegisterListeById(String[] ids) {
+        filterVerweise.clear();
+        DefaultListModel<String> registerListModel = (DefaultListModel<String>) registerListe.getModel();
+        registerListModel.clear();
+        for (int j = 0; j < registerItems.length; j++) {
+            for (String id: ids){
+                if (id.equals(registerIDs[j])){
+                    filterVerweise.put(filterVerweise.size() - 1, j);
+                    registerListModel.addElement(registerItems[j]);
+                }
+            }
+        }
+    }
+
 
     private void goToItem(String eingabe) {
         // Registereintrag suchen, dessen Inhalt mit dem Text übereinstimmt

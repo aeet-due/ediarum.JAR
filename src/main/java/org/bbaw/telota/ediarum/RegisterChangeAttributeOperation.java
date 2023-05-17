@@ -70,29 +70,36 @@ public class RegisterChangeAttributeOperation implements AuthorOperation {
         }
         int selStart = authorAccess.getEditorAccess().getSelectionStart();
 
-        // Das Registerdokument wird eingelesen, wobei auf die einzelnen Registerelement und ..
-        // .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
-        ReadListItems register = new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
-        // Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
-        String[] eintrag = register.getEintrag();
-        String[] id = register.getID();
+        // TODO: show currently selected item
+        try {
+            AuthorNode selNode = authorAccess.getDocumentController().getNodeAtOffset(selStart);
+            AuthorElement selElement = (AuthorElement) (authorAccess.getDocumentController()
+                    .findNodesByXPath(xpathfromselectionArgVal, selNode, false, true, true, false))[0];
+            String previousId = selElement.getAttribute(attributenameArgVal).getValue();
 
-        // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
-        InsertRegisterDialog RegisterDialog = new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id, multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE));
-        // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
-        if (!RegisterDialog.getSelectedID().isEmpty()) {
-            // wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.
-            AuthorElement selElement;
-            try {
-                AuthorNode selNode = authorAccess.getDocumentController().getNodeAtOffset(selStart);
-                selElement = (AuthorElement) (authorAccess.getDocumentController().findNodesByXPath(xpathfromselectionArgVal, selNode, false, true, true, false))[0];
+            // Das Registerdokument wird eingelesen, wobei auf die einzelnen Registerelement und ..
+            // .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
+            ReadListItems register =
+                    new ReadListItems(urlArgVal, nodeArgVal, expressionArgVal, variableArgVal, namespacesArgVal);
+            // Die Arrays für die Einträge und IDs werden an die lokalen Variablen übergeben.
+            String[] eintrag = register.getEintrag();
+            String[] id = register.getID();
+
+            // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
+            InsertRegisterDialog RegisterDialog =
+                    new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id,
+                            multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE), previousId, null);
+            // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
+            if (!RegisterDialog.getSelectedID().isEmpty()) {
+                // wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.
                 String newAttrValue = attributevalArgVal;
                 String IDitems = String.join(separationArgVal, RegisterDialog.getSelectedIDs());
                 newAttrValue = newAttrValue.replaceAll("[$]ITEMS", IDitems);
 
-                authorAccess.getDocumentController().setAttribute(attributenameArgVal, new AttrValue(newAttrValue), selElement);
-            } catch (BadLocationException e) {
+                authorAccess.getDocumentController()
+                        .setAttribute(attributenameArgVal, new AttrValue(newAttrValue), selElement);
             }
+        } catch (BadLocationException e) {
         }
     }
 

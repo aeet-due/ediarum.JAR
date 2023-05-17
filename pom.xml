@@ -19,7 +19,7 @@
         <junit.version>5.${junit.subversion}</junit.version>
         <junit.aux.version>1.${junit.subversion}</junit.aux.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <oxygen.sdk.version>25.1.0.0</oxygen.sdk.version>
+        <oxygen.sdk.version>25.1.0</oxygen.sdk.version>
         <javac.path>${env.JAVA_HOME}/bin/javac</javac.path>
     </properties>
     <repositories>
@@ -39,13 +39,13 @@
         <dependency>
             <groupId>com.oxygenxml</groupId>
             <artifactId>oxygen-sdk</artifactId>
-            <version>${oxygen.sdk.version}</version>
+            <version>${oxygen.sdk.version}.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.oxygenxml</groupId>
             <artifactId>web-author-frameworks</artifactId>
-            <version>${oxygen.sdk.version}</version>
+            <version>${oxygen.sdk.version}.0</version>
             <type>zip</type>
             <scope>provided</scope>
         </dependency>

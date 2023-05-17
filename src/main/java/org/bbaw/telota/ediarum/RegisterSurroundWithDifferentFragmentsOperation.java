@@ -78,7 +78,7 @@ public class RegisterSurroundWithDifferentFragmentsOperation implements AuthorOp
         // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
         InsertRegisterDialog RegisterDialog =
                 new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, elements,
-                        false);
+                        false, null, null);
         // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
         if (!RegisterDialog.getSelectedID().isEmpty()) {
             // .. wird in den entsprechenden Elementen die eingestellte ID eingefügt, ..
