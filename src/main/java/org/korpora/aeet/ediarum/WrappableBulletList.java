@@ -42,7 +42,7 @@ public class WrappableBulletList<E> extends JList<E> {
         this.addComponentListener(componentListener);
     }
 
-    private class WrappableCellRenderer<E> implements ListCellRenderer<E> {
+    private static class WrappableCellRenderer<E> implements ListCellRenderer<E> {
 
         private JPanel panel;
         private JTextArea textArea;
