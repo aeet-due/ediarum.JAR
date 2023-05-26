@@ -23,10 +23,10 @@ public class WrappableBulletList<E> extends JList<E> {
         return true;
     }
 
-    public WrappableBulletList(ListModel model) {
+    public WrappableBulletList(ListModel<E> model) {
         super(model);
         WrappableBulletList<E> list = this;
-        this.setCellRenderer(new WrappableCellRenderer());
+        this.setCellRenderer(new WrappableCellRenderer<E>());
 
         ComponentListener componentListener = new ComponentAdapter() {
 
@@ -42,7 +42,7 @@ public class WrappableBulletList<E> extends JList<E> {
         this.addComponentListener(componentListener);
     }
 
-    private class WrappableCellRenderer implements ListCellRenderer {
+    private class WrappableCellRenderer<E> implements ListCellRenderer<E> {
 
         private JPanel panel;
         private JTextArea textArea;
@@ -65,7 +65,7 @@ public class WrappableBulletList<E> extends JList<E> {
         }
 
         @Override
-        public Component getListCellRendererComponent(final JList list, final Object value, final int index,
+        public Component getListCellRendererComponent(final JList<? extends E> list, final E value, final int index,
                                                       final boolean isSelected, final boolean hasFocus) {
 
             textArea.setText((String) value);
