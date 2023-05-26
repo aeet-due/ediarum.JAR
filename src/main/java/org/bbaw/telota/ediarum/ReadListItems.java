@@ -113,7 +113,7 @@ public class ReadListItems {
     /**
      * reads list items for Register dialogs from URL/file
      * @param params the parameters (source etc.)
-     * @return
+     * @return the suggestions (list entries, ids)
      */
     public Suggestions readListItems(ListParameters params) {
         final String indexURI = params.indexURI();
