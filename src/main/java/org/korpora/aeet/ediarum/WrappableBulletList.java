@@ -15,9 +15,6 @@ import java.awt.event.ComponentListener;
  */
 public class WrappableBulletList<E> extends JList<E> {
 
-    /**
-     * @inherited <p>
-     */
     @Override
     public boolean getScrollableTracksViewportWidth() {
         return true;
