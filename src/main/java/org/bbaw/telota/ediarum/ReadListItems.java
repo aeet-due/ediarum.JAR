@@ -58,17 +58,17 @@ public class ReadListItems {
 
     private final cacheIndex parameters;
 
-    private static HashMap<cacheIndex, Suggestions> cache;
+    private static ConcurrentHashMap<cacheIndex, Suggestions> cache;
 
     static {
-        resetCache();
+        cache = new ConcurrentHashMap<>();
     }
 
     /**
      * reset cache, use with {@link ResetRegisterCacheOperation}
      */
     public static void resetCache() {
-        cache = new HashMap<>();
+        cache.clear();
     }
 
     /**
@@ -93,7 +93,6 @@ public class ReadListItems {
     }
 
     public Suggestions readListItems(cacheIndex params) {
-
         final String indexURI = params.indexURI();
         final String node = params.node();
         final String eintragExpString = params.eintragExpString();
@@ -110,7 +109,7 @@ public class ReadListItems {
             DocumentBuilder builder = domFactory.newDocumentBuilder();
 
             // Wenn es sich um eine URL mit Authentifizierung handelt, ..
-            InputStream is;
+            URLConnection urlConnection;
             // sicherstellen, dass man nicht auf "file://" anspringt, u.A. Sciebo baut entsprechende URLs
             if ((indexURI.startsWith("http") || indexURI.startsWith("webdav"))
                     && indexURI.indexOf('@') > -1) {
@@ -123,59 +122,58 @@ public class ReadListItems {
 
                 // .. und eine Verbindung mit Login geöffnet.
                 URL url = new URL(webPage);
-                URLConnection urlConnection = url.openConnection();
+                urlConnection = url.openConnection();
                 urlConnection.setRequestProperty("Authorization", "Basic " + authStringEnc);
-                is = urlConnection.getInputStream();
             } else {
                 // Im anderen Fall wird direkt eine Verbindung geöffnet.
                 URL url = new URL(indexURI);
-                URLConnection urlConnection = url.openConnection();
-                is = urlConnection.getInputStream();
+                urlConnection = url.openConnection();
             }
-
-            // Dann wird die Datei gelesen.
-            InputSource inputSource = new InputSource(is);
-            Document indexDoc = builder.parse(inputSource);
-            // Die xPath-Routinen werden vorbereitet.
-            XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
-            XPath xpath = XPathFactory.newInstance().newXPath();
-            // Für Namespaces:
-            Map<String, String> namespaces = new ConcurrentHashMap<>();
-            if (namespaceDecl != null) {
-                String[] namespaceSplit = namespaceDecl.split(" ");
+            try (InputStream is = urlConnection.getInputStream()) {
+                // Dann wird die Datei gelesen.
+                InputSource inputSource = new InputSource(is);
+                Document indexDoc = builder.parse(inputSource);
+                // Die xPath-Routinen werden vorbereitet.
+                XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
+                XPath xpath = XPathFactory.newInstance().newXPath();
+                // Für Namespaces:
+                Map<String, String> namespaces = new ConcurrentHashMap<>();
+                if (namespaceDecl != null) {
+                    String[] namespaceSplit = namespaceDecl.split(" ");
 //            String[][] namespaces = new String[namespaceSplit.length][2];
 
-                for (String currentNamespace : namespaceSplit) {
-                    int k = currentNamespace.indexOf(":");
-                    namespaces.put(currentNamespace.substring(0, k), currentNamespace.substring(k + 1));
+                    for (String currentNamespace : namespaceSplit) {
+                        int k = currentNamespace.indexOf(":");
+                        namespaces.put(currentNamespace.substring(0, k), currentNamespace.substring(k + 1));
+                    }
                 }
+                NamespaceContext ctx = new EdiarumNamespaceContext(namespaces);
+
+                xpath.setNamespaceContext(ctx);
+
+                // Die Resultate werden ausgelesen..
+                Object result = xpath.evaluate(node, indexDoc, XPathConstants.NODESET);
+                NodeList registerNodes = (NodeList) result;
+
+                // .. dann werden für die Einträge und IDs entsprechend lange Arrays angelegt.
+                eintrag = new String[registerNodes.getLength()];
+                id = new String[registerNodes.getLength()];
+
+                List<Object> eintragExpressions = parseExpression(eintragExpString, xpath);
+                List<Object> idExpressions = parseExpression(idExpStrings, xpath);
+
+                // Für jeden Knoten ..
+                for (int i = 0; i < registerNodes.getLength(); i++) {
+                    Element currentElement = (Element) registerNodes.item(i);
+
+                    // … wird der Eintrag konstruiert:
+                    eintrag[i] = evaluateExpression(registerNodes.item(i), eintragExpressions, true);
+
+                    // … und der einzufügende Wert:
+                    id[i] = evaluateExpression(registerNodes.item(i), idExpressions, false);
+                }
+                return new Suggestions(eintrag, id);
             }
-            NamespaceContext ctx = new EdiarumNamespaceContext(namespaces);
-
-            xpath.setNamespaceContext(ctx);
-
-            // Die Resultate werden ausgelesen..
-            Object result = xpath.evaluate(node, indexDoc, XPathConstants.NODESET);
-            NodeList registerNodes = (NodeList) result;
-
-            // .. dann werden für die Einträge und IDs entsprechend lange Arrays angelegt.
-            eintrag = new String[registerNodes.getLength()];
-            id = new String[registerNodes.getLength()];
-
-            List<Object> eintragExpressions = parseExpression(eintragExpString, xpath);
-            List<Object> idExpressions = parseExpression(idExpStrings, xpath);
-
-            // Für jeden Knoten ..
-            for (int i = 0; i < registerNodes.getLength(); i++) {
-                Element currentElement = (Element) registerNodes.item(i);
-
-                // … wird der Eintrag konstruiert:
-                eintrag[i] = evaluateExpression(registerNodes.item(i), eintragExpressions, true);
-
-                // … und der einzufügende Wert:
-                id[i] = evaluateExpression(registerNodes.item(i), idExpressions, false);
-            }
-            return new Suggestions(eintrag, id);
         } catch (XPathExpressionException | SAXException | ParserConfigurationException | IOException e) {
             throw new RuntimeException(e);
         }
