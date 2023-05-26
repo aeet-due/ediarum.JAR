@@ -24,7 +24,6 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -49,16 +48,35 @@ public class ReadListItems {
     private static Pattern XPATH_PART = Pattern.compile(
             String.format("\\$XPATH\\{%s(?<expression>(?:[^{}]|\\{\\{|\\}\\})*?)\\}", COMPATIBLE_WITH_BBAW ? "#?" : ""));
 
-    private record cacheIndex(String indexURI, String node, String eintragExpString, String idExpStrings,
-                              String namespaceDecl) {
+    /**
+     * parameter record for caching
+     * @param indexURI
+     * @param node
+     * @param eintragExpString
+     * @param idExpStrings
+     * @param namespaceDecl
+     */
+    private record ListParameters(String indexURI, String node, String eintragExpString, String idExpStrings,
+                                  String namespaceDecl) {
     }
 
+    /**
+     * result record for caching
+     * @param eintrag
+     * @param id
+     */
     private record Suggestions(String[] eintrag, String[] id) {
     }
 
-    private final cacheIndex parameters;
+    /**
+     * the current list reading parameters
+     */
+    private final ListParameters parameters;
 
-    private static ConcurrentHashMap<cacheIndex, Suggestions> cache;
+    /**
+     * the cache from parameters to Suggestions
+     */
+    private static ConcurrentHashMap<ListParameters, Suggestions> cache;
 
     static {
         cache = new ConcurrentHashMap<>();
@@ -87,12 +105,17 @@ public class ReadListItems {
          */
         // System.err.format("Reading %s [%s]", indexURI, node);
 
-        parameters = new cacheIndex(indexURI, node, eintragExpString, idExpStrings, namespaceDecl);
+        parameters = new ListParameters(indexURI, node, eintragExpString, idExpStrings, namespaceDecl);
 
         cache.computeIfAbsent(parameters, (cp) -> readListItems(cp));
     }
 
-    public Suggestions readListItems(cacheIndex params) {
+    /**
+     * reads list items for Register dialogs from URL/file
+     * @param params the parameters (source etc.)
+     * @return
+     */
+    public Suggestions readListItems(ListParameters params) {
         final String indexURI = params.indexURI();
         final String node = params.node();
         final String eintragExpString = params.eintragExpString();
