@@ -75,7 +75,9 @@ public class RegisterChangeAttributeOperation implements AuthorOperation {
             AuthorNode selNode = authorAccess.getDocumentController().getNodeAtOffset(selStart);
             AuthorElement selElement = (AuthorElement) (authorAccess.getDocumentController()
                     .findNodesByXPath(xpathfromselectionArgVal, selNode, false, true, true, false))[0];
-            String previousId = selElement.getAttribute(attributenameArgVal).getValue();
+            var previousAttribute = selElement.getAttribute(attributenameArgVal);
+
+            String previousId = (previousAttribute != null) ? previousAttribute.getValue() : selElement.getTextContent();
 
             // Das Registerdokument wird eingelesen, wobei auf die einzelnen Registerelement und ..
             // .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
