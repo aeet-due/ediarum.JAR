@@ -77,7 +77,12 @@ public class RegisterChangeAttributeOperation implements AuthorOperation {
                     .findNodesByXPath(xpathfromselectionArgVal, selNode, false, true, true, false))[0];
             var previousAttribute = selElement.getAttribute(attributenameArgVal);
 
-            String previousId = (previousAttribute != null) ? previousAttribute.getValue() : selElement.getTextContent();
+            String previousId = null;
+            String previousText = null;
+            if (previousAttribute != null)
+                previousId = previousAttribute.getValue();
+            else
+                previousText = selElement.getTextContent();
 
             // Das Registerdokument wird eingelesen, wobei auf die einzelnen Registerelement und ..
             // .. die Ausdrücke für die Einträge und IDs Rücksicht genommen wird.
@@ -90,7 +95,7 @@ public class RegisterChangeAttributeOperation implements AuthorOperation {
             // Dafür wird der RegisterDialog geöffnet und erhält die Einträge und IDs als Parameter.
             InsertRegisterDialog RegisterDialog =
                     new InsertRegisterDialog((Frame) authorAccess.getWorkspaceAccess().getParentFrame(), eintrag, id,
-                            multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE), previousId, null);
+                            multipleSelection.equals(AuthorConstants.ARG_VALUE_TRUE), previousId, previousText);
             // Wenn in dem Dialog ein Eintrag ausgewählt wurde, ..
             if (!RegisterDialog.getSelectedID().isEmpty()) {
                 // wird im aktuellen Dokument um die Selektion das entsprechende Element mit ID eingesetzt.
