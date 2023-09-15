@@ -43,7 +43,7 @@ public class SurroundWithDifferentFragmentsOperation implements AuthorOperation 
         String secondElementArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_SECOND_ELEMENT, args);
         String idArgVal = ARGUMENTS_MAP.validateStringArgument(ARGUMENT_ID, args);
 
-        // Falls im Text nichts selektiert ist, wird das aktuelle Word ausgewählt.
+        // Falls im Text nichts selektiert ist, wird das aktuelle Wort ausgewählt.
         if (!authorAccess.getEditorAccess().hasSelection()) {
             authorAccess.getEditorAccess().selectWord();
         }
