@@ -26,10 +26,11 @@ public class EdiarumExtensionsBundle extends ExtensionsBundle {
                 "Framework document type";
     }
 
-    @Override
-    public AuthorExtensionStateListener createAuthorExtensionStateListener() {
-        return new EdiarumAuthorExtensionStateListener();
-    }
+    // TODO: Does this break XML mode for entering attributes with namespaces?
+//    @Override
+//    public AuthorExtensionStateListener createAuthorExtensionStateListener() {
+//        return new EdiarumAuthorExtensionStateListener();
+//    }
 
     //	@Override
 //	public AuthorReferenceResolver createAuthorReferenceResolver() {
