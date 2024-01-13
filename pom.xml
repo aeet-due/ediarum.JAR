@@ -13,13 +13,14 @@
         <!-- plug-in settings -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <jackson.version>2.15.3</jackson.version>
+        <jackson.version>2.16.1</jackson.version>
         <dependency.locations.enabled>false</dependency.locations.enabled>
         <junit.subversion>9.2</junit.subversion>
         <junit.version>5.${junit.subversion}</junit.version>
         <junit.aux.version>1.${junit.subversion}</junit.aux.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <oxygen.sdk.version>25.1.0.1</oxygen.sdk.version>
+        <!--oxygen.sdk.version>25.1.0.1</oxygen.sdk.version-->
+        <oxygen.sdk.version>26.0.0.0</oxygen.sdk.version>
         <javac.path>${env.JAVA_HOME}/bin/javac</javac.path>
     </properties>
     <repositories>
