@@ -13,14 +13,13 @@
         <!-- plug-in settings -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <jackson.version>2.17.0</jackson.version>
+        <jackson.version>2.19.0</jackson.version>
         <dependency.locations.enabled>false</dependency.locations.enabled>
         <junit.subversion>9.2</junit.subversion>
         <junit.version>5.${junit.subversion}</junit.version>
         <junit.aux.version>1.${junit.subversion}</junit.aux.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--oxygen.sdk.version>25.1.0.1</oxygen.sdk.version-->
-        <oxygen.sdk.version>26.0.0</oxygen.sdk.version>
+        <oxygen.sdk.version>27.1.0</oxygen.sdk.version>
         <javac.path>${env.JAVA_HOME}/bin/javac</javac.path>
     </properties>
     <repositories>
@@ -46,7 +45,7 @@
         <dependency>
             <groupId>com.oxygenxml</groupId>
             <artifactId>web-author-frameworks</artifactId>
-            <version>${oxygen.sdk.version}.1</version>
+            <version>${oxygen.sdk.version}.0</version>
             <type>zip</type>
             <scope>provided</scope>
         </dependency>
@@ -54,13 +53,13 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
+            <version>6.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.korpora.useful</groupId>
             <artifactId>utilities</artifactId>
-            <version>0.9.0</version>
+            <version>0.9.1</version>
         </dependency>
         <!--dependency>
             <groupId>ch.qos.logback</groupId>
